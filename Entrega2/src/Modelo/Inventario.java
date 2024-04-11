@@ -1,4 +1,4 @@
-package Galeria;
+package Modelo;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package Usuarios;
 
 import java.util.List;
 
-import Galeria.Pago;
+import Modelo.Pago;
 
 public class Cajero extends Usuario{
 	
