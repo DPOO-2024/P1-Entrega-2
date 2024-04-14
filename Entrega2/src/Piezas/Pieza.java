@@ -24,4 +24,12 @@ public abstract class Pieza {
 	
 	private boolean valorFijo;
 
+	public boolean isValorFijo() {
+		return valorFijo;
+	}
+
+	public void setValorFijo(boolean valorFijo) {
+		this.valorFijo = valorFijo;
+	}
+
 }
