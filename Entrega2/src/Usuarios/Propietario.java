@@ -33,6 +33,11 @@ public class Propietario extends Usuario{
 		
 		estadoPiezas.add(pieza);
 	}
+	public void venderPieza(Pieza pieza) { 
+		if (estadoPiezas.remove(pieza)) { 
+			historialPiezas.add(pieza); } 
+		else { throw new IllegalStateException("No se puede remover esta pieza."); }
+	}
 
 	public String getNombre() {
 		return nombre;

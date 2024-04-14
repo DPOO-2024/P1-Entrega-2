@@ -29,16 +29,18 @@ public class Comprador extends Usuario{
 		this.comprasMaximas=comprasMaximas;
 	}
 	
+	public void comprarPieza(Pieza pieza ,String formaPago) { 
+		boolean aceptado =false; 
+		if (pieza.getValorFijo() != 0) { 
+			int precio = pieza.getValorFijo();
+			boolean verificado = Administrador.verificarComprador(comprasMaximas); 
+			if (verificado) { 
+				aceptado = Cajero.generarPago(precio, formaPago); } 
+			if (aceptado) { 
+				comprasTotales += precio; } }
+		else { throw new IllegalStateException("No se puede vender esta pieza."); } }
+
 	
-	public void comprarPieza(Pieza pieza ,String formaPago) {
-		if (!pieza.getvalorFijo().equals(0)) {
-			int precio = pieza.getvalorFijo();
-			Cajero.generarPago(precio, formaPago);
-			}
-		else {
-	        throw new IllegalStateException("No se puede vender esta pieza."); 
-	    }
-	}
 	
 	
 	public void hacerOferta(Pieza pieza, int precio ) {

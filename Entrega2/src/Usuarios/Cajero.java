@@ -11,7 +11,8 @@ public class Cajero extends Empleado{
 	
 	private List<Pago> pagos;
 	
-	public static void generarPago(int precio, String formaPago) {
+	public static boolean generarPago(int precio, String formaPago) {
+		return false;
 		
 	}
 
