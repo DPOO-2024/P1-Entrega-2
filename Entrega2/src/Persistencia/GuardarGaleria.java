@@ -15,10 +15,10 @@ public class GuardarGaleria {
 	
 	
 	public GuardarGaleria(String nomGaleria,Galeria gal) {
-		this.archivoGaleria = nomGaleria+".csv";
-		this.archivoUsuarios = nomGaleria+"Usuarios.csv";
-		this.archivoPiezas = nomGaleria+"Piezas.csv";
-		this.archivoCompras = nomGaleria+"Compras.csv";
+		this.archivoGaleria = nomGaleria+".txt";
+		this.archivoUsuarios = nomGaleria+"Usuarios.txt";
+		this.archivoPiezas = nomGaleria+"Piezas.txt";
+		this.archivoCompras = nomGaleria+"Compras.txt";
 		this.galeria=gal;
 	}
 	
