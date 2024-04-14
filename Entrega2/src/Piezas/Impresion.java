@@ -1,5 +1,7 @@
 package Piezas;
 
+import Usuarios.Usuario;
+
 public class Impresion extends Pieza{
 	
 	
@@ -11,11 +13,11 @@ public class Impresion extends Pieza{
 	private String resistencia;
 	private String descripcion;
 	
-	public Impresion(String titulot, int aniot, String lugarDeCreaciont, String autores, boolean modalidadt,
+	public Impresion(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, String autores, boolean modalidadt,
 			int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot,
 			String materialPapelt, int tamaniot, int resoluciont, int flexibilidadt, String resistenciat, String descripciont) {
 		
-		super(titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
+		super(propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
 				valorFijot);
 		this.materialPapel=materialPapelt;
 		this.tamanio=tamaniot;

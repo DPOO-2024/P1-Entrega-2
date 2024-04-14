@@ -43,8 +43,8 @@ public class Comprador extends Usuario{
 	
 	
 	
-	public void hacerOferta(Pieza pieza, int precio ) {
-		int valor = pieza.getvalorInicial();
+	public void hacerOferta(Pieza pieza, int precio ) throws PrecioBajoException {
+		int valor = pieza.getValorInicial();
 		if (precio>valor) {
 			Operador.guardarOferta(precio,this.nombre);
 		}

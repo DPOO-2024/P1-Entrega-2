@@ -12,7 +12,7 @@ public class Operador extends Empleado{
 	
 	public static final String OPERADOR = "Operador";
 	
-	private  Map<String,Integer> ofertas=new HashMap<>();
+	private static  Map<String,Integer> ofertas=new HashMap<>();
 
 	
 	public static void guardarOferta(int oferta, String nomComprador) {
@@ -23,11 +23,9 @@ public class Operador extends Empleado{
 	
 	public void verificarOferta(int oferta, String nomComprador) {
 		
-		boolean aceptado = Administrador.verificarOferta(int oferta, String nomComprador) {
-		}
+		boolean aceptado = Administrador.verificarOferta( oferta,  nomComprador);
 		if (aceptado) {
-			guardarOferta(int oferta, String nomComprador) {
-			}
+			guardarOferta( oferta,  nomComprador);
 		}
 	}
 

@@ -2,8 +2,12 @@ package Piezas;
 
 import java.util.List;
 
+import Usuarios.Usuario;
+
 
 public abstract class Pieza {
+	
+	private Usuario propietario;
 	
 	private String titulo;
 	
@@ -25,7 +29,8 @@ public abstract class Pieza {
 	
 	private int valorFijo;
 
-	public Pieza(String titulot,int aniot, String lugarDeCreaciont, String autores, boolean modalidadt, int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot) {
+	public Pieza(Usuario propietariot,String titulot,int aniot, String lugarDeCreaciont, String autores, boolean modalidadt, int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot) {
+		this.propietario=propietariot;
 		this.titulo=titulot;
 		this.anio=aniot;
 		this.lugarDeCreacion=lugarDeCreaciont;
@@ -39,6 +44,13 @@ public abstract class Pieza {
 	}
 	
 	//Getters y Setters
+	public Usuario getPropietario() {
+		return this.propietario;
+	}
+
+	public void setPropietario(Usuario usuario) {
+		this.propietario = usuario;
+	}
 	public String getTitulo() {
 		return this.titulo;
 	}

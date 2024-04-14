@@ -2,6 +2,8 @@ package Piezas;
 import java.util.ArrayList;
 import java.util.List;
 
+import Usuarios.Usuario;
+
 public class Escultura extends Pieza{
 	
 	public final static String ESCULTURA="Escultura";
@@ -14,11 +16,11 @@ public class Escultura extends Pieza{
 	private boolean electricidad;
 	private String instalacion;
 	
-	public Escultura(String titulot, int aniot, String lugarDeCreaciont, String autores, boolean modalidadt,
+	public Escultura(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, String autores, boolean modalidadt,
 			int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot, int altot,
 			int anchot, int profundidadt, ArrayList<String> materialest, int pesot, boolean electricidadt, String instalaciont) 
 	{
-		super(titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
+		super(propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
 				valorFijot);
 		
 		this.alto=altot;

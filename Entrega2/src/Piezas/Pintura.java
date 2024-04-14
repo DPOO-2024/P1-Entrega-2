@@ -1,5 +1,7 @@
 package Piezas;
 
+import Usuarios.Usuario;
+
 public class Pintura extends Pieza{
 	
 	
@@ -12,11 +14,11 @@ public class Pintura extends Pieza{
 	private String forma;
 	private int tiempoDeCreacion;
 
-	public Pintura(String titulot, int aniot, String lugarDeCreaciont, String autores, boolean modalidadt,
+	public Pintura(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, String autores, boolean modalidadt,
 			int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot,
 			String tecnicat, String origent, String descripciont, int altot, int anchot, String format, int tiempoDeCreaciont) {
 		
-		super(titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
+		super(propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
 				valorFijot);
 		this.tecnica=tecnicat;
 		this.origen=origent;
