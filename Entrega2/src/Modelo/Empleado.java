@@ -1,6 +1,8 @@
 package Modelo;
 
 //Login, password y rol (para saber si el empleado es de tipo (None, Cajero o Operador))
+
+
 public enum Rol {
     NONE,
     CAJERO,

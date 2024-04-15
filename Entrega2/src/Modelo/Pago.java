@@ -13,6 +13,14 @@ public class Pago {
 	
 	private Comprador comprador;
 	
+	public Pago(int monto, Pieza pieza, Comprador comprador) {
+        this.monto = monto;
+        this.pieza = pieza;
+        this.comprador = comprador;
+	}
+	
+	
+	
 	
 	
 	
