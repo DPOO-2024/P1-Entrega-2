@@ -157,7 +157,7 @@ public class Galeria {
                     break;
                 case 4:
                     crearUsuario();
-                    break
+                    break;
                 case 5:
                     añadirPieza();
                     break;
