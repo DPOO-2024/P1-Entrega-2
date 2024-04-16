@@ -1,5 +1,9 @@
 package Modelo;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import Exceptions.MesajedeErrorException;
 import Usuarios.*;
 import Persistencia.*;
 import Piezas.*;
@@ -12,8 +16,8 @@ public class Galeria {
 	private String nombre;
 	private Cajero cajero;
 	private List<Empleado> empleados;
-	private List<Pieza> piezasDisponibles;
-    private List<Subasta> subastasActivas;
+	private static List<Pieza> piezasDisponibles;
+    private static List<Subasta> subastasActivas;
     
 	
 	
@@ -23,8 +27,8 @@ public class Galeria {
 		this.admin = null;
 		this.cajero = null;
 		this.empleados = new ArrayList<>();
-        this.piezasDisponibles = new ArrayList<>();
-        this.subastasActivas = new ArrayList<>();
+        Galeria.piezasDisponibles = new ArrayList<>();
+        Galeria.subastasActivas = new ArrayList<>();
 	}
 
 	public void cargarGaleria() {
@@ -83,7 +87,7 @@ public class Galeria {
     public void añadirPieza(Pieza pieza) {
         if (this.admin != null) {
             this.admin.añadirPieza(pieza);
-            this.piezasDisponibles.add(pieza);
+            Galeria.piezasDisponibles.add(pieza);
         } else {
             System.out.println("No hay un administrador asignado para añadir piezas");
         }
@@ -96,13 +100,16 @@ public class Galeria {
     public List<Pieza> obtenerPiezasDisponibles() {
         return piezasDisponibles;
     }
-
-    public void comprarPieza(Pieza pieza, Comprador comprador) {
+    //M
+    public static boolean comprarPieza(Pieza pieza, String nombreComprador, String formapago)throws MesajedeErrorException {
         if (piezasDisponibles.contains(pieza)) {
-            this.admin.confirmarVenta(pieza, comprador);
+			Inventario.reservarPieza(pieza);//deberia ser estatico para no crear una instacia de inverntario??-Majo
+            if (this.admin.confirmarVenta(pieza, nombreComprador, formapago));
             piezasDisponibles.remove(pieza);
+            Inventario.moverPieza(pieza);
+            return true;
         } else {
-            System.out.println("La pieza no está disponible para la venta");
+        	throw new MesajedeErrorException("El comprador no esta registrado correctamente");
         }
     }
 
@@ -116,12 +123,12 @@ public class Galeria {
         this.empleados = empleados;
     }
 
-    public List<Subasta> getSubastasActivas() {
+    public static List<Subasta> getSubastasActivas() {
         return subastasActivas;
     }
 
     public void setSubastasActivas(List<Subasta> subastasActivas) {
-        this.subastasActivas = subastasActivas;
+        Galeria.subastasActivas = subastasActivas;
     }
 
     // Método para mostrar el menú de la galería

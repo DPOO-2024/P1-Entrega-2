@@ -2,7 +2,10 @@ package Usuarios;
 
 import java.util.List;
 
+import Exceptions.MesajedeErrorException;
 import Exceptions.PrecioBajoException;
+import Modelo.Administrador;
+import Modelo.Galeria;
 import Modelo.Subasta;
 import Piezas.Pieza;
 
@@ -28,36 +31,49 @@ public class Comprador extends Usuario{
 		this.comprasTotales=comprasTotales;
 		this.comprasMaximas=comprasMaximas;
 	}
-	
-	public void comprarPieza(Pieza pieza ,String formaPago) { 
+	//comprar en galeria no en subasta
+	public void comprarPieza(Pieza pieza ,String formaPago) throws MesajedeErrorException { 
 		boolean aceptado =false; 
 		if (pieza.getValorFijo() != 0) { 
 			int precio = pieza.getValorFijo();
-			boolean verificado = Administrador.verificarComprador(comprasMaximas); 
-			if (verificado) { 
-				aceptado = Cajero.generarPago(precio, formaPago); } 
-			if (aceptado) { 
+			aceptado = Galeria.comprarPieza(pieza, this.nombre,formaPago);
+		if (aceptado) { 
 				comprasTotales += precio; } }
 		else { throw new IllegalStateException("No se puede vender esta pieza."); } }
 
 	
 	
-	
-	public void hacerOferta(Pieza pieza, int precio ) throws PrecioBajoException {
+	//comprar pero version subasta
+	public void hacerOferta(Pieza pieza, int precio,Comprador comprador , String formaPago) throws PrecioBajoException, MesajedeErrorException {
 		int valor = pieza.getValorInicial();
 		if (precio>valor) {
-			Operador.guardarOferta(precio,this.nombre);
+			Operador.crearOferta(precio,comprador,pieza,formaPago);
 		}
 		else {
 			throw new PrecioBajoException(pieza);
 		}
 	}
 	
-	public void participarSubasta(Subasta subasta , Pieza pieza, int precio) {
-		List<Pieza> piezas = subasta.ofrecerPiezas();
-		if (piezas.contains(pieza)) {
-		hacerOferta(pieza,precio);}
+	public void participarSubasta(int fecha ,int precio, Pieza pieza, String formaPago) throws MesajedeErrorException, PrecioBajoException {
+		List<Subasta> subastas= Galeria.getSubastasActivas();
+		boolean subEncontrada = false;
+		for (Subasta s : subastas) {
+			if (s.getFechaSubasta()==fecha) {
+				Subasta subasta = s;
+				subEncontrada = true;
+				List<Pieza> piezas = subasta.ofrecerPiezas();
+				if (piezas.contains(pieza)) {
+					Comprador comprador = subasta.agregarComprador(this.nombre);
+				hacerOferta(pieza,precio,comprador,formaPago);}
+				else {
+					throw new MesajedeErrorException("La pieza no se encuentra disponible en la subasta");
+				}
+			}
+		}
 		
+		if (!subEncontrada) {
+			throw new MesajedeErrorException("No existe una subasta en esa fecha");
+		}
 	}
 
 	public String getNombre() {

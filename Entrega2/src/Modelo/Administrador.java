@@ -2,18 +2,25 @@ package Modelo;
 
 import java.util.ArrayList;
 
+import Exceptions.MesajedeErrorException;
+import Piezas.Pieza;
+import Usuarios.Cajero;
+import Usuarios.Comprador;
+import Usuarios.Propietario;
 import Usuarios.Usuario;
 
 public class Administrador {
 	
 	private String login;
 	private String password;
-	private ArrayList<Usuario> usuarios;
+	private static ArrayList<Comprador> compradores;
+	private ArrayList<Propietario> propietarios;
 	
-	public Administrador(String login, String contrasena, ArrayList<Usuario> usuarios) {
+	public Administrador(String login, String contrasena, ArrayList<Comprador> compradores,ArrayList<Propietario> propietarios ) {
 		this.login = login;
 		this.password = contrasena;
-		this.usuarios = new ArrayList<Usuario>();
+		this.compradores = new ArrayList<Comprador>();
+		this.propietarios = new ArrayList<Propietario>();
 	}
 
 	public String getLogin() {
@@ -32,12 +39,68 @@ public class Administrador {
 		this.password = contrasena;
 	}
 
-	public ArrayList<Usuario> getUsuarios() {
-		return this.usuarios;
+	
+	public static ArrayList<Comprador> getCompradores() {
+		return compradores;
 	}
 
-	public void setUsuarios(ArrayList<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public void setCompradores(ArrayList<Comprador> compradores) {
+		Administrador.compradores = compradores;
+	}
+
+	public ArrayList<Propietario> getPropietarios() {
+		return propietarios;
+	}
+
+	public void setPropietarios(ArrayList<Propietario> propietarios) {
+		this.propietarios = propietarios;
+	}
+
+
+	//M
+	public boolean confirmarVenta(Pieza pieza, String nombreComprador, String formaPago) throws MesajedeErrorException {
+		boolean existeComprador = false;
+		for(Comprador comprador : compradores) {
+			if (comprador.getNombre().equals(nombreComprador)) {
+				existeComprador=true;
+				int valorMaximo = comprador.getComprasMaximas();
+				int valorActual = comprador.getComprasTotales();
+				if (valorMaximo< valorActual+pieza.getValorFijo()) {
+					throw new MesajedeErrorException("Comprador excede compras maximas");
+				}
+				else {
+					if (Cajero.generarPagoCajero(pieza.getValorFijo(),pieza,formaPago,comprador)) {
+						return true;
+					}
+
+					}
+				}
+			}
+		if(!existeComprador) {
+
+				throw new MesajedeErrorException("El comprador no esta registrado correctamente");
+			
+		}
+			
+		
+		return false;
+		
+		
+	}
+
+	public static boolean verificarOferta(Oferta oferta) throws MesajedeErrorException {
+		boolean rta = false;
+		int valorMaximo = oferta.getComprador().getComprasMaximas();
+		int valorActual = oferta.getComprador().getComprasMaximas();
+		if (valorMaximo< valorActual+oferta.getValorOferta()) {
+			throw new MesajedeErrorException("Comprador excede compras maximas");
+		}
+		else {
+			rta = true;
+			
+		}
+		
+		return rta;
 	}
 	
 	

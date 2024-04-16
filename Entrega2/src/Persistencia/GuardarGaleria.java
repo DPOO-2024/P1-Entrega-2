@@ -6,6 +6,7 @@ import java.io.IOException;
 import Modelo.Administrador;
 import Modelo.Empleado;
 import Modelo.Galeria;
+import Modelo.Pago;
 import Usuarios.Cajero;
 import Usuarios.Comprador;
 import Usuarios.Propietario;
@@ -70,7 +71,7 @@ public class GuardarGaleria {
 	
 			for(Usuario u: admin.getUsuarios()) {
 				
-				if(u.getRol.equals("Comprador")) {
+				if(u.getRol().equals("Comprador")) {
 					Comprador comprador = (Comprador) u;
 					writer.write("Comprador,"+ u.getLogin()+ "," + u.getPassword() + "," + comprador.getNombre() +
 							"," + comprador.getCorreo() + "," + comprador.getTelefono() +"," + comprador.getComprasMaximas()+ "\n");

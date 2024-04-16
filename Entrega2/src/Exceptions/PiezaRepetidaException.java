@@ -8,7 +8,7 @@ public class PiezaRepetidaException extends Exception
 {
 	 public PiezaRepetidaException( Pieza pieza )
 	    {
-	        super( "la pieza " + pieza.getNombre() + "ya esta en el inventario" );
+	        super( "la pieza " + pieza.getTitulo() + "ya esta en el inventario" );
 	    }
 
 }
