@@ -15,12 +15,12 @@ public class CargaGaleria {
 	private Galeria galeria;
 	
 	
-	public CargaGaleria(String archivoGaleria, String archivoUsuarios, String archivoPiezas, String archivoCompras) {
+	public CargaGaleria(String archivoGaleria, String archivoUsuarios, String archivoPiezas, String archivoCompras, Galeria galeria) {
 		this.archivoGaleria = archivoGaleria;
 		this.archivoUsuarios = archivoUsuarios;
 		this.archivoPiezas = archivoPiezas;
 		this.archivoCompras = archivoCompras;
-		this.galeria=new Galeria();
+		this.galeria=galeria;
 	}
 	
 	public void cargarArchivos() {

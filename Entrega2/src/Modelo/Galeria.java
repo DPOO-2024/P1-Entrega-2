@@ -206,6 +206,8 @@ public class Galeria {
         Administrador admin= new Administrador(login, password,this.inventario);
         this.setAdmin(admin);
     }
+    
+    //Añadir empleado
 
     //M
     public boolean comprarPieza(Pieza pieza, String nombreComprador, String formapago)throws MesajedeErrorException {
@@ -313,7 +315,7 @@ public class Galeria {
 	
 	//Métodos de persistencia
     
-	private static void cargarGaleria() {
+	private void cargarGaleria() {
 		//Pedir los nombres de los archivos 
 		Scanner scanner = new Scanner(System.in);
 		
@@ -330,7 +332,10 @@ public class Galeria {
         String archivoCompras = scanner.nextLine();
 		
 		try {
-			CentralPersistencia.cargarGaleria(archivoInicio, archivoUsuarios, archivoPiezas, archivoCompras);
+			Galeria galeria = new Galeria();
+			CentralPersistencia.cargarGaleria(archivoInicio, archivoUsuarios, archivoPiezas, archivoCompras,galeria);
+			galeria.mostrarMenu();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

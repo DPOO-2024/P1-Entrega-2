@@ -4,8 +4,8 @@ import Modelo.Galeria;
 
 public class CentralPersistencia {
 	
-	public static void cargarGaleria(String arvhivoGeneral, String archivoUsuarios, String archivoPiezas, String archivoCompra) {
-		CargaGaleria perGal= new CargaGaleria(arvhivoGeneral, archivoUsuarios, archivoPiezas, archivoCompra);
+	public static void cargarGaleria(String arvhivoGeneral, String archivoUsuarios, String archivoPiezas, String archivoCompra, Galeria galeria) {
+		CargaGaleria perGal= new CargaGaleria(arvhivoGeneral, archivoUsuarios, archivoPiezas, archivoCompra, galeria);
 	try {
 		perGal.cargarArchivos();
 	} catch (Exception e) {
