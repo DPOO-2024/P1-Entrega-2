@@ -315,7 +315,7 @@ public class Galeria {
 	
 	//Métodos de persistencia
     
-	private void cargarGaleria() {
+	private static void cargarGaleria() {
 		//Pedir los nombres de los archivos 
 		Scanner scanner = new Scanner(System.in);
 		
