@@ -21,10 +21,10 @@ public class Subasta {
 	
 	
 	//M
-	public Subasta(int fechaSubasta, List<Comprador> compradores ) {
+	public Subasta(int fechaSubasta, List<Pieza> inventario) {
 		
 		this.fechaSubasta=fechaSubasta;
-		this.inventario=Inventario.generarInventarioSubasta(this.fechaSubasta);
+		this.inventario=inventario;
 		this.compradores= new ArrayList<>();		
 	}
 	

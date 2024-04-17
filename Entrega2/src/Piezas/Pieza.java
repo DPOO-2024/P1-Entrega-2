@@ -29,12 +29,12 @@ public abstract class Pieza {
 	
 	private int valorFijo;
 
-	public Pieza(Usuario propietariot,String titulot,int aniot, String lugarDeCreaciont, String autores, boolean modalidadt, int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot) {
+	public Pieza(Usuario propietariot,String titulot,int aniot, String lugarDeCreaciont, List<String> autores2, boolean modalidadt, int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot) {
 		this.propietario=propietariot;
 		this.titulo=titulot;
 		this.anio=aniot;
 		this.lugarDeCreacion=lugarDeCreaciont;
-		addAutores(autores);
+		addAutores(autores2);
 		this.modalidad=modalidadt;
 		this.fechaMax=fechaMaxt;
 		this.valorInicial=valorInicialt;
@@ -83,22 +83,11 @@ public abstract class Pieza {
 		this.autores = autores;
 	}
 	
-	public void addAutores(String autores) {
-		if (autores.contains(",")) {
-			String[] autoresSeparados = autores.split(",");
-			for (String a:autoresSeparados) {
-				Autor autor = new Autor(a);
-				this.autores.add(autor);
-			}
+	public void addAutores(List<String> autores) {
+		for (String a:autores) {
+			Autor autor = new Autor(a);
+			this.autores.add(autor);
 		}
-		else if(!autores.equals("None")) {
-			Autor a = new Autor(autores);
-			this.autores.add(a);
-		}
-		else {
-			Autor a = new Autor("Anónimo");
-			this.autores.add(a);
-		}	
 	}
 
 	public boolean isModalidad() {

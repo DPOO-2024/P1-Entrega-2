@@ -16,9 +16,9 @@ public class Escultura extends Pieza{
 	private boolean electricidad;
 	private String instalacion;
 	
-	public Escultura(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, String autores, boolean modalidadt,
+	public Escultura(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt,
 			int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot, int altot,
-			int anchot, int profundidadt, ArrayList<String> materialest, int pesot, boolean electricidadt, String instalaciont) 
+			int anchot, int profundidadt, List<String> materialest, int pesot, boolean electricidadt, String instalaciont) 
 	{
 		super(propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
 				valorFijot);
@@ -33,8 +33,10 @@ public class Escultura extends Pieza{
 	}
 	
 	
-	
-	
+
+
+
+
 	// Getters y Setters
 	public int getAlto() {
 		return this.alto;

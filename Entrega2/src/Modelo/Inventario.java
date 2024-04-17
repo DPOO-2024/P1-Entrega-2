@@ -27,55 +27,8 @@ public class Inventario {
 	
 	
 	//Crea la pieza, dependiendo su tipo y la añade a piezas disponibles
-	public String agregarPieza(String tipoPieza, ArrayList<String> informacion,Usuario propietario) {
-		Pieza p = null;
-		if (tipoPieza.equals("Escultura")) {
-			ArrayList<String> materiales = new ArrayList<>(Arrays.asList(informacion.get(13).split(",")));			
-			p = new Escultura(propietario,informacion.get(0), Integer.parseInt(informacion.get(1)), informacion.get(2), informacion.get(3), 
-					Boolean.parseBoolean(informacion.get(4)), Integer.parseInt(informacion.get(5)), Integer.parseInt(informacion.get(6)), 
-					informacion.get(7), Boolean.parseBoolean(informacion.get(8)), Integer.parseInt(informacion.get(9)), 
-					Integer.parseInt(informacion.get(10)), Integer.parseInt(informacion.get(11)), Integer.parseInt(informacion.get(12)), 
-					materiales, Integer.parseInt(informacion.get(14)), Boolean.parseBoolean(informacion.get(15)), informacion.get(16));
-		}
-		else if (tipoPieza.equals("Fotografia")) {
-			p = new Fotografia(propietario,informacion.get(0), Integer.parseInt(informacion.get(1)), informacion.get(2), informacion.get(3), 
-					Boolean.parseBoolean(informacion.get(4)), Integer.parseInt(informacion.get(5)), Integer.parseInt(informacion.get(6)), 
-					informacion.get(7), Boolean.parseBoolean(informacion.get(8)), Integer.parseInt(informacion.get(9)), 
-					Integer.parseInt(informacion.get(10)), Integer.parseInt(informacion.get(11)), Integer.parseInt(informacion.get(12)), 
-					informacion.get(13), informacion.get(14));
-		}
-		else if (tipoPieza.equals("Impresion")) {
-			p = new Impresion(propietario,informacion.get(0), Integer.parseInt(informacion.get(1)), informacion.get(2), informacion.get(3), 
-					Boolean.parseBoolean(informacion.get(4)), Integer.parseInt(informacion.get(5)), Integer.parseInt(informacion.get(6)), 
-					informacion.get(7), Boolean.parseBoolean(informacion.get(8)), Integer.parseInt(informacion.get(9)), 
-					informacion.get(10), Integer.parseInt(informacion.get(11)), Integer.parseInt(informacion.get(12)), 
-					Integer.parseInt(informacion.get(13)), informacion.get(13), informacion.get(14));
-		}
-		else if (tipoPieza.equals("Otro")) {
-			p = new Otro(propietario,informacion.get(0), Integer.parseInt(informacion.get(1)), informacion.get(2), informacion.get(3), 
-					Boolean.parseBoolean(informacion.get(4)), Integer.parseInt(informacion.get(5)), Integer.parseInt(informacion.get(6)), 
-					informacion.get(7), Boolean.parseBoolean(informacion.get(8)), Integer.parseInt(informacion.get(9)), 
-					informacion.get(10));
-		}
-		else if (tipoPieza.equals("Pintura")) {
-			p = new Pintura(propietario,informacion.get(0), Integer.parseInt(informacion.get(1)), informacion.get(2), informacion.get(3), 
-					Boolean.parseBoolean(informacion.get(4)), Integer.parseInt(informacion.get(5)), Integer.parseInt(informacion.get(6)), 
-					informacion.get(7), Boolean.parseBoolean(informacion.get(8)), Integer.parseInt(informacion.get(9)), 
-					informacion.get(10),informacion.get(11),informacion.get(12),Integer.parseInt(informacion.get(13)), Integer.parseInt(informacion.get(14)), 
-					 informacion.get(15),Integer.parseInt(informacion.get(16)));
-		}
-		else if (tipoPieza.equals("Video")) {
-			p = new Video(propietario,informacion.get(0), Integer.parseInt(informacion.get(1)), informacion.get(2), informacion.get(3), 
-					Boolean.parseBoolean(informacion.get(4)), Integer.parseInt(informacion.get(5)), Integer.parseInt(informacion.get(6)), 
-					informacion.get(7), Boolean.parseBoolean(informacion.get(8)), Integer.parseInt(informacion.get(9)), 
-					Integer.parseInt(informacion.get(10)),Integer.parseInt(informacion.get(11)), informacion.get(12),informacion.get(13),
-					Integer.parseInt(informacion.get(14)),informacion.get(15));
-		}
-		else {
-			return "No se cuenta con ese tipo de pieza en la Galeria";
-		}
-	
-		piezasDisponibles.add(p);
+	public String agregarPieza(Pieza pieza) {
+		piezasDisponibles.add(pieza);
 		return "Pieza añadida con exito";
 	}
 	
@@ -135,7 +88,7 @@ public class Inventario {
 			return p.getValorFijo();
 		}
 		else {
-			return 0;
+			return 0;                                                                 
 		}
 	}
 
