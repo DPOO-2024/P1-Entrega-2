@@ -203,6 +203,9 @@ public class Administrador {
 	            pieza=new Escultura((Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, 
 	            		valorInicial, ubicaciont, vendido, valorFijo, alto, ancho, profundidad, materiales, peso, electricidad, instalacion);
 	            
+	            
+	            
+	            
 	            this.inventario.agregarPieza(pieza);
 	            
 	    	}

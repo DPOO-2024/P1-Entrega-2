@@ -29,6 +29,8 @@ public abstract class Pieza {
 	
 	private int valorFijo;
 
+	
+	
 	public Pieza(Usuario propietariot,String titulot,int aniot, String lugarDeCreaciont, List<String> autores2, boolean modalidadt, int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot) {
 		this.propietario=propietariot;
 		this.titulo=titulot;
@@ -42,7 +44,7 @@ public abstract class Pieza {
 		this.vendido=vendidot;
 		this.valorFijo=valorFijot;
 	}
-	
+
 	//Getters y Setters
 	public Usuario getPropietario() {
 		return this.propietario;
@@ -87,7 +89,7 @@ public abstract class Pieza {
 		for (String a:autores) {
 			Autor autor = new Autor(a);
 			this.autores.add(autor);
-		}
+		}	
 	}
 
 	public boolean isModalidad() {

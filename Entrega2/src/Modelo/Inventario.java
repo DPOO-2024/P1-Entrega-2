@@ -58,7 +58,7 @@ public class Inventario {
 					retornarPieza(p);
 				}
 			}
-			else {
+			else if (p.getValorInicial()!= 0) {
 				listaSubasta.add(p);
 			}
 		}
