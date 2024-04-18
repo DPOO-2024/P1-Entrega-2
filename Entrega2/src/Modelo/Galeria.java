@@ -91,8 +91,42 @@ public class Galeria {
 	}
 	
 	private void crearUsuario() {
-	    // Implementar la lógica para crear un usuario
-	}
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el nombre del usuario: ");
+        String nombre = scanner.nextLine();
+
+        System.out.print("Ingrese el apellido del usuario: ");
+        String apellido = scanner.nextLine();
+
+        System.out.print("Ingrese el tipo de usuario (Administrador, Cajero, Comprador, Propietario): ");
+        String tipoUsuario = scanner.nextLine();
+
+        System.out.print("Ingrese la contraseña del usuario: ");
+        String contrasena = scanner.nextLine();
+
+        // Validación de datos
+        if (nombre.isEmpty() || apellido.isEmpty() || contrasena.length() < 6) {
+            System.out.println("Error: Nombre, apellido y contraseña son obligatorios (min. 6 caracteres)");
+            return;
+        }
+
+        if (!tipoUsuario.equalsIgnoreCase("Administrador") &&
+                !tipoUsuario.equalsIgnoreCase("Cajero") &&
+                !tipoUsuario.equalsIgnoreCase("Comprador") &&
+                !tipoUsuario.equalsIgnoreCase("Propietario")) {
+            System.out.println("Error: Tipo de usuario no válido. (Permitidos: Administrador, Cajero, Comprador, Propietario)");
+            return;
+        }
+
+        // Validación específica para la contraseña (alfanumérica con al menos una letra y un número)
+        Pattern patronClave = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$");
+        if (!patronClave.matcher(contrasena).matches()) {
+            System.out.println("Error: Contraseña no válida. Debe contener al menos 6 caracteres, una letra y un número.");
+            return;
+        }}
+
+        // Crear objeto Usuario
 	
 	// ... (métodos para las demás funcionalidades)
 	
