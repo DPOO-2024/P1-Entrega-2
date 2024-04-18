@@ -7,7 +7,7 @@ import Modelo.Pago;
 @SuppressWarnings("serial")
 public class PagoRechazado extends Exception
 {
-	public PagoRechazado( Pago pago )
+	public PagoRechazado( )
     {
         super( "el pago fue rechazado" );
     }

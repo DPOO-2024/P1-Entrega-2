@@ -11,18 +11,18 @@ import Piezas.Pieza;
 public class Cajero extends Empleado{
 	public final static String CAJERO= "Cajero";
 	
-	private static List<Pago> pagos;
+	private  List<Pago> pagos;
 	
-	public Cajero(String nombreUsuario, String contraseña, Rol rol,List<Pago> pagos) {
+	public Cajero(String nombreUsuario, String contraseña, Rol rol) {
 		super(nombreUsuario, contraseña, rol);
-		Cajero.pagos = new ArrayList<Pago>();
+		this.pagos = new ArrayList<Pago>();
 	}
 
 
 
 	
 	// como se cuando se registra un pago correctamente ???
-	public static boolean generarPagoCajero(int precio,Pieza pieza,String formaPago, Comprador comprador) {
+	public boolean generarPagoCajero(int precio,Pieza pieza,String formaPago, Comprador comprador) {
 		Pago pago = Pago.generarPago(precio,pieza,formaPago,comprador);
 		registrarPago(pago);
 		boolean respuesta =true;
@@ -32,7 +32,7 @@ public class Cajero extends Empleado{
 
 	
 	
-	public static void registrarPago(Pago pago) {
+	public  void registrarPago(Pago pago) {
 		pagos.add(pago);
 	}
 
@@ -45,7 +45,7 @@ public class Cajero extends Empleado{
 
 
 	public void setPagos(List<Pago> pagos) {
-		Cajero.pagos = pagos;
+		this.pagos = pagos;
 	}
 
 

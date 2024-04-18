@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import Exceptions.LoginDuplicadoException;
 import Exceptions.MesajedeErrorException;
 import Piezas.Escultura;
 import Piezas.Pieza;
@@ -18,8 +19,10 @@ public class Administrador {
 	private String login;
 	private String password;
 	private Inventario inventario;
-	private static ArrayList<Comprador> compradores;
+	private ArrayList<Comprador> compradores;
 	private ArrayList<Propietario> propietarios;
+	private ArrayList<String> loginsReservados;
+	
 	
 	public Administrador(String login, String contrasena, Inventario inventario) {
 		this.login = login;
@@ -27,41 +30,28 @@ public class Administrador {
 		this.inventario=inventario;
 		this.compradores = new ArrayList<Comprador>();
 		this.propietarios = new ArrayList<Propietario>();
+		this.loginsReservados = new ArrayList<String>();
 	}
 
 	
 	//Falta Crear Subasta
 
 	//M
-	public boolean confirmarVenta(Pieza pieza, String nombreComprador, String formaPago) throws MesajedeErrorException {
-		boolean existeComprador = false;
-		for(Comprador comprador : compradores) {
-			if (comprador.getNombre().equals(nombreComprador)) {
-				existeComprador=true;
+	public boolean confirmarVenta(Pieza pieza, Comprador comprador) throws MesajedeErrorException {
 				int valorMaximo = comprador.getComprasMaximas();
 				int valorActual = comprador.getComprasTotales();
 				if (valorMaximo< valorActual+pieza.getValorFijo()) {
 					throw new MesajedeErrorException("Comprador excede compras maximas");
 				}
 				else {
-					if (Cajero.generarPagoCajero(pieza.getValorFijo(),pieza,formaPago,comprador)) {
 						return true;
-					}
+					
 
 					}
 				}
-			}
-		if(!existeComprador) {
-
-				throw new MesajedeErrorException("El comprador no esta registrado correctamente");
-			
-		}
-			
+	
 		
-		return false;
-		
-		
-	}
+	
 
 	public static boolean verificarOferta(Oferta oferta) throws MesajedeErrorException {
 		boolean rta = false;
@@ -100,12 +90,12 @@ public class Administrador {
 	}
 
 	
-	public static ArrayList<Comprador> getCompradores() {
+	public  ArrayList<Comprador> getCompradores() {
 		return compradores;
 	}
 
 	public void setCompradores(ArrayList<Comprador> compradores) {
-		Administrador.compradores = compradores;
+		this.compradores = compradores;
 	}
 
 	public ArrayList<Propietario> getPropietarios() {
@@ -119,7 +109,7 @@ public class Administrador {
 	//Pedir info usuario (M)
 
 	//Pedir info pieza
-	public void pedirInfoPieza(Comprador c) {
+	public void pedirInfoPieza(Propietario pro) {
 
 	    try {
 	    	Scanner scanner = new Scanner(System.in);
@@ -210,7 +200,7 @@ public class Administrador {
 	            System.out.print("Por favor, ingrese alguna especificacion de la instalación: ");
 	            String instalacion = scanner.nextLine();
 	            
-	            pieza=new Escultura((Usuario)c, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, 
+	            pieza=new Escultura((Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, 
 	            		valorInicial, ubicaciont, vendido, valorFijo, alto, ancho, profundidad, materiales, peso, electricidad, instalacion);
 	            
 	            this.inventario.agregarPieza(pieza);
@@ -226,5 +216,95 @@ public class Administrador {
 	    
 		
 	}
+	public Comprador verificarComprador(String login2, String password2) throws MesajedeErrorException {
+		Comprador comprador=null;
+		for(Comprador c :compradores) {
+			if(c.getLogin().equals(login2)&&c.getPassword().equals(password2)) {
+				comprador = c;
+			}
+		}
+		if (comprador == null) {
+	        throw new MesajedeErrorException("No estas registrado como comprador");
+	    }
+		return comprador;
+		
+		
+	}
+
+
+
+public void pedirInfoUsuario() throws LoginDuplicadoException  {
+		try {
+	    	Scanner scanner = new Scanner(System.in);
+	    	
+	    	System.out.print("Por favor, ingrese su login: ");
+	        String login = scanner.nextLine();
+	        if (!this.loginsReservados.contains(login)) {
+	        	loginsReservados.add(this.login);
+	        }
+	        else { throw new LoginDuplicadoException(login);
+	        	
+	        }
+	        
+	        System.out.print("Por favor, ingrese su contraseña: ");
+	        String password = scanner.nextLine();
+	        
+	        
+	        System.out.print("Por favor, ingrese si quiere registrarse como Comprador o Propietario: ");
+	        String rol = scanner.nextLine();
+	        
+	       
+	        	
+	        	System.out.print("Por favor, su numero de telefono: ");
+	            String telefonof = scanner.nextLine();
+	            int telefono=Integer.parseInt(telefonof);
+	        
+	            System.out.print("Por favor, ingrese su nombre : ");
+	            String nombre =  scanner.nextLine();
+	            
+	            
+	            System.out.print("Por favor, ingrese su correo electronico: ");
+	            String correo = scanner.nextLine();
+	            
+	            if (rol.equalsIgnoreCase("Comprador")) {
+	        	
+	        	Comprador comprador = new Comprador(login, password,nombre, correo,telefono,0,0);
+	        	this.compradores.add(comprador);
+	        }
+	        
+	        
+	        else if (rol.equalsIgnoreCase("propietario")){
+	        	Propietario propietario = new Propietario(login, password,nombre, correo,telefono);
+	        	this.propietarios.add(propietario);
+	        	
+	        }
+	    }
+		catch(LoginDuplicadoException e) {
+        	throw e;
+		}
+		catch(Exception e) {
+        	throw e;
+		}
+		
+	}
+
+
+
+	public Propietario verificarPropietario(String login2, String password2) throws MesajedeErrorException {
+		Propietario propietario =null;
+		for(Propietario p : propietarios) {
+			if (p.getLogin().equals(login2)&&p.getPassword().equals(password2)) {
+				propietario = p;
+			}
+		}
+		if (propietario == null) {
+	        throw new MesajedeErrorException("No estas registrado como propietario");
+	    }
+		return propietario;
+	}
+
+
+
+
 	
 }

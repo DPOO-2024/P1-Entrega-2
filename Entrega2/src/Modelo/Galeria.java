@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import Exceptions.MesajedeErrorException;
+import Exceptions.PagoRechazado;
 import Usuarios.*;
 import Persistencia.*;
 import Piezas.*;
@@ -143,36 +144,7 @@ public class Galeria {
 	    }
 	}
 	
-	private void comprarPieza() {
-	    Scanner scanner = new Scanner(System.in);
-	    System.out.print("Ingrese el ID de la pieza que desea comprar: ");
-	    int idPieza = scanner.nextInt();
-	    scanner.nextLine(); // Consumir el salto de línea
 	
-	    Pieza piezaABuscar = null;
-	    for (Pieza pieza : piezasDisponibles) {
-	        if (pieza.getId() == idPieza) {
-	            piezaABuscar = pieza;
-	            break;
-	        }
-	    }
-	
-	    if (piezaABuscar != null) {
-	        System.out.print("Ingrese el nombre del comprador: ");
-	        String nombreComprador = scanner.nextLine();
-	        System.out.print("Ingrese el ID del comprador: ");
-	        int idComprador = scanner.nextInt();
-	        scanner.nextLine(); // Consumir el salto de línea
-	
-	        Comprador comprador = new Comprador(nombreComprador, idComprador);
-	        comprarPieza(piezaABuscar, comprador);
-	        System.out.println("Compra realizada con éxito!");
-	    } else {
-	        System.out.println("La pieza no existe o no está disponible para la venta");
-	        }
-	
-	        scanner.close();
-    }
 	
 
 
@@ -206,7 +178,7 @@ public class Galeria {
     
 
     
-    
+    /////
     public void añadirPieza()throws Exception {
         if (this.admin != null) {
         	Scanner scanner = new Scanner(System.in);
@@ -217,10 +189,9 @@ public class Galeria {
             System.out.print("Por favor, ingrese la contraseña ");
             String password = scanner.nextLine();
             
-            //Majo
             try {
-            Comprador c = admin.verificarPropietario(login,password);
-            admin.pedirInfoPieza(c);
+            Propietario pro = admin.verificarPropietario(login,password);
+            admin.pedirInfoPieza(pro);
             }catch(Exception e) {
             	throw e;
             }    
@@ -243,19 +214,83 @@ public class Galeria {
     }
     
     //Añadir empleado
+    
+  
 
     //M
-    public boolean comprarPieza(Pieza pieza, String nombreComprador, String formapago)throws MesajedeErrorException {
-        if (this.inventario.getPiezasDisponibles().contains(pieza)) {
-			Inventario.reservarPieza(pieza);//deberia ser estatico para no crear una instacia de inverntario??-Majo
-            if (this.admin.confirmarVenta(pieza, nombreComprador, formapago));
-            piezasDisponibles.remove(pieza);
-            Inventario.moverPieza(pieza);
-            return true;
-        } else {
-        	throw new MesajedeErrorException("El comprador no esta registrado correctamente");
+    public void comprarPieza()throws MesajedeErrorException, PagoRechazado {
+    	if (this.admin != null) {
+        	Scanner scanner = new Scanner(System.in);
+        	
+    		System.out.print("Por favor, ingrese el login ");
+            String login = scanner.nextLine();
+            
+            System.out.print("Por favor, ingrese la contraseña ");
+            String password = scanner.nextLine();
+            
+            System.out.print("Por favor, el titulo de la pieza que quiere comprar ");
+            String nomPieza = scanner.nextLine();
+           
+            
+            System.out.print("Por favor, ingrese la forma de pago ");
+            String formapago = scanner.nextLine();
+    	
+    	try {
+    		Comprador c = admin.verificarComprador(login,password);
+    		Pieza pieza = null;
+    		for (Pieza pi :this.inventario.getPiezasDisponibles()) {
+    			if(pieza.getTitulo().equals(nomPieza)) {
+    				pieza = pi;
+    				if (pieza.getValorFijo()!=0) {
+    				this.inventario.reservarPieza(pieza);}
+    				else {
+    					throw new MesajedeErrorException("La pieza solo se puede vender en una subasta");
+    				}
+    				
+    			}
+    		}
+    		if (!pieza.equals(null)) {
+    			boolean confirmado = this.admin.confirmarVenta(pieza,c);
+            if ( confirmado){
+  
+            	if (this.cajero.generarPagoCajero(pieza.getValorFijo(),pieza,formapago,c)) {
+            		this.inventario.moverPieza(pieza);
+            		c.agregarCompra(pieza.getValorFijo());
+            }
+            else {
+            	this.inventario.agregarPieza(pieza);
+            	throw new PagoRechazado();
+            	
+            }
+            }
+            else {
+            	this.inventario.agregarPieza(pieza);
+            	throw new MesajedeErrorException("Superaste el numero de compras maximas contactate con el administrador");
+            }
+        
+    	
+    	}
+    		else {
+    			throw new MesajedeErrorException("La pieza no se encuentra disponible");
+    			
+    		}
+    		
+        
+    	
+    	}
+    	catch(MesajedeErrorException e) {
+    		throw e;
+    	} catch (PagoRechazado e) {
+			throw e;
+		}}
+    	else {
+            System.out.println("No hay un administrador asignado para añadir piezas");
         }
+    	
     }
+
+
+    
     
 
     // Getters y setters para las listas de empleados y subastas activas

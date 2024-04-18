@@ -31,16 +31,11 @@ public class Comprador extends Usuario{
 		this.comprasTotales=comprasTotales;
 		this.comprasMaximas=comprasMaximas;
 	}
-	//comprar en galeria no en subasta
-	public void comprarPieza(Pieza pieza ,String formaPago) throws MesajedeErrorException { 
-		boolean aceptado =false; 
-		if (pieza.getValorFijo() != 0) { 
-			int precio = pieza.getValorFijo();
-			aceptado = Galeria.comprarPieza(pieza, this.nombre,formaPago);
-		if (aceptado) { 
-				comprasTotales += precio; } }
-		else { throw new IllegalStateException("No se puede vender esta pieza."); } }
-
+	public void agregarCompra(int precio)
+	{
+		this.comprasTotales+=precio;
+	}
+	
 	
 	
 	//comprar pero version subasta

@@ -2,7 +2,7 @@ package Exceptions;
 
 
 @SuppressWarnings("serial")
-public class LoginDuplicadoException extends Exception
+public class LoginDuplicadoException extends MesajedeErrorException
 {
 
     
@@ -10,7 +10,7 @@ public class LoginDuplicadoException extends Exception
 
     public LoginDuplicadoException( String codigo )
     {
-        super( );
+        super(codigo );
         this.loginDuplicado = codigo;
     }
 
