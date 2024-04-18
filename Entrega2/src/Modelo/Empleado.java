@@ -18,7 +18,7 @@ public class Empleado {
     public Empleado(String nombreUsuario, String contraseña, Rol rol) {
         this.nombreUsuario = nombreUsuario;
         this.contraseña = contraseña;
-        this.rol = rol;
+        this.rol = rol; // cajero, operador, none
     }
 
     public boolean iniciarSesion(String nombreUsuarioIngresado, String contraseñaIngresada) {

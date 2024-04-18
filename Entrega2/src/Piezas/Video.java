@@ -1,5 +1,7 @@
 package Piezas;
 
+import java.util.List;
+
 import Usuarios.Usuario;
 
 public class Video extends Pieza{
@@ -14,7 +16,7 @@ public class Video extends Pieza{
 	private int resolucion;
 	private String formato;
 	
-	public Video(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, String autores, boolean modalidadt, int fechaMaxt,
+	public Video(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt, int fechaMaxt,
 			int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot, int duraciont, int tamaniot,
 			String idiomat, String descripciont, int resoluciont, String formatot) {
 		

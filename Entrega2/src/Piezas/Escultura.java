@@ -31,11 +31,6 @@ public class Escultura extends Pieza{
 		this.electricidad=electricidadt;
 		this.instalacion=instalaciont;	
 	}
-	
-	
-
-
-
 
 	// Getters y Setters
 	public int getAlto() {

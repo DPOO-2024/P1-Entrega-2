@@ -19,6 +19,7 @@ public class Galeria {
 	private Administrador admin;
 	private String nombre;
 	private Cajero cajero;
+	private Operador operador;
 	private Inventario inventario;
 	private List<Empleado> empleados;
     private List<Subasta> subastasActivas;
@@ -28,6 +29,7 @@ public class Galeria {
 		this.nombre = "Galeria";
 		this.admin = null;
 		this.cajero = null;
+		this.operador= null;
 		this.inventario= new Inventario();
 		this.empleados = new ArrayList<>();
         this.subastasActivas = new ArrayList<>();
@@ -89,8 +91,103 @@ public class Galeria {
 // Métodos para implementar las funcionalidades específicas (por ejemplo, crearSubasta(), crearUsuario(), etc.)
 
 	private void crearSubasta() {
-	    // Implementar la lógica para crear una subasta
+		try {
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Ingrese login (administrador unicamente) : ");
+        String login = scanner.nextLine();
+        System.out.print("Ingrese su contraseña : ");
+        String password= scanner.nextLine();
+        if (login.equals(this.admin.getLogin()) && password.equals(this.admin.getPassword())) {
+        	System.out.print("Ingrese la fecha (AA/MM/DD)en la que desea realizar la subasta : ");
+            String fechat = scanner.nextLine();
+	        int fecha=Integer.parseInt(fechat);
+            List<Pieza> piezasSubasta = this.inventario.generarInventarioSubasta(fecha);
+            Subasta subasta = new Subasta(fecha,piezasSubasta);
+            subastasActivas.add(subasta);
+            
+        }
+        else {
+        	System.out.print("No eres el administrador no puedes crear subastas ");
+        }
+		}
+		catch(Exception e) {
+			throw e;
+		}
+	    
 	}
+	
+	
+	private void participarSubasta() throws Exception {
+		try {
+			Scanner scanner = new Scanner(System.in);
+			System.out.print("Ingrese login (solo compradores registrados) : ");
+	        String login = scanner.nextLine();
+	        System.out.print("Ingrese su contraseña : ");
+	        String password= scanner.nextLine();
+	        Comprador c = this.admin.verificarComprador(login, password);
+	        if (!c.equals(null)) {
+	        	System.out.print("Ingrese la fecha (AA/MM/DD) de la subasta en la que quiere participar : ");
+	            String fechat = scanner.nextLine();
+		        int fecha=Integer.parseInt(fechat);	
+		        Subasta subasta = null;
+		        for (Subasta s : subastasActivas) {
+		        	if (s.getFechaSubasta()==fecha) {
+		        		subasta = s;
+		        	List<Pieza> piezasSubasta = subasta.agregarComprador(c);
+		        	System.out.print("ya estas registrado en la subasta,esta es la oferta de piezas : ");
+		        	/// imprimir piezas metodo toString ???
+		        	}
+		        	else {
+		        		throw new MesajedeErrorException("No hay subastas activas para esa fecha");
+		        		
+		        	}
+		        }
+		        
+		        System.out.print("Por favor, ingrese si esta interesado en hacer una oferta para una pieza (Si o No): ");
+	            String ofertar = scanner.nextLine();
+	            
+	            
+	            if (ofertar.equalsIgnoreCase("Si") ) {
+	            	System.out.print("Ingrese el titulo de la pieza : ");
+	    	        String piezaTitulo= scanner.nextLine();
+	    	        for (Pieza pieza :piezasSubasta) {
+	    	        	
+	    	        }
+	    	        
+	    	        int valorI = 
+	    	        System.out.print("Por favor, ingrese : ");
+		            String ofertar = scanner.nextLine();
+	    	        
+	    	        
+	    	        
+	    	        
+	    	        
+	    	        
+	            }
+	            else if (ofertar.equalsIgnoreCase("No") ) {
+	            	subasta.quitarComprador(c);
+	            	System.out.print("Ya no participas en la subasta ");
+	            }
+	            else {
+	            	throw new MesajedeErrorException("No es una respuesta valida");
+	            }
+		        
+	            
+		        
+		        
+		       
+		
+		
+	}
+	        
+		}
+		catch(MesajedeErrorException e) {
+			throw e;
+		}
+		catch(Exception e) {
+			throw e;
+		}
+	}        
 	
 	private void crearUsuario() {
         Scanner scanner = new Scanner(System.in);
@@ -144,37 +241,9 @@ public class Galeria {
 	    }
 	}
 	
-	
-	
 
 
-	
-
-	// Métodos para las nuevas funcionalidades:
-
-    public void crearSubasta(Subasta subasta) {
-        if (this.admin != null) {
-        	Scanner scanner = new Scanner(System.in);
-        	
-    		System.out.print("Por favor, ingrese la fecha de la subasta ");
-            String fechat = scanner.nextLine();
-            int fecha=Integer.parseInt(fechat);
-            List<Pieza> inventarioSubasta = inventario.generarInventarioSubasta(fecha);
-            
-            this.admin.crearSubasta(subasta);
-            this.subastasActivas.add(subasta);
-        } else {
-            System.out.println("No hay un administrador asignado para crear subastas");
-        }
-    }
-
-    public void crearUsuario(Usuario usuario) {
-        if (this.admin != null) {
-            this.admin.crearUsuario(usuario);
-        } else {
-            System.out.println("No hay un administrador asignado para crear usuarios");
-        }
-    }
+   
     
 
     

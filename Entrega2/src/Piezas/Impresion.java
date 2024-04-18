@@ -1,5 +1,7 @@
 package Piezas;
 
+import java.util.List;
+
 import Usuarios.Usuario;
 
 public class Impresion extends Pieza{
@@ -13,7 +15,7 @@ public class Impresion extends Pieza{
 	private String resistencia;
 	private String descripcion;
 	
-	public Impresion(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, String autores, boolean modalidadt,
+	public Impresion(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt,
 			int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot,
 			String materialPapelt, int tamaniot, int resoluciont, int flexibilidadt, String resistenciat, String descripciont) {
 		

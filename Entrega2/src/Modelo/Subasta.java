@@ -68,22 +68,18 @@ public class Subasta {
 	public void setInventario(List<Pieza> inventario) {
 		this.inventario = inventario;
 	}
-	public Comprador agregarComprador(String nombre) throws MesajedeErrorException {
-		List<Comprador> compradoresGenerales = Administrador.getCompradores();
-		for (Comprador c :compradoresGenerales) {
-			if (c.getNombre().equals(nombre)) {
-				if (!compradores.contains(c)) {
-				compradores.add(c);
-				return c;}
+	public List<Pieza> agregarComprador(Comprador comprador) throws MesajedeErrorException {
+				if (!compradores.contains(comprador)) {
+				compradores.add(comprador);
+				return this.inventario;}
 				else {
 					throw new MesajedeErrorException("El comprador ya se encuentra registrado en la subasta");
 				}
 			}
-		}
-		return null;
-		
-		
+	public void quitarComprador(Comprador comprador) {
+		compradores.remove(comprador);
 	}
+		
 	
 	
 
