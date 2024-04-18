@@ -1,5 +1,7 @@
 package Piezas;
 
+import java.util.List;
+
 import Usuarios.Usuario;
 
 public class Impresion extends Pieza{
@@ -7,15 +9,15 @@ public class Impresion extends Pieza{
 	
 	public static final String IMPRESION ="Impresion";
 	private String materialPapel;
-	private int tamanio;
+	private String tamanio;
 	private int resolucion;
 	private int flexibilidad;
 	private String resistencia;
 	private String descripcion;
 	
-	public Impresion(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, String autores, boolean modalidadt,
+	public Impresion(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt,
 			int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot,
-			String materialPapelt, int tamaniot, int resoluciont, int flexibilidadt, String resistenciat, String descripciont) {
+			String materialPapelt, String tamaniot, int resoluciont, int flexibilidadt, String resistenciat, String descripciont) {
 		
 		super(propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
 				valorFijot);
@@ -37,11 +39,11 @@ public class Impresion extends Pieza{
 		this.materialPapel = materialPapel;
 	}
 
-	public int getTamanio() {
+	public String getTamanio() {
 		return this.tamanio;
 	}
 
-	public void setTamanio(int tamanio) {
+	public void setTamanio(String tamanio) {
 		this.tamanio = tamanio;
 	}
 

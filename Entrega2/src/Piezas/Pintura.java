@@ -1,5 +1,7 @@
 package Piezas;
 
+import java.util.List;
+
 import Usuarios.Usuario;
 
 public class Pintura extends Pieza{
@@ -12,11 +14,11 @@ public class Pintura extends Pieza{
 	private int alto;
 	private int ancho;
 	private String forma;
-	private int tiempoDeCreacion;
+	private String tiempoDeCreacion;
 
-	public Pintura(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, String autores, boolean modalidadt,
+	public Pintura(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt,
 			int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot,
-			String tecnicat, String origent, String descripciont, int altot, int anchot, String format, int tiempoDeCreaciont) {
+			String tecnicat, String origent, String descripciont, int altot, int anchot, String format, String tiempoDeCreaciont) {
 		
 		super(propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
 				valorFijot);
@@ -78,11 +80,11 @@ public class Pintura extends Pieza{
 		this.forma = forma;
 	}
 
-	public int getTiempoDeCreacion() {
+	public String getTiempoDeCreacion() {
 		return this.tiempoDeCreacion;
 	}
 
-	public void setTiempoDeCreacion(int tiempoDeCreacion) {
+	public void setTiempoDeCreacion(String tiempoDeCreacion) {
 		this.tiempoDeCreacion = tiempoDeCreacion;
 	}
 

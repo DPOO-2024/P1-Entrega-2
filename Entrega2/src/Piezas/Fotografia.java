@@ -1,5 +1,7 @@
 package Piezas;
 
+import java.util.List;
+
 import Usuarios.Usuario;
 
 public class Fotografia extends Pieza{
@@ -7,16 +9,15 @@ public class Fotografia extends Pieza{
 	
 	public final static String FOTOGRAFIA="Fotografia";
 	
-	private int tamanio;
-	
+	private String tamanio;	
 	private int alto;
 	private int resolucion;
 	private String descripcion;
 	private String formato;
 	
-	public Fotografia(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, String autores, boolean modalidadt,
+	public Fotografia(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt,
 			int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot,
-			int tamaniot, int altot, int resoluciont, String descripciont, String formatot) {
+			String tamaniot, int altot, int resoluciont, String descripciont, String formatot) {
 		super( propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
 				valorFijot);
 		this.tamanio=tamaniot;
@@ -27,11 +28,11 @@ public class Fotografia extends Pieza{
 	}
 
 	//Getters y Setters
-	public int getTamanio() {
+	public String getTamanio() {
 		return this.tamanio;
 	}
 
-	public void setTamanio(int tamanio) {
+	public void setTamanio(String tamanio) {
 		this.tamanio = tamanio;
 	}
 

@@ -1,5 +1,7 @@
 package Piezas;
 
+import java.util.List;
+
 import Usuarios.Usuario;
 
 public class Video extends Pieza{
@@ -7,15 +9,15 @@ public class Video extends Pieza{
 	
 	public static final String VIDEO="Video";
 	
-	private int duracion;
-	private int tamanio;
+	private int duracion;//Minutos
+	private String tamanio;
 	private String idioma;
 	private String descripcion;
-	private int resolucion;
+	private int resolucion; //p
 	private String formato;
 	
-	public Video(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, String autores, boolean modalidadt, int fechaMaxt,
-			int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot, int duraciont, int tamaniot,
+	public Video(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt, int fechaMaxt,
+			int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot, int duraciont, String tamaniot,
 			String idiomat, String descripciont, int resoluciont, String formatot) {
 		
 		super(propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
@@ -37,11 +39,11 @@ public class Video extends Pieza{
 		this.duracion = duracion;
 	}
 
-	public int getTamanio() {
+	public String getTamanio() {
 		return this.tamanio;
 	}
 
-	public void setTamanio(int tamanio) {
+	public void setTamanio(String tamanio) {
 		this.tamanio = tamanio;
 	}
 

@@ -251,28 +251,27 @@ public class Galeria {
     		}
     		if (!pieza.equals(null)) {
     			boolean confirmado = this.admin.confirmarVenta(pieza,c);
-            if ( confirmado){
-  
-            	if (this.cajero.generarPagoCajero(pieza.getValorFijo(),pieza,formapago,c)) {
-            		this.inventario.moverPieza(pieza);
-            		c.agregarCompra(pieza.getValorFijo());
-            }
-            else {
-            	this.inventario.agregarPieza(pieza);
-            	throw new PagoRechazado();
-            	
-            }
-            }
-            else {
-            	this.inventario.agregarPieza(pieza);
-            	throw new MesajedeErrorException("Superaste el numero de compras maximas contactate con el administrador");
-            }
+	            if ( confirmado){
+	  
+	            	if (this.cajero.generarPagoCajero(pieza.getValorFijo(),pieza,formapago,c)) {
+	            		this.inventario.moverPieza(pieza);
+	            		c.agregarCompra(pieza.getValorFijo());
+	            	}
+	            	else {
+	            		this.inventario.agregarPieza(pieza);
+	            		throw new PagoRechazado();
+	            	
+	            	}
+	            }
+	            else {
+	            	this.inventario.agregarPieza(pieza);
+	            	throw new MesajedeErrorException("Superaste el numero de compras maximas contactate con el administrador");
+	            }
         
     	
-    	}
+    		}	
     		else {
     			throw new MesajedeErrorException("La pieza no se encuentra disponible");
-    			
     		}
     		
         
