@@ -23,7 +23,7 @@ public class Operador extends Empleado{
 	
 	private   Map<Pieza, List<Oferta>> ofertas;
 	
-	public Operador(String nombreUsuario, String contraseña, String rol) {
+	public Operador(String nombreUsuario, String contraseña, String rol) throws MesajedeErrorException {
 		super(nombreUsuario, contraseña, rol);
 		this.ofertas = new HashMap<>();
 		this.asignado = false;

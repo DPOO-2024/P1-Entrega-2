@@ -154,7 +154,7 @@ public class Administrador {
 					if (empleado.getRol().equals("None")) {
 						empleado.setRol("Operador");
 						escogido = true;
-						operadorAsignado=(Operador) empleado;// se puede castear?
+						operadorAsignado=(Operador) empleado;
 						operadorAsignado.setAsignado(true);
 
 					}

@@ -131,10 +131,9 @@ public class Galeria {
 		}
 
 	}
-	
-	public void mostrarMenuPieza() { //Esto que carajos es 
-        Scanner scanner = new Scanner(System.in);
-        int opcion;
+	//meu imprimir pieza oferta 
+	public void mostrarMenuPieza(Pieza pieza) {  
+        
         
 	
 	
@@ -169,7 +168,17 @@ public class Galeria {
 							System.out.println(i+". " + pieza.getTitulo());
 							i++;
 						}
-						/// imprimir piezas metodo toString ???
+						System.out.print("Desea ver la informacion de unapieza (Si/No) : ");
+						String rta= scanner.nextLine();
+						if (rta.equalsIgnoreCase("Si")){
+							System.out.print("Ingrese el numero de la pieza : ");
+							String id= scanner.nextLine();
+							int idx=Integer.parseInt(id);
+							Pieza pieza = subasta.getInventario().get(idx);
+							this.mostrarMenuPieza(pieza);
+							
+						}
+						
 					}
 					else {
 						throw new MesajedeErrorException("No hay subastas activas para esa fecha");
@@ -183,15 +192,13 @@ public class Galeria {
 
 					if (ofertar.equalsIgnoreCase("Si") ) {
 
-						System.out.print("Ingrese el titulo de la pieza : ");
-						String piezaTitulo= scanner.nextLine();
-						Pieza p =null;
-						for (Pieza pieza : subasta.getInventario()) {
-							if(pieza.getTitulo().equals(piezaTitulo)) {
-								p = pieza;
-							}
-						}
-						subasta.hacerOferta(c, this.admin,p);
+						System.out.print("Ingrese el numero de la pieza : ");
+						String id= scanner.nextLine();
+						int idx=Integer.parseInt(id);
+						Pieza pieza = subasta.getInventario().get(idx);
+						
+
+						subasta.hacerOferta(c, this.admin,pieza);
 					}
 
 					else if (ofertar.equalsIgnoreCase("No") ) {
@@ -245,6 +252,7 @@ public class Galeria {
 					subasta.finalizarSubasta();
 					subastasActivas.remove(subasta);
 					subasta.ganadorSubasta(this.cajero);
+					subasta.getOperador().setAsignado(false);
 				}
 				else {
 					throw new MesajedeErrorException("No hay subastas activas para esa fecha");
@@ -263,7 +271,7 @@ public class Galeria {
 
 	}
 	
-
+	// funcion para que el comprador revise los ganadores de la subasta si ya se acabo o si sigue activa puede hacer otra oferta si la que ya habia hecho fue superada
 	private void revisarSubasta() throws MesajedeErrorException {
 		try {
 			Scanner scanner = new Scanner(System.in);
