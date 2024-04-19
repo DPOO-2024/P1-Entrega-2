@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import Exceptions.MesajedeErrorException;
+import Exceptions.PiezaRepetidaException;
 import Modelo.Galeria;
 import Piezas.Pieza;
 import Usuarios.Cajero;
@@ -34,7 +35,7 @@ public class CargaGaleria {
 		this.galeria=galeria;
 	}
 	
-	public void cargarArchivos() {
+	public void cargarArchivos() throws Exception {
 		try {
 			cargarBasico();
 			cargarUsuarios();
@@ -65,7 +66,7 @@ public class CargaGaleria {
 		
 	}
 
-	private void cargarPiezas() throws MesajedeErrorException {
+	private void cargarPiezas() throws MesajedeErrorException, PiezaRepetidaException {
 		try (BufferedReader br = new BufferedReader(new FileReader(this.archivoPiezas))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -169,11 +170,6 @@ public class CargaGaleria {
         } catch (IOException e) {
             e.printStackTrace();
         }
-		
-		
-		
-		
 	}
-	
-	
+
 }

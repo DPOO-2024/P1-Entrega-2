@@ -7,8 +7,14 @@ import java.util.Scanner;
 
 import Exceptions.LoginDuplicadoException;
 import Exceptions.MesajedeErrorException;
+import Exceptions.PiezaRepetidaException;
 import Piezas.Escultura;
+import Piezas.Fotografia;
+import Piezas.Impresion;
+import Piezas.Otro;
 import Piezas.Pieza;
+import Piezas.Pintura;
+import Piezas.Video;
 import Usuarios.Cajero;
 import Usuarios.Comprador;
 import Usuarios.Operador;
@@ -210,11 +216,13 @@ public class Administrador {
 
 
 	//Pedir info pieza
-	public void pedirInfoPieza(Propietario pro) {
+	public void pedirInfoPieza(Propietario pro) throws Exception {
 
 		try {
 			Scanner scanner = new Scanner(System.in);
 
+			System.out.print("Recuerde que los tipos de pieza que tenemos presentes son los siguientes: ");
+			System.out.print("- Escultura \n - Fotografia \n - Impresion \n - Pintura \n - Video \n - Otro");
 			System.out.print("Por favor, ingrese el tipo de la Pieza: ");
 			String tipoDePieza = scanner.nextLine();
 
@@ -267,7 +275,7 @@ public class Administrador {
 			Pieza pieza;
 
 
-			if (tipoDePieza.equals("Escultura") && tipoDePieza.equals("escultura")) {
+			if (tipoDePieza.equals("Escultura") || tipoDePieza.equals("escultura")) {
 
 				System.out.print("Por favor, ingrese el alto de la Pieza: ");
 				String altot = scanner.nextLine();
@@ -304,21 +312,140 @@ public class Administrador {
 				pieza=new Escultura((Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, 
 						valorInicial, ubicaciont, vendido, valorFijo, alto, ancho, profundidad, materiales, peso, electricidad, instalacion);
 
-
-
-
 				this.inventario.agregarPieza(pieza);
 				pro.ingresarPieza(pieza);
 
 			}
-			else if (tipoDePieza.equals("Fotografia") && tipoDePieza.equals("fotografia")){
+			else if (tipoDePieza.equals("Fotografia") || tipoDePieza.equals("fotografia")){
 				//Falta hacer para el resto de las Piezas, con la info necesaria
+				System.out.print("Por favor, ingrese el tamaño de la Pieza (En pulgadas): ");
+				String tamanio = scanner.nextLine();
+				
+				System.out.print("Por favor, ingrese el alto de la Pieza (En pulgadas): ");
+				String altot = scanner.nextLine();
+				int alto=Integer.parseInt(altot);
+				
+				System.out.print("Por favor, ingrese la resolución de la Pieza (En ppp): ");
+				String resoluciont = scanner.nextLine();
+				int resolucion=Integer.parseInt(resoluciont);
+				
+				System.out.print("Por favor, ingrese la descripcion de la Pieza: ");
+				String descripcion = scanner.nextLine();
+				
+				System.out.print("Por favor, ingrese el formato de la Pieza: ");
+				String formato = scanner.nextLine();
+				
+				pieza=new Fotografia((Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, ubicaciont, vendido, 
+						valorFijo, tamanio, alto, resolucion, descripcion, formato);
+
+				this.inventario.agregarPieza(pieza);
+				pro.ingresarPieza(pieza);
+				
+			}else if (tipoDePieza.equals("Impresion") || tipoDePieza.equals("fotografia")){
+				//Falta hacer para el resto de las Piezas, con la info necesaria
+				System.out.print("Por favor, ingrese el material de papel de la Pieza (En pulgadas): ");
+				String materialPapel = scanner.nextLine();
+				
+				System.out.print("Por favor, ingrese el tamaño de la Pieza (En pulgadas): ");
+				String tamanio = scanner.nextLine();
+				
+				System.out.print("Por favor, ingrese la resolución de la Pieza (En ppp): ");
+				String resoluciont = scanner.nextLine();
+				int resolucion=Integer.parseInt(resoluciont);
+				
+				System.out.print("Por favor, ingrese la flexibilidad de la Pieza (Alta, media, baja): ");
+				String flexibilidadt = scanner.nextLine();
+				int flexibilidad=Integer.parseInt(flexibilidadt);
+				
+				System.out.print("Por favor, ingrese la resistencia de la Pieza (Alta, media, baja): ");
+				String formato = scanner.nextLine();
+				
+				System.out.print("Por favor, ingrese la descripcion de la Pieza: ");
+				String descripcion = scanner.nextLine();
+				
+				pieza=new Impresion((Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, 
+						ubicaciont, vendido, valorFijo, materialPapel, tamanio, resolucion, flexibilidadt, formato, descripcion);
+
+				this.inventario.agregarPieza(pieza);
+				pro.ingresarPieza(pieza);
+				
+			}else if (tipoDePieza.equals("Otro") || tipoDePieza.equals("otro")){
+				//Falta hacer para el resto de las Piezas, con la info necesaria
+				System.out.print("Por favor, ingrese la información extra que haya de la Pieza: ");
+				String infoExtra = scanner.nextLine();
+				
+				
+				pieza=new Otro((Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, 
+						ubicaciont, vendido, valorFijo, infoExtra);
+
+				this.inventario.agregarPieza(pieza);
+				pro.ingresarPieza(pieza);
+				
+			}else if (tipoDePieza.equals("Pintura") || tipoDePieza.equals("pintura")){
+				//Falta hacer para el resto de las Piezas, con la info necesaria
+				System.out.print("Por favor, ingrese la tecnica de la Pieza: ");
+				String tecnica = scanner.nextLine();
+				
+				System.out.print("Por favor, ingrese el origen de la Pieza: ");
+				String origen = scanner.nextLine();
+				
+				System.out.print("Por favor, ingrese la descripcion de la Pieza: ");
+				String descripcion = scanner.nextLine();
+				
+				System.out.print("Por favor, ingrese la altura de la Pieza (En pulgadas): ");
+				String altot = scanner.nextLine();
+				int alto=Integer.parseInt(altot);
+				
+				System.out.print("Por favor, ingrese el ancho de la Pieza (En pulgadas): ");
+				String anchot = scanner.nextLine();
+				int ancho=Integer.parseInt(anchot);
+				
+				System.out.print("Por favor, ingrese la forma de la Pieza (Cuadrada, Rectancular, etc): ");
+				String forma = scanner.nextLine();
+				
+				System.out.print("Por favor, ingrese el tiempo de creación de la Pieza: ");
+				String tiempoDeCreacion = scanner.nextLine();
+				
+				pieza=new Pintura((Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, 
+						ubicaciont, vendido, valorFijo, tecnica, origen, descripcion, alto, ancho, forma, tiempoDeCreacion);
+						
+				this.inventario.agregarPieza(pieza);
+				pro.ingresarPieza(pieza);
+				
+			}else if (tipoDePieza.equals("Video") || tipoDePieza.equals("video")){
+				//Falta hacer para el resto de las Piezas, con la info necesaria
+				System.out.print("Por favor, ingrese la duración de la Pieza (En minutos): ");
+				String duraciont = scanner.nextLine();
+				int duracion=Integer.parseInt(duraciont);
+				
+				System.out.print("Por favor, ingrese el tamaño de la Pieza: ");
+				String tamanio = scanner.nextLine();
+				
+				System.out.print("Por favor, ingrese el idioma de la Pieza: ");
+				String idioma = scanner.nextLine();
+				
+				System.out.print("Por favor, ingrese la descripcion de la Pieza: ");
+				String descripcion = scanner.nextLine();
+				
+				System.out.print("Por favor, ingrese la resolución de la Pieza (En p): ");
+				String resoluciont = scanner.nextLine();
+				int resolucion=Integer.parseInt(resoluciont);
+				
+				System.out.print("Por favor, ingrese el formato de la Pieza: ");
+				String formato = scanner.nextLine();
+
+				pieza=new Video((Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, 
+						valorInicial, ubicaciont, vendido, valorFijo, duracion, tamanio, idioma, descripcion, resolucion, formato);
+						
+				this.inventario.agregarPieza(pieza);
+				pro.ingresarPieza(pieza);
+				
 			}
+		}catch(PiezaRepetidaException e) {
+			throw e;
 		}catch(Exception e) {
 			throw e;
 		}
-
-
 
 	}
 	

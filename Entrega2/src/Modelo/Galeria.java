@@ -130,7 +130,7 @@ public class Galeria {
 
 	}
 	
-	public void mostrarMenuPieza() {
+	public void mostrarMenuPieza() { //Esto que carajos es 
         Scanner scanner = new Scanner(System.in);
         int opcion;
         

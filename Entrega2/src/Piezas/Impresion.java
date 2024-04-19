@@ -11,13 +11,13 @@ public class Impresion extends Pieza{
 	private String materialPapel;
 	private String tamanio;
 	private int resolucion;
-	private int flexibilidad;
+	private String flexibilidad;
 	private String resistencia;
 	private String descripcion;
 	
 	public Impresion(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt,
 			int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot,
-			String materialPapelt, String tamaniot, int resoluciont, int flexibilidadt, String resistenciat, String descripciont) {
+			String materialPapelt, String tamaniot, int resoluciont, String flexibilidadt, String resistenciat, String descripciont) {
 		
 		super(propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
 				valorFijot);
@@ -55,11 +55,11 @@ public class Impresion extends Pieza{
 		this.resolucion = resolucion;
 	}
 
-	public int getFlexibilidad() {
+	public String getFlexibilidad() {
 		return this.flexibilidad;
 	}
 
-	public void setFlexibilidad(int flexibilidad) {
+	public void setFlexibilidad(String flexibilidad) {
 		this.flexibilidad = flexibilidad;
 	}
 

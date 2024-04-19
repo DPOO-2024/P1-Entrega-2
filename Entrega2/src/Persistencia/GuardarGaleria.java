@@ -61,6 +61,8 @@ public class GuardarGaleria {
 	private void generarArchivoPiezas() {
 		// TODO Auto-generated method stub
 		
+		//Quitar comas de descripciones
+		
 	}
 
 	private void generarArchivoUsuarios() {

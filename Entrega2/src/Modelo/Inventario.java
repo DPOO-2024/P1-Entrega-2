@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import Exceptions.PiezaRepetidaException;
 import Piezas.Escultura;
 import Piezas.Fotografia;
 import Piezas.Impresion;
@@ -27,7 +28,20 @@ public class Inventario {
 	
 	
 	//Crea la pieza, dependiendo su tipo y la añade a piezas disponibles
-	public String agregarPieza(Pieza pieza) {
+	public String agregarPieza(Pieza pieza) throws PiezaRepetidaException {
+		
+		//Verificar que no haya una pieza con ese titulo
+		for (Pieza p : getPiezasDisponibles()) {
+			if (p.getTitulo().equals(pieza.getTitulo())) {
+				throw new PiezaRepetidaException(pieza);
+			}
+		}
+		for (Pieza p : getHistorialPiezas()) {
+			if (p.getTitulo().equals(pieza.getTitulo())) {
+				throw new PiezaRepetidaException(pieza);
+			}
+		}
+		
 		piezasDisponibles.add(pieza);
 		return "Pieza añadida con exito";
 	}
