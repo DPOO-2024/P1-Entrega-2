@@ -17,8 +17,6 @@ import Usuarios.Usuario;
 
 public class Administrador {
 	
-	private static final Rol OPERADOR = null;
-	private static final Rol NONE = null;
 	private String login;
 	private String password;
 	private Inventario inventario;
@@ -72,7 +70,107 @@ public class Administrador {
 		return rta;
 	}
 	
+	//Verifica si la informacion ingresada es de un comprador
+	public Comprador verificarComprador(String login2, String password2) throws MesajedeErrorException {
+		Comprador comprador=null;
+		for(Comprador c :compradores) {
+			if(c.getLogin().equals(login2)&&c.getPassword().equals(password2)) {
+				comprador = c;
+			}
+		}
+		if (comprador == null) {
+			throw new MesajedeErrorException("No estas registrado como comprador");
+		}
+		return comprador;
+	}
+	
+	//Verifica si la informacion ingresada es de un propietario
+	public Propietario verificarPropietario(String login2, String password2) throws MesajedeErrorException {
+		Propietario propietario =null;
+		for(Propietario p : propietarios) {
+			if (p.getLogin().equals(login2)&&p.getPassword().equals(password2)) {
+				propietario = p;
+			}
+		}
+		if (propietario == null) {
+			throw new MesajedeErrorException("No estas registrado como propietario");
+		}
+		return propietario;
+	}
+	
+	public Propietario encontrarPropietario(String login) throws MesajedeErrorException {
+		Propietario propietario =null;
+		for(Propietario p : propietarios) {
+			if (p.getLogin().equals(login)) {
+				propietario = p;
+			}
+		}
+		if (propietario == null) {
+			throw new MesajedeErrorException("No existe ese propietario");
+		}
+		return propietario;
+	}
+	
 
+	// le asigna uno de los operadores de la lista a una subasta o cambia un empleado que este en none
+	public Operador asignarOperador(List<Empleado> empleados) throws Exception {
+		try {
+			Scanner scanner = new Scanner(System.in);
+
+			System.out.print("Si desea asignar un operador ya registrado ingrese 1 ");
+			System.out.print("Si desea reasignar a un empleado como operador ingrese 2 ");
+			String opcion = scanner.nextLine();
+			Operador operadorAsignado = null;
+			boolean escogido = false;
+			int i =0;
+			if (opcion.equals("1")) {
+
+				while (!escogido && i < empleados.size()) {
+					Empleado empleado = empleados.get(i);
+					if (empleado.getRol().equals("Operador")) {
+						Operador ope = (Operador) empleado;
+						if (!ope.isAsignado()) {
+							operadorAsignado=ope;
+							escogido=true;
+							ope.setAsignado(true);
+						}
+						else {
+							ope = null;
+						}
+					}
+				}
+			}
+
+			else if (opcion.equals("2")) {
+
+				while (!escogido && i < empleados.size()) {
+					Empleado empleado = empleados.get(i);
+					if (empleado.getRol().equals("None")) {
+						empleado.setRol("Operador");
+						escogido = true;
+						operadorAsignado=(Operador) empleado;// se puede castear?
+						operadorAsignado.setAsignado(true);
+
+					}
+				}
+
+
+			}
+			else {
+				throw new MesajedeErrorException("No es una respuesta valida");
+			}
+			if (!escogido) {
+				throw new MesajedeErrorException("No se encontro empleado disponible para asignar");
+			}
+			return operadorAsignado;    
+		}
+		catch(MesajedeErrorException e ) {
+			throw e;
+		}
+		catch(Exception e ) {
+			throw e;
+		}
+	}
 	
 	
 	//Setters y Getters
@@ -223,28 +321,15 @@ public class Administrador {
 
 
 	}
-	public Comprador verificarComprador(String login2, String password2) throws MesajedeErrorException {
-		Comprador comprador=null;
-		for(Comprador c :compradores) {
-			if(c.getLogin().equals(login2)&&c.getPassword().equals(password2)) {
-				comprador = c;
-			}
-		}
-		if (comprador == null) {
-			throw new MesajedeErrorException("No estas registrado como comprador");
-		}
-		return comprador;
+	
 
-
-	}
-
-///asignar operador
+//Pedir informacion para hacer usuario
 
 	public void pedirInfoUsuario() throws LoginDuplicadoException  {
 		try {
 			Scanner scanner = new Scanner(System.in);
 
-			System.out.print("Por favor, ingrese su login: ");
+			System.out.print("Por favor, ingrese su login: "); //Falta cambiar esto para verificar que puedan ser compradores y propietarios
 			String login = scanner.nextLine();
 			if (!this.loginsReservados.contains(login)) {
 				loginsReservados.add(this.login);
@@ -275,7 +360,7 @@ public class Administrador {
 
 			if (rol.equalsIgnoreCase("Comprador")) {
 
-				Comprador comprador = new Comprador(login, password,nombre, correo,telefono,0,0);
+				Comprador comprador = new Comprador(login, password,nombre, correo,telefono,0,5000);
 				this.compradores.add(comprador);
 			}
 
@@ -297,80 +382,6 @@ public class Administrador {
 
 
 
-	public Propietario verificarPropietario(String login2, String password2) throws MesajedeErrorException {
-		Propietario propietario =null;
-		for(Propietario p : propietarios) {
-			if (p.getLogin().equals(login2)&&p.getPassword().equals(password2)) {
-				propietario = p;
-			}
-		}
-		if (propietario == null) {
-			throw new MesajedeErrorException("No estas registrado como propietario");
-		}
-		return propietario;
-	}
-
-	// le asigna uno de los operadores de la lista a una subasta o cambia un empleado que este en none
-	public Operador asignarOperador(List<Empleado> empleados) throws Exception {
-		try {
-			Scanner scanner = new Scanner(System.in);
-
-			System.out.print("Si desea asignar un operador ya registrado ingrese 1 ");
-			System.out.print("Si desea reasignar a un empleado como operador ingrese 2 ");
-			String opcion = scanner.nextLine();
-			Operador operadorAsignado = null;
-			boolean escogido = false;
-			int i =0;
-			if (opcion.equals("1")) {
-
-				while (!escogido && i < empleados.size()) {
-					Empleado empleado = empleados.get(i);
-					if (empleado.getRol().equals(OPERADOR)) {
-						Operador ope = (Operador) empleado;
-						if (!ope.isAsignado()) {
-							operadorAsignado=ope;
-							escogido=true;
-							ope.setAsignado(true);
-						}
-						else {
-							ope = null;
-						}
-					}
-				}
-			}
-
-			else if (opcion.equals("2")) {
-
-				while (!escogido && i < empleados.size()) {
-					Empleado empleado = empleados.get(i);
-					if (empleado.getRol().equals(NONE)) {
-						empleado.setRol(OPERADOR);
-						escogido = true;
-						operadorAsignado=(Operador) empleado;// se puede castear?
-						operadorAsignado.setAsignado(true);
-
-					}
-				}
-
-
-			}
-			else {
-				throw new MesajedeErrorException("No es una respuesta valida");
-			}
-			if (!escogido) {
-				throw new MesajedeErrorException("No se encontro empleado disponible para asignar");
-			}
-			return operadorAsignado;    
-		}
-		catch(MesajedeErrorException e ) {
-			throw e;
-		}
-		catch(Exception e ) {
-			throw e;
-		}
-
-
-	}
 
 
 

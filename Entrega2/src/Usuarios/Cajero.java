@@ -5,7 +5,6 @@ import java.util.List;
 
 import Modelo.Empleado;
 import Modelo.Pago;
-import Modelo.Rol;
 import Piezas.Pieza;
 
 public class Cajero extends Empleado{
@@ -13,7 +12,7 @@ public class Cajero extends Empleado{
 	
 	private  List<Pago> pagos;
 	
-	public Cajero(String nombreUsuario, String contraseña, Rol rol) {
+	public Cajero(String nombreUsuario, String contraseña, String rol) {
 		super(nombreUsuario, contraseña, rol);
 		this.pagos = new ArrayList<Pago>();
 	}

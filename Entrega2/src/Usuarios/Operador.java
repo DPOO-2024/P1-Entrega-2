@@ -10,7 +10,6 @@ import Exceptions.MesajedeErrorException;
 import Modelo.Administrador;
 import Modelo.Empleado;
 import Modelo.Oferta;
-import Modelo.Rol;
 import Modelo.Subasta;
 import Piezas.Pieza;
 
@@ -24,7 +23,7 @@ public class Operador extends Empleado{
 	
 	private   Map<Pieza, List<Oferta>> ofertas;
 	
-	public Operador(String nombreUsuario, String contraseña, Rol rol) {
+	public Operador(String nombreUsuario, String contraseña, String rol) {
 		super(nombreUsuario, contraseña, rol);
 		this.ofertas = new HashMap<>();
 		this.asignado = false;

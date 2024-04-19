@@ -1,7 +1,7 @@
 package Exceptions;
 
 /**
- * Esta excepción se usa para indicar que se encontraron dos clientes con el mismo identificador, lo cual nunca debería ocurrir.
+ * Esta excepción se usa para indicar que hay un empate en una subasta.
  */
 @SuppressWarnings("serial")
 public class EmpateSubastaException extends MesajedeErrorException

@@ -1,24 +1,29 @@
 package Modelo;
 
+import Exceptions.MesajedeErrorException;
+
 //Login, password y rol (para saber si el empleado es de tipo (None, Cajero o Operador))
 
-
-public enum Rol {
-    NONE,
-    CAJERO,
-    OPERADOR
-}
 
 public class Empleado {
 
     private String nombreUsuario;
     private String contraseña;
-    private Rol rol;
+    private String rol;
 
-    public Empleado(String nombreUsuario, String contraseña, Rol rol) {
+    public Empleado(String nombreUsuario, String contraseña, String rol) throws MesajedeErrorException {
         this.nombreUsuario = nombreUsuario;
         this.contraseña = contraseña;
-        this.rol = rol; // cajero, operador, none
+        
+        if (rol.equals("empleado")|| rol.equals("Empleado")) {
+        	this.rol="None";
+        }else if (rol.equals("operador")|| rol.equals("Operador")) {
+        	this.rol="Operador";
+        }else if (rol.equals("cajero")|| rol.equals("Cajero")) {
+        	this.rol="Cajero";
+        }else {
+        	throw new MesajedeErrorException("Ese rol de empleado no existe");
+        }
     }
 
     public String getNombreUsuario() {
@@ -37,11 +42,11 @@ public class Empleado {
 		this.contraseña = contraseña;
 	}
 
-	public Rol getRol() {
+	public String getRol() {
 		return rol;
 	}
 
-	public void setRol(Rol rol) {
+	public void setRol(String rol) {
 		this.rol = rol;
 	}
 
@@ -55,6 +60,8 @@ public class Empleado {
         }
     }
 
+	
+	/*
     public static void main(String[] args) {
         Empleado empleado1 = new Empleado("juan.perez", "micontraseña123", Rol.CAJERO);
         Empleado empleado2 = new Empleado("maria.gomez", "micontraseña456", Rol.OPERADOR);
@@ -77,6 +84,6 @@ public class Empleado {
         } else {
             System.out.println("El empleado3 no pudo acceder al sistema. Intente nuevamente.");
         }
-    }
+    }*/
 }
 
