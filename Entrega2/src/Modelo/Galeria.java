@@ -9,10 +9,12 @@ import java.util.regex.Pattern;
 import Exceptions.LoginDuplicadoException;
 import Exceptions.MesajedeErrorException;
 import Exceptions.PagoRechazado;
+import Exceptions.PiezaRepetidaException;
 import Usuarios.*;
 import Piezas.*;
 import Persistencia.CentralPersistencia;
 
+@SuppressWarnings("resource")
 public class Galeria {
 	private Administrador admin;
 	private String nombre;
@@ -414,20 +416,20 @@ public class Galeria {
             }catch(Exception e) {
             	throw e;
             }    
-            
+           
         } else {
             throw new MesajedeErrorException("No hay un administrador asignado para añadir piezas");
         }
     }
 
     private void asignarAdministrador() {
-    	Scanner scanner = new Scanner(System.in);
+    		
+		Scanner scanner = new Scanner(System.in);
 		
 		System.out.print("Por favor, ingrese el login del Administrador: ");
         String login = scanner.nextLine();
         System.out.print("Por favor, ingrese la contraseña del Administrador: ");
         String password = scanner.nextLine();
-        scanner.close(); 
         
         Administrador admin= new Administrador(login, password,this.inventario);
         this.setAdmin(admin);
@@ -499,7 +501,7 @@ public class Galeria {
   
 
     //M
-    public void comprarPieza()throws MesajedeErrorException, PagoRechazado {
+    public void comprarPieza()throws MesajedeErrorException, PagoRechazado, PiezaRepetidaException {
     	if (this.admin != null) {
         	Scanner scanner = new Scanner(System.in);
         	
@@ -642,14 +644,14 @@ public class Galeria {
 
 
 	// Método para iniciar la aplicación
-	public static void main(String[] args) {
+	public static void main(String[] args) throws MesajedeErrorException, PagoRechazado, Exception {
     	Scanner scanner = new Scanner(System.in);
         int opcion;
-
+        try {
         do {
             System.out.println("\n**Menú Inicio**");
-            System.out.println("1. Cargar Galería");
-            System.out.println("2. Crear Galería");
+            System.out.println("1. Crear Galería");
+            System.out.println("2. Cargar Galería");
             System.out.println("3. Salir");
             System.out.print("Ingrese una opción: ");
 
@@ -670,24 +672,30 @@ public class Galeria {
                 System.out.println("Opción inválida. Intente nuevamente.");
                         }
                     } while (opcion != 3);
+        }catch(Exception e) {
+        	e.printStackTrace();
+        }
 	}
 
 	
 	
 	//Este método crea la Galeria y llama a la función de mostrar menu
 	private static void crearGaleria() throws MesajedeErrorException, PagoRechazado, Exception {
-		Galeria galeria = new Galeria();
-		
-		Scanner scanner = new Scanner(System.in);
-		
-		System.out.print("Por favor, ingrese el nombre de su Galeria: ");
-        String nomGaleria = scanner.nextLine();
-        scanner.close();      
-        
-        galeria.setNombre(nomGaleria);
-        galeria.asignarAdministrador();
-        
-        galeria.mostrarMenu();	
+		try {
+			Galeria galeria = new Galeria();
+
+			Scanner scanner = new Scanner(System.in);
+
+			System.out.print("Por favor, ingrese el nombre de su Galeria: ");
+			String nomGaleria = scanner.nextLine();    
+
+			galeria.setNombre(nomGaleria);
+			galeria.asignarAdministrador();
+
+			galeria.mostrarMenu();	
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
