@@ -13,9 +13,11 @@ import Persistencia.*;
 import Piezas.*;
 
 import Persistencia.CentralPersistencia;
-import Usuarios.Cajero;
 
 public class Galeria {
+	private static final Rol CAJERO = null;
+	private static final Rol NONE = null;
+	private static final Rol OPERADOR = null;
 	private Administrador admin;
 	private String nombre;
 	private Cajero cajero;
@@ -89,97 +91,111 @@ public class Galeria {
 	}
 
 // Métodos para implementar las funcionalidades específicas (por ejemplo, crearSubasta(), crearUsuario(), etc.)
+	
+	
 
-	private void crearSubasta() {
+	private void crearSubasta() throws Exception {
 		try {
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("Ingrese login (administrador unicamente) : ");
-        String login = scanner.nextLine();
-        System.out.print("Ingrese su contraseña : ");
-        String password= scanner.nextLine();
-        if (login.equals(this.admin.getLogin()) && password.equals(this.admin.getPassword())) {
-        	System.out.print("Ingrese la fecha (AA/MM/DD)en la que desea realizar la subasta : ");
-            String fechat = scanner.nextLine();
-	        int fecha=Integer.parseInt(fechat);
-            List<Pieza> piezasSubasta = this.inventario.generarInventarioSubasta(fecha);
-            Subasta subasta = new Subasta(fecha,piezasSubasta);
-            subastasActivas.add(subasta);
-            
-        }
-        else {
-        	System.out.print("No eres el administrador no puedes crear subastas ");
-        }
+			Scanner scanner = new Scanner(System.in);
+			System.out.print("Ingrese login (administrador unicamente) : ");
+			String login = scanner.nextLine();
+			System.out.print("Ingrese su contraseña : ");
+			String password= scanner.nextLine();
+			if (login.equals(this.admin.getLogin()) && password.equals(this.admin.getPassword())) {
+				System.out.print("Ingrese la fecha (AA/MM/DD)en la que desea realizar la subasta : ");
+				String fechat = scanner.nextLine();
+				int fecha=Integer.parseInt(fechat);
+				List<Pieza> piezasSubasta = this.inventario.generarInventarioSubasta(fecha);
+				Operador op=this.admin.asignarOperador(this.empleados);
+				Subasta subasta = new Subasta(fecha,piezasSubasta,op);
+				subastasActivas.add(subasta);
+
+			}
+			else {
+				System.out.print("No eres el administrador no puedes crear subastas ");
+			}
 		}
 		catch(Exception e) {
 			throw e;
 		}
-	    
+
 	}
+	
+	public void mostrarMenuPieza() {
+        Scanner scanner = new Scanner(System.in);
+        int opcion;
+        
+	
+	
+	}
+
+	
 	
 	
 	private void participarSubasta() throws Exception {
 		try {
 			Scanner scanner = new Scanner(System.in);
 			System.out.print("Ingrese login (solo compradores registrados) : ");
-	        String login = scanner.nextLine();
-	        System.out.print("Ingrese su contraseña : ");
-	        String password= scanner.nextLine();
-	        Comprador c = this.admin.verificarComprador(login, password);
-	        if (!c.equals(null)) {
-	        	System.out.print("Ingrese la fecha (AA/MM/DD) de la subasta en la que quiere participar : ");
-	            String fechat = scanner.nextLine();
-		        int fecha=Integer.parseInt(fechat);	
-		        Subasta subasta = null;
-		        for (Subasta s : subastasActivas) {
-		        	if (s.getFechaSubasta()==fecha) {
-		        		subasta = s;
-		        	List<Pieza> piezasSubasta = subasta.agregarComprador(c);
-		        	System.out.print("ya estas registrado en la subasta,esta es la oferta de piezas : ");
-		        	/// imprimir piezas metodo toString ???
-		        	}
-		        	else {
-		        		throw new MesajedeErrorException("No hay subastas activas para esa fecha");
-		        		
-		        	}
-		        }
-		        
-		        System.out.print("Por favor, ingrese si esta interesado en hacer una oferta para una pieza (Si o No): ");
-	            String ofertar = scanner.nextLine();
-	            
-	            
-	            if (ofertar.equalsIgnoreCase("Si") ) {
-	            	System.out.print("Ingrese el titulo de la pieza : ");
-	    	        String piezaTitulo= scanner.nextLine();
-	    	        for (Pieza pieza :piezasSubasta) {
-	    	        	
-	    	        }
-	    	        
-	    	        int valorI = 
-	    	        System.out.print("Por favor, ingrese : ");
-		            String ofertar = scanner.nextLine();
-	    	        
-	    	        
-	    	        
-	    	        
-	    	        
-	    	        
-	            }
-	            else if (ofertar.equalsIgnoreCase("No") ) {
-	            	subasta.quitarComprador(c);
-	            	System.out.print("Ya no participas en la subasta ");
-	            }
-	            else {
-	            	throw new MesajedeErrorException("No es una respuesta valida");
-	            }
-		        
-	            
-		        
-		        
-		       
-		
-		
-	}
-	        
+			String login = scanner.nextLine();
+			System.out.print("Ingrese su contraseña : ");
+			String password= scanner.nextLine();
+			Comprador c = this.admin.verificarComprador(login, password);
+			List<Pieza> piezasSubasta;
+			if (!c.equals(null)) {
+				System.out.print("Ingrese la fecha (AA/MM/DD) de la subasta en la que quiere participar : ");
+				String fechat = scanner.nextLine();
+				int fecha=Integer.parseInt(fechat);	
+				Subasta subasta = null;
+				for (Subasta s : subastasActivas) {
+					if (s.getFechaSubasta()==fecha) {
+						subasta = s;
+						piezasSubasta = subasta.agregarComprador(c);
+						System.out.print("ya estas registrado en la subasta,esta es la oferta de piezas : ");
+						int i = 1;
+						for(Pieza pieza:piezasSubasta) {
+							System.out.println(i+". " + pieza.getTitulo());
+							i++;
+						}
+						/// imprimir piezas metodo toString ???
+					}
+					else {
+						throw new MesajedeErrorException("No hay subastas activas para esa fecha");
+
+					}
+				}
+				if (subasta.isActiva()) {
+					System.out.print("Por favor, ingrese si esta interesado en hacer una oferta para una pieza (Si o No): ");
+					String ofertar = scanner.nextLine();
+
+
+					if (ofertar.equalsIgnoreCase("Si") ) {
+
+						System.out.print("Ingrese el titulo de la pieza : ");
+						String piezaTitulo= scanner.nextLine();
+						Pieza p =null;
+						for (Pieza pieza : subasta.getInventario()) {
+							if(pieza.getTitulo().equals(piezaTitulo)) {
+								p = pieza;
+							}
+						}
+						subasta.hacerOferta(c, this.admin,p);
+					}
+
+					else if (ofertar.equalsIgnoreCase("No") ) {
+						subasta.quitarComprador(c);
+						System.out.print("Ya no participas en la subasta ");
+					}
+					else {
+						throw new MesajedeErrorException("No es una respuesta valida");
+					}
+
+				}
+				else {
+					throw new MesajedeErrorException("La subasta no esta activa");
+				}
+
+			}
+
 		}
 		catch(MesajedeErrorException e) {
 			throw e;
@@ -188,7 +204,142 @@ public class Galeria {
 			throw e;
 		}
 	}        
+
 	
+	
+	private void terminarSubasta() throws MesajedeErrorException {
+		try {
+			Scanner scanner = new Scanner(System.in);
+			System.out.print("Ingrese login (administrador unicamente) : ");
+			String login = scanner.nextLine();
+			System.out.print("Ingrese su contraseña : ");
+			String password= scanner.nextLine();
+			if (login.equals(this.admin.getLogin()) && password.equals(this.admin.getPassword())) {
+				System.out.print("Ingrese la fecha (AA/MM/DD) de la subasta que desea finalizar : ");
+				String fechat = scanner.nextLine();
+				int fecha=Integer.parseInt(fechat);	
+				Subasta subasta = null;
+				for (Subasta s : subastasActivas) {
+					if (s.getFechaSubasta()==fecha) {
+						subasta = s;
+
+					}
+				}
+				if (!subasta.equals(null)) {
+					subasta.finalizarSubasta();
+					subastasActivas.remove(subasta);
+					subasta.ganadorSubasta(this.cajero);
+				}
+				else {
+					throw new MesajedeErrorException("No hay subastas activas para esa fecha");
+				}	
+
+			}
+
+		}
+
+		catch(MesajedeErrorException e) {
+			throw e;
+		}
+		catch(Exception e) {
+			throw e;
+		}
+
+	}
+	
+	
+	private void revisarSubasta() throws MesajedeErrorException {
+		try {
+			Scanner scanner = new Scanner(System.in);
+			System.out.print("Ingrese login (solo compradores registrados) : ");
+			String login = scanner.nextLine();
+			System.out.print("Ingrese su contraseña : ");
+			String password= scanner.nextLine();
+			Comprador c = this.admin.verificarComprador(login, password);
+			if (!c.equals(null)) {
+				System.out.print("Ingrese la fecha (AA/MM/DD) de la subasta que quiere revisar : ");
+				String fechat = scanner.nextLine();
+				int fecha=Integer.parseInt(fechat);	
+				Subasta subasta = null;
+				for (Subasta s : subastasActivas) {
+					if (s.getFechaSubasta()==fecha) {
+						subasta = s;}}
+				if (!subasta.equals(null)) {
+
+					if(subasta.isActiva()) {
+						System.out.print("Ingrese el titulo de la pieza : ");
+						String piezaTitulo= scanner.nextLine();
+						Pieza p =null;
+						for (Pieza pieza : subasta.getInventario()) {
+							if(pieza.getTitulo().equals(piezaTitulo)) {
+								p = pieza;
+							}
+						}
+
+						if (!p.equals(null)) {
+							Operador op = subasta.getOperador();
+							int valorMax = op.mayorOferta(p);
+							System.out.println("Si tu oferta fue menor a " + valorMax +"perdiste, quieres volver a hacer una oferta ? ");
+							String rta = scanner.nextLine();
+
+
+							if (rta.equalsIgnoreCase("Si") ) {
+								subasta.hacerOferta(c, this.admin,p);
+							}
+							else {
+								System.out.println("Ya no participas en la subasta");
+
+							}
+
+
+
+						}
+
+					}
+					else {
+						List<String> ganadores =  subasta.getGanadores();
+						for (String ganador:ganadores) {
+							System.out.println(ganador);
+						}
+					}
+
+
+				}
+
+				else {
+					throw new MesajedeErrorException("No hay subastas en esa fecha");
+				}
+
+			}
+
+
+		}
+
+
+		catch(MesajedeErrorException e) {
+			throw e;
+		}
+		catch(Exception e) {
+			throw e;
+		}
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//A
 	private void crearUsuario() {
         Scanner scanner = new Scanner(System.in);
 
@@ -261,6 +412,7 @@ public class Galeria {
             try {
             Propietario pro = admin.verificarPropietario(login,password);
             admin.pedirInfoPieza(pro);
+            
             }catch(Exception e) {
             	throw e;
             }    
@@ -282,8 +434,67 @@ public class Galeria {
         this.setAdmin(admin);
     }
     
-    //Añadir empleado
+    //solo existe un cajero
+    private void asignarCajero() {
+    	try {
+    	Scanner scanner = new Scanner(System.in);
+    	System.out.print("Ingrese login (administrador unicamente) : ");
+        String login = scanner.nextLine();
+        System.out.print("Ingrese su contraseña : ");
+        String password= scanner.nextLine();
+        if (login.equals(this.admin.getLogin()) && password.equals(this.admin.getPassword())) {}
+		
+		System.out.print("Por favor, ingrese el login del Cajero: ");
+        String loginC = scanner.nextLine();
+        System.out.print("Por favor, ingrese la contraseña del Cajero: ");
+        String passwordC = scanner.nextLine();
+        scanner.close(); 
+        this.cajero= new Cajero(login, password,CAJERO);
+        empleados.add(this.cajero);
+        
+    	}
+        catch (Exception e) {
+        	throw e;
+        }
+        
+        
+    }
+    // existen varios de estos empleados
+    private void agregarEmpleado() {
+    	try {
+    	Scanner scanner = new Scanner(System.in);
+    	System.out.print("Ingrese login (administrador unicamente) : ");
+        String login = scanner.nextLine();
+        System.out.print("Ingrese su contraseña : ");
+        String password= scanner.nextLine();
+        if (login.equals(this.admin.getLogin()) && password.equals(this.admin.getPassword())) {}
+		
+		System.out.print("Por favor, ingrese el login del empleado: ");
+        String loginC = scanner.nextLine();
+        System.out.print("Por favor, ingrese la contraseña del empleado: ");
+        String passwordC = scanner.nextLine();
+        System.out.print("Por favor, ingrese si es Operador o empleado: ");
+        String rol = scanner.nextLine();
+        scanner.close();
+        if (rol.equalsIgnoreCase("Operador")) {
+        	
+    	Operador operador = new Operador(login, password,OPERADOR);
+    	this.empleados.add(operador);
+    }
     
+    
+    else if (rol.equalsIgnoreCase("Empleado")){
+    	Empleado empleado = new Empleado(login, password,NONE);
+    	this.empleados.add(empleado);}
+    	
+        
+    	}
+        catch (Exception e) {
+        	throw e;
+        }
+        
+        
+    }
   
 
     //M
@@ -325,6 +536,8 @@ public class Galeria {
 	            	if (this.cajero.generarPagoCajero(pieza.getValorFijo(),pieza,formapago,c)) {
 	            		this.inventario.moverPieza(pieza);
 	            		c.agregarCompra(pieza.getValorFijo());
+	            		Propietario pro =(Propietario) pieza.getPropietario();
+	            		pro.venderPieza(pieza);
 	            	}
 	            	else {
 	            		this.inventario.agregarPieza(pieza);
@@ -344,7 +557,7 @@ public class Galeria {
     		}
     		
         
-    	
+    		scanner.close();
     	}
     	catch(MesajedeErrorException e) {
     		throw e;

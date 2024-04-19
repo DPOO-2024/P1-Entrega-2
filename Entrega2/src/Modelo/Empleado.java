@@ -21,7 +21,31 @@ public class Empleado {
         this.rol = rol; // cajero, operador, none
     }
 
-    public boolean iniciarSesion(String nombreUsuarioIngresado, String contraseñaIngresada) {
+    public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
+
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
+
+	public boolean iniciarSesion(String nombreUsuarioIngresado, String contraseñaIngresada) {
         if (nombreUsuarioIngresado.equals(nombreUsuario) && contraseñaIngresada.equals(contraseña)) {
             System.out.println("Bienvenido(a), " + nombreUsuario + ". Ha iniciado sesión como " + rol + ".");
             return true;

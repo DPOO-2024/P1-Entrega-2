@@ -1,6 +1,7 @@
 package Usuarios;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,36 +20,77 @@ public class Operador extends Empleado{
 	
 	public static final String OPERADOR = "Operador";
 	
-	private static  Map<Pieza, List<Oferta>> ofertas;
+	private boolean asignado;
 	
-	public Operador(String nombreUsuario, String contraseña, Rol rol,Map<Pieza, List<Oferta>> ofertas) {
+	private   Map<Pieza, List<Oferta>> ofertas;
+	
+	public Operador(String nombreUsuario, String contraseña, Rol rol) {
 		super(nombreUsuario, contraseña, rol);
-		Operador.ofertas = new HashMap<>();
+		this.ofertas = new HashMap<>();
+		this.asignado = false;
 	}
 
 	
-	
-	
+	public boolean isAsignado() {
+		return asignado;
+	}
 
+
+	public void setAsignado(boolean asignado) {
+		this.asignado = asignado;
+	}
+
+
+	public Map<Pieza, List<Oferta>> getOfertas() {
+		return ofertas;
+	}
+
+
+	public int mayorOferta(Pieza pieza) {
 	
-	public static void crearOferta(int valoferta, Comprador comprador ,Pieza pieza, String formaPago) throws MesajedeErrorException {
-		Oferta oferta = Oferta.generarOferta(valoferta, comprador, formaPago);
-		verificarOferta(oferta,pieza);
-		
+		List<Integer> valores = listaValoresOferta(pieza);
 	
+		int max = Collections.max(valores);
 		
+		
+		return max;
 		
 	}
-	
-	public static void verificarOferta(Oferta oferta, Pieza pieza) throws MesajedeErrorException {
-		
-		boolean aceptado = Administrador.verificarOferta( oferta);
-		if (aceptado) {
-			guardarOferta( oferta, pieza);
+	public List<Integer> listaValoresOferta(Pieza pieza) {
+		List<Oferta> valorOfertas = ofertas.get(pieza);
+		List<Integer> valores =new ArrayList<>();
+		for(Oferta oferta : valorOfertas) {
+			valores.add(oferta.getValorOferta());
 		}
+		
+		
+		
+		return valores;
+		
 	}
 	
-	public static void guardarOferta(Oferta oferta, Pieza pieza) {
+
+	
+	public void crearOferta(int valoferta, Comprador comprador ,Pieza pieza, String formaPago, Administrador admin) throws MesajedeErrorException {
+		Oferta oferta = Oferta.generarOferta(valoferta, comprador, formaPago);
+		this.verificarOferta(oferta,pieza,admin);
+		
+	
+		
+		
+	}
+	
+	public  void verificarOferta(Oferta oferta, Pieza pieza, Administrador admin) throws MesajedeErrorException {
+		boolean aceptado = admin.verificarOferta( oferta);
+		if (aceptado) {
+	
+			this.guardarOferta( oferta, pieza);}
+			
+		}
+		
+	
+	
+	public  void guardarOferta(Oferta oferta, Pieza pieza) {
 		if (ofertas.containsKey(pieza)) {
 			List<Oferta> ofertasPieza = ofertas.get(pieza);
 			ofertasPieza.add(oferta);
@@ -62,12 +104,12 @@ public class Operador extends Empleado{
 		}
 	}
 
-	public static Map<Pieza, List<Oferta>> generarReporte() {
+	public Map<Pieza, List<Oferta>> generarReporte() {
 		return ofertas;
 	}
 
 	public void setOfertas(Map<Pieza, List<Oferta>> ofertas) {
-		Operador.ofertas = ofertas;
+		this.ofertas = ofertas;
 	}
 
 	public static String getOperador() {

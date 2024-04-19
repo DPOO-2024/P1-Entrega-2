@@ -36,20 +36,6 @@ public class Comprador extends Usuario{
 		this.comprasTotales+=precio;
 	}
 	
-	
-	
-	//comprar pero version subasta
-	public void hacerOferta(Pieza pieza, int precio,Comprador comprador , String formaPago) throws PrecioBajoException, MesajedeErrorException {
-		int valor = pieza.getValorInicial();
-		if (precio>valor) {
-			Operador.crearOferta(precio,comprador,pieza,formaPago);
-		}
-		else {
-			throw new PrecioBajoException(pieza);
-		}
-
-	
-	}
 
 	public String getNombre() {
 		return nombre;
