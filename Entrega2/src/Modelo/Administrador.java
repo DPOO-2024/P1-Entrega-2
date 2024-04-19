@@ -28,7 +28,8 @@ public class Administrador {
 	private Inventario inventario;
 	private ArrayList<Comprador> compradores;
 	private ArrayList<Propietario> propietarios;
-	private ArrayList<String> loginsReservados;
+	private ArrayList<String> loginsReservadosCompradores;
+	private ArrayList<String> loginsReservadosPropietarios;
 	
 	
 	public Administrador(String login, String contrasena, Inventario inventario) {
@@ -37,7 +38,8 @@ public class Administrador {
 		this.inventario=inventario;
 		this.compradores = new ArrayList<Comprador>();
 		this.propietarios = new ArrayList<Propietario>();
-		this.loginsReservados = new ArrayList<String>();
+		this.loginsReservadosCompradores = new ArrayList<String>();
+		this.loginsReservadosPropietarios = new ArrayList<String>();
 	}
 
 	
@@ -154,7 +156,7 @@ public class Administrador {
 					if (empleado.getRol().equals("None")) {
 						empleado.setRol("Operador");
 						escogido = true;
-						operadorAsignado=(Operador) empleado;
+						operadorAsignado=new Operador(empleado.getNombreUsuario(),empleado.getContraseña(),empleado.getRol());
 						operadorAsignado.setAsignado(true);
 
 					}
@@ -455,24 +457,26 @@ public class Administrador {
 	public void pedirInfoUsuario() throws LoginDuplicadoException  {
 		try {
 			Scanner scanner = new Scanner(System.in);
+			
+			System.out.print("Por favor, ingrese si quiere registrarse como Comprador o Propietario: ");
+			String rol = scanner.nextLine();
+			
 
 			System.out.print("Por favor, ingrese su login: "); //Falta cambiar esto para verificar que puedan ser compradores y propietarios
 			String login = scanner.nextLine();
-			if (!this.loginsReservados.contains(login)) {
-				loginsReservados.add(this.login);
+			if (rol.equalsIgnoreCase("Comprador") && !this.loginsReservadosCompradores.contains(login)) {
+				loginsReservadosCompradores.add(this.login);
 			}
+			else if (rol.equalsIgnoreCase("Propietario") && !this.loginsReservadosPropietarios.contains(login)) {
+				loginsReservadosPropietarios.add(this.login);
+			}
+		
 			else { throw new LoginDuplicadoException(login);
 
 			}
 
 			System.out.print("Por favor, ingrese su contraseña: ");
 			String password = scanner.nextLine();
-
-
-			System.out.print("Por favor, ingrese si quiere registrarse como Comprador o Propietario: ");
-			String rol = scanner.nextLine();
-
-
 
 			System.out.print("Por favor, su numero de telefono: ");
 			String telefonof = scanner.nextLine();
@@ -505,6 +509,16 @@ public class Administrador {
 			throw e;
 		}
 
+	}
+
+
+	public void aumentarCupoComprador(String loginComprador, int aumento) {
+		for(Comprador comprador:compradores) {
+			if(comprador.getLogin().equals(loginComprador)) {
+				comprador.setComprasMaximas(aumento);
+			}
+		}
+		
 	}
 
 

@@ -53,7 +53,10 @@ public class Galeria {
             System.out.println("7. Ver Piezas Disponibles");
             System.out.println("8. Comprar Pieza");
             System.out.println("9. Participar en una Subasta");
-            System.out.println("10. Volver al menu Inicial");
+            System.out.println("10. Revisar Estado de la subasta");
+            System.out.println("11. Terminar subasta");
+            System.out.println("12. Asignar Cajero");
+            System.out.println("13. Volver al menu Inicial");
             System.out.print("Ingrese una opción: ");
 
             opcion = scanner.nextInt();
@@ -88,6 +91,16 @@ public class Galeria {
                 	participarSubasta();
                 	break;
                 case 10:
+                    revisarSubasta();
+                    break;
+                case 11:
+                    terminarSubasta();
+                    break;
+                case 12:
+                    asignarCajero();
+                    break;
+
+                case 13:
                     System.out.println("Saliendo de la Galería...");
                     break;
                 default:
@@ -101,6 +114,32 @@ public class Galeria {
 	
 	
 // Métodos para implementar las funcionalidades específicas (por ejemplo, crearSubasta(), crearUsuario(), etc.)
+	
+	
+	//AumentarCupo
+	
+	private void aumentarCupo() {
+		try {
+			Scanner scanner = new Scanner(System.in);
+			System.out.print("Ingrese login (administrador unicamente) : ");
+			String login = scanner.nextLine();
+			System.out.print("Ingrese su contraseña : ");
+			String password= scanner.nextLine();
+			if (login.equals(this.admin.getLogin()) && password.equals(this.admin.getPassword())) {
+				System.out.print("Ingrese login del comprador : ");
+				String loginComprador= scanner.nextLine();
+				System.out.print("Ingrese el valor de aumento : ");
+				String valort= scanner.nextLine();
+				int valor=Integer.parseInt(valort);
+				this.admin.aumentarCupoComprador(loginComprador,valor);
+			}
+			
+		}
+		catch(Exception e) {
+			throw e;
+		}
+		
+	}
 	
 	//Crea una subasta, unicamente por el administrador
 	private void crearSubasta() throws Exception {
@@ -132,12 +171,89 @@ public class Galeria {
 
 	}
 	//meu imprimir pieza oferta 
-	public void mostrarMenuPieza(Pieza pieza) {  
-        
+	public void imprimirPiezas(List<Pieza> piezasSubasta) { 
+		int i = 1;
+		for(Pieza pieza:piezasSubasta) {
+			System.out.println(i+". " + pieza.getTitulo());
+			i++;
+			System.out.println("La pieza es un " + pieza.getTipoPieza());
+			if (pieza.getTipoPieza().equalsIgnoreCase("Escultura")) {
+				System.out.println("Alto: " + ((Escultura) pieza).getAlto());
+				System.out.println("Ancho: " + ((Escultura) pieza).getAncho());
+				System.out.println("Profundidad: " + ((Escultura) pieza).getProfundidad());
+				System.out.println("Peso: " + ((Escultura) pieza).getPeso());
+				System.out.println("Instalacion: " + ((Escultura) pieza).getInstalacion());
+				if (((Escultura) pieza).isElectricidad()) {
+					System.out.println("La Escultura funciona con electricidad ");	
+				}
+				else {
+					System.out.println("La Escultura no funciona con electricidad ");
+				}
+				System.out.println("Materiales: ");
+				 for (String material :((Escultura) pieza).getMateriales() ) {
+			            System.out.print(material + ", ");
+			        }
+			}
+			
+			else if (pieza.getTipoPieza().equalsIgnoreCase("Fotografia")) {
+				System.out.println("Tamaño: " + ((Fotografia) pieza).getTamanio());
+				System.out.println("Alto: " + ((Fotografia) pieza).getAlto());
+				System.out.println("Resolucion: " + ((Fotografia) pieza).getResolucion());
+				System.out.println("Descripcion: " + ((Fotografia) pieza).getDescripcion());
+				System.out.println("formato: " + ((Fotografia) pieza).getFormato());
+			}
+			
+			else if (pieza.getTipoPieza().equalsIgnoreCase("Impresion")) {
+				System.out.println("Material del papel: " + ((Impresion) pieza).getTamanio());
+				System.out.println("Tamaño: " + ((Impresion) pieza).getTamanio());
+				System.out.println("Resolucion: " + ((Impresion) pieza).getResolucion());
+				System.out.println("Descripcion: " + ((Impresion) pieza).getDescripcion());
+				System.out.println("Flexibilidad: " + ((Impresion) pieza).getFlexibilidad());
+				System.out.println("Resistencia: " + ((Impresion) pieza).getResistencia());
+			}
+			
+			else if (pieza.getTipoPieza().equalsIgnoreCase("Pintura")) {
+				System.out.println("Tecnica: " + ((Pintura) pieza).getTecnica());
+				System.out.println("Alto: " + ((Pintura) pieza).getAlto());
+				System.out.println("Ancho: " + ((Pintura) pieza).getAncho());
+				System.out.println("Descripcion: " + ((Pintura) pieza).getDescripcion());
+				System.out.println("Origen: " + ((Pintura) pieza).getOrigen());
+				System.out.println("Forma: " + ((Pintura) pieza).getForma());
+				System.out.println("tiempoDeCreacion: " + ((Pintura) pieza).getTiempoDeCreacion());
+			}
+			
+			else if (pieza.getTipoPieza().equalsIgnoreCase("Video")) {
+				System.out.println("Duracion en minutos: " + ((Video) pieza).getDuracion());
+				System.out.println("Tamaño: " + ((Video) pieza).getTamanio());
+				System.out.println("Idioma: " + ((Video) pieza).getIdioma());
+				System.out.println("Descripcion: " + ((Video) pieza).getDescripcion());
+				System.out.println("Resolucion: " + ((Video) pieza).getResolucion());
+				System.out.println("Formato: " + ((Video) pieza).getFormato());
+			}
+			
+			else {
+				System.out.println("Informacion: " + ((Otro) pieza).getInfoExtra());
+				
+			}
+			
+			System.out.println("Año: " + pieza.getAnio());
+			System.out.println("Lugar de creacion: " + pieza.getLugarDeCreacion());
+			System.out.println("Valor Inicial para subastar la pieza, si es 0 no se subasta " + pieza.getValorInicial());
+			System.out.println("Precio: " + pieza.getValorFijo());
+			System.out.println("Autores: ");
+			for (Autor autor :pieza.getAutores() ) {
+	            System.out.print(autor.getNombre() + ", ");
+	        }
+				
+			}
+			
+		
+	} 
+	  
         
 	
 	
-	}
+	
 
 	
 	
@@ -163,21 +279,10 @@ public class Galeria {
 						subasta = s;
 						piezasSubasta = subasta.agregarComprador(c);
 						System.out.print("ya estas registrado en la subasta,esta es la oferta de piezas : ");
-						int i = 1;
-						for(Pieza pieza:piezasSubasta) {
-							System.out.println(i+". " + pieza.getTitulo());
-							i++;
-						}
-						System.out.print("Desea ver la informacion de unapieza (Si/No) : ");
-						String rta= scanner.nextLine();
-						if (rta.equalsIgnoreCase("Si")){
-							System.out.print("Ingrese el numero de la pieza : ");
-							String id= scanner.nextLine();
-							int idx=Integer.parseInt(id);
-							Pieza pieza = subasta.getInventario().get(idx);
-							this.mostrarMenuPieza(pieza);
-							
-						}
+						imprimirPiezas(piezasSubasta);
+						
+						
+						
 						
 					}
 					else {
@@ -444,7 +549,7 @@ public class Galeria {
     }
     
     //solo existe un cajero
-    private void asignarCajero() {
+    private void asignarCajero() throws Exception {
     	try {
     		Scanner scanner = new Scanner(System.in);
     		System.out.print("Ingrese login (administrador unicamente) : ");

@@ -143,6 +143,14 @@ public abstract class Pieza {
 		this.valorFijo = valorFijo;
 	}
 
+	public String getTipoPieza() {
+		return tipoPieza;
+	}
+
+	public void setTipoPieza(String tipoPieza) {
+		this.tipoPieza = tipoPieza;
+	}
+
 	
 
 }

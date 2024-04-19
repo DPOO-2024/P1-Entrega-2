@@ -74,7 +74,7 @@ public class Comprador extends Usuario{
 	}
 
 	public void setComprasMaximas(int comprasMaximas) {
-		this.comprasMaximas = comprasMaximas;
+		this.comprasMaximas += comprasMaximas;
 	}
 
 	public static String getComprador() {
