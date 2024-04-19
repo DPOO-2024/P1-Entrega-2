@@ -11,6 +11,7 @@ import Piezas.Pieza;
 import Usuarios.Cajero;
 import Usuarios.Comprador;
 import Usuarios.Operador;
+import Usuarios.Propietario;
 
 public class Subasta {
 	
@@ -116,7 +117,14 @@ public class Subasta {
 					}
 				}
 				if (!comprador.equals(null) && !formaPago.equals(null)) {
-					cajero.generarPagoCajero(max, pieza,formaPago,comprador);
+					if (cajero.generarPagoCajero(max, pieza,formaPago,comprador)){
+						comprador.agregarCompra(max);
+						Propietario pro = (Propietario) pieza.getPropietario();
+						pro.venderPieza(pieza);
+						
+						
+					}
+					
 					ganadores.add("("+pieza.getTitulo()+" , " + comprador.getLogin() + ")");
 
 				}
