@@ -16,11 +16,11 @@ public class Pintura extends Pieza{
 	private String forma;
 	private String tiempoDeCreacion;
 
-	public Pintura(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt,
+	public Pintura(String tipoPieza,Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt,
 			int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot,
 			String tecnicat, String origent, String descripciont, int altot, int anchot, String format, String tiempoDeCreaciont) {
 		
-		super(propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
+		super(tipoPieza,propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
 				valorFijot);
 		this.tecnica=tecnicat;
 		this.origen=origent;

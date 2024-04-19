@@ -687,7 +687,7 @@ public class Galeria {
 			Scanner scanner = new Scanner(System.in);
 
 			System.out.print("Por favor, ingrese el nombre de su Galeria: ");
-			String nomGaleria = scanner.nextLine();    
+			String nomGaleria = scanner.next();    
 
 			galeria.setNombre(nomGaleria);
 			galeria.asignarAdministrador();

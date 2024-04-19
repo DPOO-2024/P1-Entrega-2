@@ -16,11 +16,11 @@ public class Escultura extends Pieza{
 	private boolean electricidad;
 	private String instalacion;
 	
-	public Escultura(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt,
+	public Escultura(String tipoPieza,Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt,
 			int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot, int altot,
 			int anchot, int profundidadt, List<String> materialest, int pesot, boolean electricidadt, String instalaciont) 
 	{
-		super(propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
+		super(tipoPieza,propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
 				valorFijot);
 		
 		this.alto=altot;

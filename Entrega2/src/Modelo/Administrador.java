@@ -309,7 +309,7 @@ public class Administrador {
 				System.out.print("Por favor, ingrese alguna especificacion de la instalación: ");
 				String instalacion = scanner.nextLine();
 
-				pieza=new Escultura((Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, 
+				pieza=new Escultura("Escultura",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, 
 						valorInicial, ubicaciont, vendido, valorFijo, alto, ancho, profundidad, materiales, peso, electricidad, instalacion);
 
 				this.inventario.agregarPieza(pieza);
@@ -335,7 +335,7 @@ public class Administrador {
 				System.out.print("Por favor, ingrese el formato de la Pieza: ");
 				String formato = scanner.nextLine();
 				
-				pieza=new Fotografia((Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, ubicaciont, vendido, 
+				pieza=new Fotografia("Fotografia",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, ubicaciont, vendido, 
 						valorFijo, tamanio, alto, resolucion, descripcion, formato);
 
 				this.inventario.agregarPieza(pieza);
@@ -363,7 +363,7 @@ public class Administrador {
 				System.out.print("Por favor, ingrese la descripcion de la Pieza: ");
 				String descripcion = scanner.nextLine();
 				
-				pieza=new Impresion((Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, 
+				pieza=new Impresion("Impresion",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, 
 						ubicaciont, vendido, valorFijo, materialPapel, tamanio, resolucion, flexibilidadt, formato, descripcion);
 
 				this.inventario.agregarPieza(pieza);
@@ -375,7 +375,7 @@ public class Administrador {
 				String infoExtra = scanner.nextLine();
 				
 				
-				pieza=new Otro((Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, 
+				pieza=new Otro("Otro",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, 
 						ubicaciont, vendido, valorFijo, infoExtra);
 
 				this.inventario.agregarPieza(pieza);
@@ -406,7 +406,7 @@ public class Administrador {
 				System.out.print("Por favor, ingrese el tiempo de creación de la Pieza: ");
 				String tiempoDeCreacion = scanner.nextLine();
 				
-				pieza=new Pintura((Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, 
+				pieza=new Pintura("Pintura",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, 
 						ubicaciont, vendido, valorFijo, tecnica, origen, descripcion, alto, ancho, forma, tiempoDeCreacion);
 						
 				this.inventario.agregarPieza(pieza);
@@ -434,7 +434,7 @@ public class Administrador {
 				System.out.print("Por favor, ingrese el formato de la Pieza: ");
 				String formato = scanner.nextLine();
 
-				pieza=new Video((Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, 
+				pieza=new Video("Video",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, 
 						valorInicial, ubicaciont, vendido, valorFijo, duracion, tamanio, idioma, descripcion, resolucion, formato);
 						
 				this.inventario.agregarPieza(pieza);

@@ -16,11 +16,11 @@ public class Video extends Pieza{
 	private int resolucion; //p
 	private String formato;
 	
-	public Video(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt, int fechaMaxt,
+	public Video(String tipoPieza,Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt, int fechaMaxt,
 			int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot, int duraciont, String tamaniot,
 			String idiomat, String descripciont, int resoluciont, String formatot) {
 		
-		super(propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
+		super(tipoPieza,propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
 				valorFijot);
 		this.duracion=duraciont;
 		this.tamanio=tamaniot;

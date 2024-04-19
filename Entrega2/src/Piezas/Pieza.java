@@ -7,6 +7,8 @@ import Usuarios.Usuario;
 
 public abstract class Pieza {
 	
+	private String tipoPieza;
+	
 	private Usuario propietario;
 	
 	private String titulo;
@@ -31,7 +33,8 @@ public abstract class Pieza {
 
 	
 	
-	public Pieza(Usuario propietariot,String titulot,int aniot, String lugarDeCreaciont, List<String> autores2, boolean modalidadt, int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot) {
+	public Pieza(String tipoPiezat,Usuario propietariot,String titulot,int aniot, String lugarDeCreaciont, List<String> autores2, boolean modalidadt, int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot) {
+		this.tipoPieza=tipoPiezat;
 		this.propietario=propietariot;
 		this.titulo=titulot;
 		this.anio=aniot;

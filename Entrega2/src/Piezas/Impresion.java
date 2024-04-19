@@ -15,11 +15,11 @@ public class Impresion extends Pieza{
 	private String resistencia;
 	private String descripcion;
 	
-	public Impresion(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt,
+	public Impresion(String tipoPieza, Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt,
 			int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot,
 			String materialPapelt, String tamaniot, int resoluciont, String flexibilidadt, String resistenciat, String descripciont) {
 		
-		super(propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
+		super(tipoPieza,propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
 				valorFijot);
 		this.materialPapel=materialPapelt;
 		this.tamanio=tamaniot;

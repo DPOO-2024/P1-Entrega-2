@@ -6,6 +6,7 @@ import java.io.IOException;
 import Modelo.Administrador;
 import Modelo.Empleado;
 import Modelo.Galeria;
+import Modelo.Inventario;
 import Modelo.Pago;
 import Usuarios.Cajero;
 import Usuarios.Comprador;
@@ -62,6 +63,25 @@ public class GuardarGaleria {
 		// TODO Auto-generated method stub
 		
 		//Quitar comas de descripciones
+		try (FileWriter writer = new FileWriter(this.archivoGaleria)) {
+            // Escribir datos en el archivo
+			Inventario inventario= galeria.getInventario();
+	
+			for(Pieza p: admin.getCompradores()) {
+				Comprador comprador = (Comprador) u;
+				writer.write("Comprador,"+ u.getLogin()+ "," + u.getPassword() + "," + comprador.getNombre() +
+							"," + comprador.getCorreo() + "," + comprador.getTelefono() +"," + comprador.getComprasTotales() +"," + comprador.getComprasMaximas()+ "\n");
+			}
+			for(Usuario u: admin.getPropietarios()) {
+				Propietario propietario= (Propietario) u;
+				writer.write("Propietario,"+ u.getLogin()+ "," + u.getPassword() + "," + propietario.getNombre() +
+					"," + propietario.getCorreo() + "," + propietario.getTelefono() + "\n");
+			}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		
+		
 		
 	}
 
@@ -69,20 +89,17 @@ public class GuardarGaleria {
 		// TODO Auto-generated method stub
 		try (FileWriter writer = new FileWriter(this.archivoGaleria)) {
             // Escribir datos en el archivo
-			Administrador admin= galeria.getAdministrador();
+			Administrador admin= galeria.getAdmin();
 	
-			for(Usuario u: admin.getUsuarios()) {
-				
-				if(u.getRol().equals("Comprador")) {
-					Comprador comprador = (Comprador) u;
-					writer.write("Comprador,"+ u.getLogin()+ "," + u.getPassword() + "," + comprador.getNombre() +
-							"," + comprador.getCorreo() + "," + comprador.getTelefono() +"," + comprador.getComprasMaximas()+ "\n");
-				}
-				else if(u.getRol().equals("Propietario")) {
-					Propietario propietario= (Propietario) u;
-					writer.write("Propietario,"+ u.getLogin()+ "," + u.getPassword() + "," + propietario.getNombre() +
-							"," + propietario.getCorreo() + "," + propietario.getTelefono() + "\n");
-				}	
+			for(Usuario u: admin.getCompradores()) {
+				Comprador comprador = (Comprador) u;
+				writer.write("Comprador,"+ u.getLogin()+ "," + u.getPassword() + "," + comprador.getNombre() +
+							"," + comprador.getCorreo() + "," + comprador.getTelefono() +"," + comprador.getComprasTotales() +"," + comprador.getComprasMaximas()+ "\n");
+			}
+			for(Usuario u: admin.getPropietarios()) {
+				Propietario propietario= (Propietario) u;
+				writer.write("Propietario,"+ u.getLogin()+ "," + u.getPassword() + "," + propietario.getNombre() +
+					"," + propietario.getCorreo() + "," + propietario.getTelefono() + "\n");
 			}
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,14 +113,14 @@ public class GuardarGaleria {
 				writer.write("nombreGaleria,"+ galeria.getNombre()+"\n");
 			}
 			//Añadir Administrador 
-				writer.write("Administrador,"+ galeria.getAdministrador().getLogin()+ "," + galeria.getAdministrador().getPassword() + "\n");
+				writer.write("Administrador,"+ galeria.getAdmin().getLogin()+ "," + galeria.getAdmin().getPassword() + "\n");
 			//Añadir Empleado
 				for(Empleado e:galeria.getEmpleados()) {
 					String tipoEmpleado="None";
-					if(!e.getRol.equals("None")) {
+					if(!e.getRol().equals("None")) {
 						tipoEmpleado= e.getRol();
 					}
-					writer.write("Empleado,"+ e.getLogin()+ "," + e.getPassword() + "," + tipoEmpleado +"\n");
+					writer.write("Empleado,"+ e.getNombreUsuario()+ "," + e.getContraseña() + "," + tipoEmpleado +"\n");
 				}
         } catch (IOException e) {
             e.printStackTrace();

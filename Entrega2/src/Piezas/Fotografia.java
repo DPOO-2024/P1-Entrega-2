@@ -15,10 +15,10 @@ public class Fotografia extends Pieza{
 	private String descripcion;
 	private String formato;
 	
-	public Fotografia(Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt,
+	public Fotografia(String tipoPieza,Usuario propietariot,String titulot, int aniot, String lugarDeCreaciont, List<String> autores, boolean modalidadt,
 			int fechaMaxt, int valorInicialt, String ubicaciont, boolean vendidot, int valorFijot,
 			String tamaniot, int altot, int resoluciont, String descripciont, String formatot) {
-		super( propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
+		super(tipoPieza,propietariot,titulot, aniot, lugarDeCreaciont, autores, modalidadt, fechaMaxt, valorInicialt, ubicaciont, vendidot,
 				valorFijot);
 		this.tamanio=tamaniot;
 		this.alto=altot;
