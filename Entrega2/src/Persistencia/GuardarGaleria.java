@@ -66,7 +66,7 @@ public class GuardarGaleria {
 		try (FileWriter writer = new FileWriter(this.archivoGaleria)) {
             // Escribir datos en el archivo
 			Inventario inventario= galeria.getInventario();
-	
+			
 			for(Pieza p: admin.getCompradores()) {
 				Comprador comprador = (Comprador) u;
 				writer.write("Comprador,"+ u.getLogin()+ "," + u.getPassword() + "," + comprador.getNombre() +
