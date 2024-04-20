@@ -1,0 +1,6 @@
+nombreGaleria,GalaxyArt
+Administrador,carlos_jr,caradmin2
+Empleado,AlexMartinez22,SoccerFan!23,None
+Empleado,Emily_Wong,SpringBreeze,Cajero
+Empleado,JessicaBrown_83,Sunshine_2024,Operador
+Empleado,david_brown,sd,None
