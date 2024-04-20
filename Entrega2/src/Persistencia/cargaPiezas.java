@@ -11,7 +11,6 @@ import Piezas.Otro;
 import Piezas.Pieza;
 import Piezas.Pintura;
 import Piezas.Video;
-import Usuarios.Propietario;
 import Usuarios.Usuario;
 
 public abstract class cargaPiezas {

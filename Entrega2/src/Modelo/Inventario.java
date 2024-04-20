@@ -1,18 +1,10 @@
 package Modelo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import Exceptions.PiezaRepetidaException;
-import Piezas.Escultura;
-import Piezas.Fotografia;
-import Piezas.Impresion;
-import Piezas.Otro;
 import Piezas.Pieza;
-import Piezas.Pintura;
-import Piezas.Video;
-import Usuarios.Usuario;
 
 public class Inventario {
 	

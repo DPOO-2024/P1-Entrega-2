@@ -3,8 +3,6 @@ package Persistencia;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 import Exceptions.MesajedeErrorException;
 import Exceptions.PiezaRepetidaException;
@@ -23,15 +21,13 @@ public class CargaGaleria {
 	private String archivoGaleria;
 	private String archivoUsuarios;
 	private String archivoPiezas;
-	private String archivoCompras;
 	private Galeria galeria;
 	
 	
-	public CargaGaleria(String archivoGaleria, String archivoUsuarios, String archivoPiezas, String archivoCompras, Galeria galeria) {
+	public CargaGaleria(String archivoGaleria, String archivoUsuarios, String archivoPiezas, Galeria galeria) {
 		this.archivoGaleria = archivoGaleria;
 		this.archivoUsuarios = archivoUsuarios;
 		this.archivoPiezas = archivoPiezas;
-		this.archivoCompras = archivoCompras;
 		this.galeria=galeria;
 	}
 	
@@ -40,31 +36,11 @@ public class CargaGaleria {
 			cargarBasico();
 			cargarUsuarios();
 			cargarPiezas();
-			cargarCompras();
 		}catch(Exception e) {
 			throw (e);
 		}
 	}
 	
-	//Falta ver bien que toca poner
-	private void cargarCompras() {
-		try (BufferedReader br = new BufferedReader(new FileReader(this.archivoPiezas))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                String[] l = linea.split(",");
-                if (l.length>3) {
-                	//Agregar compra
-                }
-                else {
-                	throw new IllegalArgumentException("Formato incorrecto en la línea: " + linea);
-                } 	
-            }
-                
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-		
-	}
 
 	private void cargarPiezas() throws MesajedeErrorException, PiezaRepetidaException {
 		try (BufferedReader br = new BufferedReader(new FileReader(this.archivoPiezas))) {

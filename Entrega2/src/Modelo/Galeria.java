@@ -505,10 +505,6 @@ public class Galeria {
 	}
 	
 
-
-   
-    
-
     
     //Añade una pieza cuando un Propietario 
     public void añadirPieza()throws Exception {
@@ -826,13 +822,10 @@ public class Galeria {
         
         System.out.print("Por favor, ingrese el nombre del archivo (.txt) de las piezas: ");
         String archivoPiezas = scanner.nextLine();
-        
-        System.out.print("Por favor, ingrese el nombre del archivo (.txt) de las compras: ");
-        String archivoCompras = scanner.nextLine();
 		
 		try {
 			Galeria galeria = new Galeria();
-			CentralPersistencia.cargarGaleria(archivoInicio, archivoUsuarios, archivoPiezas, archivoCompras,galeria);
+			CentralPersistencia.cargarGaleria(archivoInicio, archivoUsuarios, archivoPiezas,galeria);
 			galeria.mostrarMenu();
 			
 		} catch (Exception e) {
