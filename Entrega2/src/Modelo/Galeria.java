@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Pattern;
+
 
 import Exceptions.LoginDuplicadoException;
 import Exceptions.MesajedeErrorException;
@@ -347,7 +347,6 @@ public class Galeria {
 				System.out.print("Ingrese la fecha (AAMMDD) de la subasta que desea finalizar : ");
 				String fechat = scanner.nextLine().trim();
 				int fecha=Integer.parseInt(fechat);
-				scanner.close();
 				Subasta subasta = null;
 				for (Subasta s : subastasActivas) {
 					if (s.getFechaSubasta()==fecha) {
@@ -398,15 +397,15 @@ public class Galeria {
 				if (!subasta.equals(null)) {
 
 					if(subasta.isActiva()) {
-						System.out.print("Ingrese el titulo de la pieza : ");
-						String piezaTitulo= scanner.nextLine().trim();
-						Pieza p =null;
-						for (Pieza pieza : subasta.getInventario()) {
-							if(pieza.getTitulo().equals(piezaTitulo)) {
-								p = pieza;
-							}
-						}
-
+						int i = 1;
+						for(Pieza pieza:subasta.getInventario()) {
+							System.out.println("\n \n"+i+". " + pieza.getTitulo());
+							i++;}
+						System.out.print("Ingrese el numero de la pieza : ");
+						String pi= scanner.nextLine().trim();
+						int idx=Integer.parseInt(pi);
+						Pieza p =subasta.getInventario().get(idx-1);;
+						
 						if (!p.equals(null)) {
 							Operador op = subasta.getOperador();
 							int valorMax = op.mayorOferta(p);
@@ -418,7 +417,6 @@ public class Galeria {
 							}
 							else {
 								System.out.println("Ya no participas en la subasta");
-
 							}
 						}
 					}
@@ -447,46 +445,12 @@ public class Galeria {
 	
 
 	
-	//A
+	
 	private void registrarUsuario() throws LoginDuplicadoException {
 		this.admin.pedirInfoUsuario();
 	}
 	
-	private void crearUsuario() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("\nIngrese el nombre del usuario: ");
-        String nombre = scanner.nextLine().trim();
-
-        System.out.print("Ingrese el apellido del usuario: ");
-        String apellido = scanner.nextLine().trim();
-
-        System.out.print("Ingrese el tipo de usuario (Administrador, Cajero, Comprador, Propietario): ");
-        String tipoUsuario = scanner.nextLine().trim();
-
-        System.out.print("Ingrese la contraseña del usuario: ");
-        String contrasena = scanner.nextLine().trim();
-
-        // Validación de datos
-        if (nombre.isEmpty() || apellido.isEmpty() || contrasena.length() < 6) {
-            System.out.println("Error: Nombre, apellido y contraseña son obligatorios (min. 6 caracteres)");
-            return;
-        }
-
-        if (!tipoUsuario.equalsIgnoreCase("Administrador") &&
-                !tipoUsuario.equalsIgnoreCase("Cajero") &&
-                !tipoUsuario.equalsIgnoreCase("Comprador") &&
-                !tipoUsuario.equalsIgnoreCase("Propietario")) {
-            System.out.println("Error: Tipo de usuario no válido. (Permitidos: Administrador, Cajero, Comprador, Propietario)");
-            return;
-        }
-
-        // Validación específica para la contraseña (alfanumérica con al menos una letra y un número)
-        Pattern patronClave = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$");
-        if (!patronClave.matcher(contrasena).matches()) {
-            System.out.println("Error: Contraseña no válida. Debe contener al menos 6 caracteres, una letra y un número.");
-            return;
-        }}
+	
 
 
 	private void mostrarPiezasDisponibles() {

@@ -59,7 +59,7 @@ public class Subasta {
 
 			if (!p.equals(null)) {
 				int valorI = p.getValorInicial();
-				System.out.print("Por favor, ingrese su oferta, recuerde que el valor inicial de esta pieza es de" + valorI);
+				System.out.print("Por favor, ingrese su oferta, recuerde que el valor inicial de esta pieza es de " + valorI + ":");
 				String oferta = scanner.nextLine();
 				int valor=Integer.parseInt(oferta);
 				List<Integer> valores = this.operador.listaValoresOferta(p);
