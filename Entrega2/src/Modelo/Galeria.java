@@ -60,8 +60,10 @@ public class Galeria {
             System.out.println("14. Volver al menu Inicial");
             System.out.print("Ingrese una opción: ");
 
-            opcion = scanner.nextInt();
-            scanner.nextLine(); // Consumir el salto de línea
+      
+            try {
+            String input = scanner.nextLine();
+            opcion = Integer.parseInt(input);
 
             switch (opcion) {
                 case 1:
@@ -108,6 +110,11 @@ public class Galeria {
                     break;
                 default:
                 	System.out.println("Opción inválida. Intente nuevamente.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Por favor, ingrese un número entero.");
+            opcion = -1;
+            
             }
         } while (opcion != 14);
         
@@ -164,11 +171,11 @@ public class Galeria {
 				Subasta subasta = new Subasta(fecha,piezasSubasta,op);
 				subastasActivas.add(subasta);
 				System.out.print("Subasta creada ");
-				scanner.close();
+				
 
 			}
 			else {
-				scanner.close();
+				
 				System.out.print("No eres el administrador no puedes crear subastas ");
 			}
 		}
@@ -271,7 +278,6 @@ public class Galeria {
 				System.out.print("Ingrese la fecha (AAMMDD) de la subasta en la que quiere participar : ");
 				String fechat = scanner.nextLine().trim();
 				int fecha=Integer.parseInt(fechat);
-				scanner.close();
 				Subasta subasta = null;
 				for (Subasta s : subastasActivas) {
 					if (s.getFechaSubasta()==fecha) {
@@ -295,7 +301,7 @@ public class Galeria {
 						System.out.print("Ingrese el numero de la pieza : ");
 						String id= scanner.nextLine().trim();
 						int idx=Integer.parseInt(id);
-						Pieza pieza = subasta.getInventario().get(idx);
+						Pieza pieza = subasta.getInventario().get(idx-1);
 						
 
 						subasta.hacerOferta(c, this.admin,pieza);

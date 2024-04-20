@@ -46,11 +46,14 @@ public class Operador extends Empleado{
 
 
 	public int mayorOferta(Pieza pieza) {
-	
+		int max;
 		List<Integer> valores = listaValoresOferta(pieza);
-	
-		int max = Collections.max(valores);
-		
+		if (!valores.isEmpty()) {
+		 max = Collections.max(valores);
+		}
+		else {
+		 max = pieza.getValorInicial();
+		}
 		
 		return max;
 		
@@ -58,10 +61,11 @@ public class Operador extends Empleado{
 	public List<Integer> listaValoresOferta(Pieza pieza) {
 		List<Oferta> valorOfertas = ofertas.get(pieza);
 		List<Integer> valores =new ArrayList<>();
+		if (valorOfertas != null) {
 		for(Oferta oferta : valorOfertas) {
 			valores.add(oferta.getValorOferta());
 		}
-		
+		}
 		
 		
 		return valores;

@@ -67,7 +67,7 @@ public class Administrador {
 	public boolean verificarOferta(Oferta oferta) throws MesajedeErrorException {
 		boolean rta = false;
 		int valorMaximo = oferta.getComprador().getComprasMaximas();
-		int valorActual = oferta.getComprador().getComprasMaximas();
+		int valorActual = oferta.getComprador().getComprasTotales();
 		if (valorMaximo< valorActual+oferta.getValorOferta()) {
 			throw new MesajedeErrorException("Comprador excede compras maximas");
 		}
@@ -127,13 +127,13 @@ public class Administrador {
 		try {
 			Scanner scanner = new Scanner(System.in);
 
-			System.out.print("Si desea asignar un operador ya registrado ingrese 1 ");
-			System.out.print("Si desea reasignar a un empleado como operador ingrese 2 ");
-			String opcion = scanner.nextLine().trim();
+			System.out.println("Si desea asignar un operador ya registrado ingrese 1 ");
+			System.out.println("Si desea reasignar a un empleado como operador ingrese 2 ");
+			String opci = scanner.nextLine();
 			Operador operadorAsignado = null;
 			boolean escogido = false;
 			int i =0;
-			if (opcion.equals("1")) {
+			if (opci.equals("1")) {
 
 				while (!escogido && i < empleados.size()) {
 					Empleado empleado = empleados.get(i);
@@ -148,10 +148,11 @@ public class Administrador {
 							ope = null;
 						}
 					}
+					i++;
 				}
 			}
 
-			else if (opcion.equals("2")) {
+			else if (opci.equals("2")) {
 
 				while (!escogido && i < empleados.size()) {
 					Empleado empleado = empleados.get(i);
@@ -162,6 +163,7 @@ public class Administrador {
 						operadorAsignado.setAsignado(true);
 
 					}
+					i++;
 				}
 
 

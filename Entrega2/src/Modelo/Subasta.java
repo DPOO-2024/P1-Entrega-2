@@ -67,7 +67,6 @@ public class Subasta {
 					System.out.print("Por favor, ingrese su forma de pago si gana la subasta" );
 					String formaPago = scanner.nextLine();
 					this.operador.crearOferta(valor, comprador, p, formaPago, admin);
-
 				}
 				else {
 					throw new MesajedeErrorException("Aumenta tu oferta");
