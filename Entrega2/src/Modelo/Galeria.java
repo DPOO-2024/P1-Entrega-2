@@ -523,7 +523,7 @@ public class Galeria {
             throw new MesajedeErrorException("No hay un administrador asignado para añadir piezas");
         }
     }
-    }
+    
 
     private void asignarAdministrador() {
     		
