@@ -23,7 +23,7 @@ public class Galeria {
 	private Inventario inventario;
 	private List<Empleado> empleados;
     private List<Subasta> subastasActivas;
-    
+
 
 	public Galeria() {
 		this.nombre = "Galeria";
@@ -356,7 +356,7 @@ public class Galeria {
 				}
 				if (!subasta.equals(null)) {
 					subasta.finalizarSubasta();
-					subastasActivas.remove(subasta);
+					subasta.finalizarSubasta();
 					subasta.ganadorSubasta(this.cajero);
 					subasta.getOperador().setAsignado(false);
 				}
@@ -404,7 +404,7 @@ public class Galeria {
 						System.out.print("Ingrese el numero de la pieza : ");
 						String pi= scanner.nextLine().trim();
 						int idx=Integer.parseInt(pi);
-						Pieza p =subasta.getInventario().get(idx-1);;
+						Pieza p =subasta.getInventario().get(idx-1);
 						
 						if (!p.equals(null)) {
 							Operador op = subasta.getOperador();
@@ -422,6 +422,7 @@ public class Galeria {
 					}
 					else {
 						List<String> ganadores =  subasta.getGanadores();
+						System.out.println("Los ganadores son:");
 						for (String ganador:ganadores) {
 							System.out.println(ganador);
 						}
@@ -572,8 +573,12 @@ public class Galeria {
             System.out.print("Por favor, ingrese la contraseña ");
             String password = scanner.nextLine().trim();
             
-            System.out.print("Por favor, el titulo de la pieza que quiere comprar ");
-            String nomPieza = scanner.nextLine().trim();
+            this.mostrarPiezasDisponibles();
+			System.out.print("Ingrese el numero de la pieza : ");
+			String pi= scanner.nextLine().trim();
+			int idx=Integer.parseInt(pi);
+			ArrayList<Pieza> piezasDisponibles= this.inventario.getPiezasDisponibles();
+			Pieza pieza =piezasDisponibles.get(idx-1);
            
             
             System.out.print("Por favor, ingrese la forma de pago ");
@@ -582,10 +587,9 @@ public class Galeria {
     	
     	try {
     		Comprador c = admin.verificarComprador(login,password);
-    		Pieza pieza = null;
-    		for (Pieza pi :this.inventario.getPiezasDisponibles()) {
-    			if(pieza.getTitulo().equals(nomPieza)) {
-    				pieza = pi;
+    
+    	
+    				
     				if (pieza.getValorFijo()!=0) {
     					this.inventario.reservarPieza(pieza);
     				}
@@ -593,8 +597,8 @@ public class Galeria {
     					throw new MesajedeErrorException("La pieza solo se puede vender en una subasta");
     				}
     				
-    			}
-    		}
+    			
+    		
     		
     		if (!pieza.equals(null)) {
     			boolean confirmado = this.admin.confirmarVenta(pieza,c);
@@ -605,6 +609,7 @@ public class Galeria {
 	            		c.agregarCompra(pieza.getValorFijo());
 	            		Propietario pro =(Propietario) pieza.getPropietario();
 	            		pro.venderPieza(pieza);
+	            		System.out.print("Pieza comprada ");
 	            	}
 	            	else {
 	            		this.inventario.agregarPieza(pieza);
