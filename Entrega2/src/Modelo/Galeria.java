@@ -51,12 +51,13 @@ public class Galeria {
             System.out.println("5. Añadir Pieza");
             System.out.println("6. Aumentar cupo Compras");
             System.out.println("7. Ver Piezas Disponibles");
-            System.out.println("8. Comprar Pieza");
-            System.out.println("9. Participar en una Subasta");
-            System.out.println("10. Revisar Estado de la subasta");
-            System.out.println("11. Terminar subasta");
-            System.out.println("12. Asignar Cajero");
-            System.out.println("13. Volver al menu Inicial");
+            System.out.println("8. Ver Historial de Piezas (No disponibles)");
+            System.out.println("9. Comprar Pieza");
+            System.out.println("10. Participar en una Subasta");
+            System.out.println("11. Revisar Estado de la subasta");
+            System.out.println("12. Terminar subasta");
+            System.out.println("13. Asignar Cajero");
+            System.out.println("14. Volver al menu Inicial");
             System.out.print("Ingrese una opción: ");
 
             opcion = scanner.nextInt();
@@ -85,28 +86,30 @@ public class Galeria {
                     mostrarPiezasDisponibles();
                     break;
                 case 8:
-                    comprarPieza();
+                    mostrarHistorialPiezas();
                     break;
                 case 9:
+                    comprarPieza();
+                    break;
+                case 10:
                 	participarSubasta();
                 	break;
-                case 10:
+                case 11:
                     revisarSubasta();
                     break;
-                case 11:
+                case 12:
                     terminarSubasta();
                     break;
-                case 12:
+                case 13:
                     asignarCajero();
                     break;
-
-                case 13:
+                case 14:
                     System.out.println("Saliendo de la Galería...");
                     break;
                 default:
                 	System.out.println("Opción inválida. Intente nuevamente.");
             }
-        } while (opcion != 13);
+        } while (opcion != 14);
         
 
 	}
@@ -117,7 +120,9 @@ public class Galeria {
 	
 	
 	//AumentarCupo
-	
+
+
+
 	private void aumentarCupo() {
 		try {
 			Scanner scanner = new Scanner(System.in);
@@ -175,7 +180,7 @@ public class Galeria {
 	public void imprimirPiezas(List<Pieza> piezasSubasta) { 
 		int i = 1;
 		for(Pieza pieza:piezasSubasta) {
-			System.out.println("\n"+i+". " + pieza.getTitulo());
+			System.out.println("\n \n"+i+". " + pieza.getTitulo());
 			i++;
 			System.out.println("La pieza es un " + pieza.getTipoPieza());
 			if (pieza.getTipoPieza().equalsIgnoreCase("Escultura")) {
@@ -476,15 +481,16 @@ public class Galeria {
             return;
         }}
 
-        // Crear objeto Usuario
-	
-	// ... (métodos para las demás funcionalidades)
-	
+
 	private void mostrarPiezasDisponibles() {
 		ArrayList<Pieza> piezasDisponibles= this.inventario.getPiezasDisponibles();
 	    imprimirPiezas(piezasDisponibles);
 	}
 	
+	private void mostrarHistorialPiezas() {
+		ArrayList<Pieza> historialPiezas= this.inventario.getHistorialPiezas();
+	    imprimirPiezas(historialPiezas);
+	    }
 
     
     //Añade una pieza cuando un Propietario 
