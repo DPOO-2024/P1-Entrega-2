@@ -158,6 +158,7 @@ public class Galeria {
 				Operador op=this.admin.asignarOperador(this.empleados);
 				Subasta subasta = new Subasta(fecha,piezasSubasta,op);
 				subastasActivas.add(subasta);
+				System.out.print("Subasta creada ");
 				scanner.close();
 
 			}
