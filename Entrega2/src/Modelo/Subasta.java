@@ -13,6 +13,7 @@ import Usuarios.Comprador;
 import Usuarios.Operador;
 import Usuarios.Propietario;
 
+@SuppressWarnings("resource")
 public class Subasta {
 	
 	private int fechaSubasta;

@@ -10,6 +10,7 @@ public class CentralPersistencia {
 		perGal.cargarArchivos();
 	} catch (Exception e) {
 		e.printStackTrace();
+		System.exit(1);
 	}
 	}
 	

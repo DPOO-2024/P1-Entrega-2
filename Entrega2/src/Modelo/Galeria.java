@@ -104,11 +104,11 @@ public class Galeria {
                     System.out.println("Saliendo de la Galería...");
                     break;
                 default:
-                    System.out.println("Opción inválida. Intente nuevamente.");
-                            }
-                        } while (opcion != 10);
-                        scanner.close();
-                        main(null);
+                	System.out.println("Opción inválida. Intente nuevamente.");
+            }
+        } while (opcion != 13);
+        
+
 	}
 
 	
@@ -121,15 +121,15 @@ public class Galeria {
 	private void aumentarCupo() {
 		try {
 			Scanner scanner = new Scanner(System.in);
-			System.out.print("Ingrese login (administrador unicamente) : ");
-			String login = scanner.nextLine();
+			System.out.print("\n Ingrese login (administrador unicamente) : ");
+			String login = scanner.nextLine().trim();
 			System.out.print("Ingrese su contraseña : ");
-			String password= scanner.nextLine();
+			String password= scanner.nextLine().trim();
 			if (login.equals(this.admin.getLogin()) && password.equals(this.admin.getPassword())) {
 				System.out.print("Ingrese login del comprador : ");
-				String loginComprador= scanner.nextLine();
+				String loginComprador= scanner.nextLine().trim();
 				System.out.print("Ingrese el valor de aumento : ");
-				String valort= scanner.nextLine();
+				String valort= scanner.nextLine().trim();
 				int valor=Integer.parseInt(valort);
 				this.admin.aumentarCupoComprador(loginComprador,valor);
 			}
@@ -145,13 +145,14 @@ public class Galeria {
 	private void crearSubasta() throws Exception {
 		try {
 			Scanner scanner = new Scanner(System.in);
-			System.out.print("Ingrese login (administrador unicamente) : ");
-			String login = scanner.nextLine();
+			System.out.print("\n Ingrese login (administrador unicamente) : ");
+			String login = scanner.nextLine().trim();
 			System.out.print("Ingrese su contraseña : ");
-			String password= scanner.nextLine();
-			if (login.equals(this.admin.getLogin()) && password.equals(this.admin.getPassword())) {
-				System.out.print("Ingrese la fecha (AA/MM/DD)en la que desea realizar la subasta : ");
-				String fechat = scanner.nextLine();
+			String password= scanner.nextLine().trim();
+			
+			if (login.trim().equals(this.admin.getLogin()) && password.trim().equals(this.admin.getPassword())) {
+				System.out.print("Ingrese la fecha (AAMMDD)en la que desea realizar la subasta : ");
+				String fechat = scanner.nextLine().trim();
 				int fecha=Integer.parseInt(fechat);
 				List<Pieza> piezasSubasta = this.inventario.generarInventarioSubasta(fecha);
 				Operador op=this.admin.asignarOperador(this.empleados);
@@ -174,7 +175,7 @@ public class Galeria {
 	public void imprimirPiezas(List<Pieza> piezasSubasta) { 
 		int i = 1;
 		for(Pieza pieza:piezasSubasta) {
-			System.out.println(i+". " + pieza.getTitulo());
+			System.out.println("\n"+i+". " + pieza.getTitulo());
 			i++;
 			System.out.println("La pieza es un " + pieza.getTipoPieza());
 			if (pieza.getTipoPieza().equalsIgnoreCase("Escultura")) {
@@ -190,11 +191,11 @@ public class Galeria {
 					System.out.println("La Escultura no funciona con electricidad ");
 				}
 				System.out.println("Materiales: ");
-				 for (String material :((Escultura) pieza).getMateriales() ) {
-			            System.out.print(material + ", ");
-			        }
+				for (String material :((Escultura) pieza).getMateriales() ) {
+					System.out.print(material + ", ");
+				}
 			}
-			
+
 			else if (pieza.getTipoPieza().equalsIgnoreCase("Fotografia")) {
 				System.out.println("Tamaño: " + ((Fotografia) pieza).getTamanio());
 				System.out.println("Alto: " + ((Fotografia) pieza).getAlto());
@@ -202,7 +203,7 @@ public class Galeria {
 				System.out.println("Descripcion: " + ((Fotografia) pieza).getDescripcion());
 				System.out.println("formato: " + ((Fotografia) pieza).getFormato());
 			}
-			
+
 			else if (pieza.getTipoPieza().equalsIgnoreCase("Impresion")) {
 				System.out.println("Material del papel: " + ((Impresion) pieza).getTamanio());
 				System.out.println("Tamaño: " + ((Impresion) pieza).getTamanio());
@@ -211,7 +212,7 @@ public class Galeria {
 				System.out.println("Flexibilidad: " + ((Impresion) pieza).getFlexibilidad());
 				System.out.println("Resistencia: " + ((Impresion) pieza).getResistencia());
 			}
-			
+
 			else if (pieza.getTipoPieza().equalsIgnoreCase("Pintura")) {
 				System.out.println("Tecnica: " + ((Pintura) pieza).getTecnica());
 				System.out.println("Alto: " + ((Pintura) pieza).getAlto());
@@ -221,7 +222,7 @@ public class Galeria {
 				System.out.println("Forma: " + ((Pintura) pieza).getForma());
 				System.out.println("tiempoDeCreacion: " + ((Pintura) pieza).getTiempoDeCreacion());
 			}
-			
+
 			else if (pieza.getTipoPieza().equalsIgnoreCase("Video")) {
 				System.out.println("Duracion en minutos: " + ((Video) pieza).getDuracion());
 				System.out.println("Tamaño: " + ((Video) pieza).getTamanio());
@@ -230,47 +231,39 @@ public class Galeria {
 				System.out.println("Resolucion: " + ((Video) pieza).getResolucion());
 				System.out.println("Formato: " + ((Video) pieza).getFormato());
 			}
-			
+
 			else {
 				System.out.println("Informacion: " + ((Otro) pieza).getInfoExtra());
-				
+
 			}
-			
+
 			System.out.println("Año: " + pieza.getAnio());
 			System.out.println("Lugar de creacion: " + pieza.getLugarDeCreacion());
 			System.out.println("Valor Inicial para subastar la pieza, si es 0 no se subasta " + pieza.getValorInicial());
 			System.out.println("Precio: " + pieza.getValorFijo());
 			System.out.println("Autores: ");
 			for (Autor autor :pieza.getAutores() ) {
-	            System.out.print(autor.getNombre() + ", ");
-	        }
-				
+				System.out.print(autor.getNombre() + ", ");
 			}
-			
-		
-	} 
-	  
-        
-	
-	
-	
 
-	
-	
+		}
+
+	} 
+
 	//Le permite a los compradores participar en una subasta
 	private void participarSubasta() throws Exception {
 		try {
 			Scanner scanner = new Scanner(System.in);
-			System.out.print("Ingrese login (solo compradores registrados) : ");
-			String login = scanner.nextLine();
+			System.out.print("\n Ingrese login (solo compradores registrados) : ");
+			String login = scanner.nextLine().trim();
 			System.out.print("Ingrese su contraseña : ");
-			String password= scanner.nextLine();
+			String password= scanner.nextLine().trim();
 			Comprador c = this.admin.verificarComprador(login, password);
 			List<Pieza> piezasSubasta;
 			
 			if (!c.equals(null)) {
-				System.out.print("Ingrese la fecha (AA/MM/DD) de la subasta en la que quiere participar : ");
-				String fechat = scanner.nextLine();
+				System.out.print("Ingrese la fecha (AAMMDD) de la subasta en la que quiere participar : ");
+				String fechat = scanner.nextLine().trim();
 				int fecha=Integer.parseInt(fechat);
 				scanner.close();
 				Subasta subasta = null;
@@ -280,10 +273,6 @@ public class Galeria {
 						piezasSubasta = subasta.agregarComprador(c);
 						System.out.print("ya estas registrado en la subasta,esta es la oferta de piezas : ");
 						imprimirPiezas(piezasSubasta);
-						
-						
-						
-						
 					}
 					else {
 						throw new MesajedeErrorException("No hay subastas activas para esa fecha");
@@ -292,13 +281,13 @@ public class Galeria {
 				}
 				if (subasta.isActiva()) {
 					System.out.print("Por favor, ingrese si esta interesado en hacer una oferta para una pieza (Si o No): ");
-					String ofertar = scanner.nextLine();
+					String ofertar = scanner.nextLine().trim();
 
 
 					if (ofertar.equalsIgnoreCase("Si") ) {
 
 						System.out.print("Ingrese el numero de la pieza : ");
-						String id= scanner.nextLine();
+						String id= scanner.nextLine().trim();
 						int idx=Integer.parseInt(id);
 						Pieza pieza = subasta.getInventario().get(idx);
 						
@@ -337,13 +326,13 @@ public class Galeria {
 	private void terminarSubasta() throws MesajedeErrorException {
 		try {
 			Scanner scanner = new Scanner(System.in);
-			System.out.print("Ingrese login (administrador unicamente) : ");
-			String login = scanner.nextLine();
+			System.out.print("\n Ingrese login (administrador unicamente) : ");
+			String login = scanner.nextLine().trim();
 			System.out.print("Ingrese su contraseña : ");
-			String password= scanner.nextLine();
+			String password= scanner.nextLine().trim();
 			if (login.equals(this.admin.getLogin()) && password.equals(this.admin.getPassword())) {
-				System.out.print("Ingrese la fecha (AA/MM/DD) de la subasta que desea finalizar : ");
-				String fechat = scanner.nextLine();
+				System.out.print("Ingrese la fecha (AAMMDD) de la subasta que desea finalizar : ");
+				String fechat = scanner.nextLine().trim();
 				int fecha=Integer.parseInt(fechat);
 				scanner.close();
 				Subasta subasta = null;
@@ -380,14 +369,14 @@ public class Galeria {
 	private void revisarSubasta() throws MesajedeErrorException {
 		try {
 			Scanner scanner = new Scanner(System.in);
-			System.out.print("Ingrese login (solo compradores registrados) : ");
-			String login = scanner.nextLine();
+			System.out.print("\n Ingrese login (solo compradores registrados) : ");
+			String login = scanner.nextLine().trim();
 			System.out.print("Ingrese su contraseña : ");
-			String password= scanner.nextLine();
+			String password= scanner.nextLine().trim();
 			Comprador c = this.admin.verificarComprador(login, password);
 			if (!c.equals(null)) {
-				System.out.print("Ingrese la fecha (AA/MM/DD) de la subasta que quiere revisar : ");
-				String fechat = scanner.nextLine();
+				System.out.print("Ingrese la fecha (AAMMDD) de la subasta que quiere revisar : ");
+				String fechat = scanner.nextLine().trim();
 				int fecha=Integer.parseInt(fechat);	
 				Subasta subasta = null;
 				for (Subasta s : subastasActivas) {
@@ -397,7 +386,7 @@ public class Galeria {
 
 					if(subasta.isActiva()) {
 						System.out.print("Ingrese el titulo de la pieza : ");
-						String piezaTitulo= scanner.nextLine();
+						String piezaTitulo= scanner.nextLine().trim();
 						Pieza p =null;
 						for (Pieza pieza : subasta.getInventario()) {
 							if(pieza.getTitulo().equals(piezaTitulo)) {
@@ -408,9 +397,8 @@ public class Galeria {
 						if (!p.equals(null)) {
 							Operador op = subasta.getOperador();
 							int valorMax = op.mayorOferta(p);
-							System.out.println("Si tu oferta fue menor a " + valorMax +"perdiste, quieres volver a hacer una oferta ? ");
-							String rta = scanner.nextLine();
-
+							System.out.println("Si tu oferta fue menor a " + valorMax +" perdiste, quieres volver a hacer una oferta ? ");
+							String rta = scanner.nextLine().trim();
 
 							if (rta.equalsIgnoreCase("Si") ) {
 								subasta.hacerOferta(c, this.admin,p);
@@ -455,17 +443,17 @@ public class Galeria {
 	private void crearUsuario() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Ingrese el nombre del usuario: ");
-        String nombre = scanner.nextLine();
+        System.out.print("\nIngrese el nombre del usuario: ");
+        String nombre = scanner.nextLine().trim();
 
         System.out.print("Ingrese el apellido del usuario: ");
-        String apellido = scanner.nextLine();
+        String apellido = scanner.nextLine().trim();
 
         System.out.print("Ingrese el tipo de usuario (Administrador, Cajero, Comprador, Propietario): ");
-        String tipoUsuario = scanner.nextLine();
+        String tipoUsuario = scanner.nextLine().trim();
 
         System.out.print("Ingrese la contraseña del usuario: ");
-        String contrasena = scanner.nextLine();
+        String contrasena = scanner.nextLine().trim();
 
         // Validación de datos
         if (nombre.isEmpty() || apellido.isEmpty() || contrasena.length() < 6) {
@@ -494,14 +482,7 @@ public class Galeria {
 	
 	private void mostrarPiezasDisponibles() {
 		ArrayList<Pieza> piezasDisponibles= this.inventario.getPiezasDisponibles();
-	    if (piezasDisponibles.isEmpty()) {
-	        System.out.println("No hay piezas disponibles para la venta");
-	    } else {
-	        System.out.println("\n**Piezas Disponibles**");
-	        for (Pieza pieza : piezasDisponibles) {
-	            System.out.println(pieza);
-	        }
-	    }
+	    imprimirPiezas(piezasDisponibles);
 	}
 	
 
@@ -512,10 +493,10 @@ public class Galeria {
         	Scanner scanner = new Scanner(System.in);
         	
     		System.out.print("Por favor, ingrese el login ");
-            String login = scanner.nextLine();
+            String login = scanner.nextLine().trim();
             
             System.out.print("Por favor, ingrese la contraseña ");
-            String password = scanner.nextLine();
+            String password = scanner.nextLine().trim();
             
             scanner.close();
             try {
@@ -536,9 +517,9 @@ public class Galeria {
 		Scanner scanner = new Scanner(System.in);
 		
 		System.out.print("Por favor, ingrese el login del Administrador: ");
-        String login = scanner.nextLine();
+        String login = scanner.nextLine().trim();
         System.out.print("Por favor, ingrese la contraseña del Administrador: ");
-        String password = scanner.nextLine();
+        String password = scanner.nextLine().trim();
         
         Administrador admin= new Administrador(login, password,this.inventario);
         this.setAdmin(admin);
@@ -549,15 +530,15 @@ public class Galeria {
     	try {
     		Scanner scanner = new Scanner(System.in);
     		System.out.print("Ingrese login (administrador unicamente) : ");
-    		String login = scanner.nextLine();
+    		String login = scanner.nextLine().trim();
     		System.out.print("Ingrese su contraseña : ");
-    		String password= scanner.nextLine();
+    		String password= scanner.nextLine().trim();
     		if (login.equals(this.admin.getLogin()) && password.equals(this.admin.getPassword())) {}
 
     		System.out.print("Por favor, ingrese el login del Cajero: ");
-    		String loginC = scanner.nextLine();
+    		String loginC = scanner.nextLine().trim();
     		System.out.print("Por favor, ingrese la contraseña del Cajero: ");
-    		String passwordC = scanner.nextLine();
+    		String passwordC = scanner.nextLine().trim();
     		scanner.close(); 
     		
     		Cajero c = new Cajero(loginC, passwordC, "Cajero");
@@ -576,17 +557,17 @@ public class Galeria {
     	try {
     		Scanner scanner = new Scanner(System.in);
     		System.out.print("Ingrese login (administrador unicamente) : ");
-    		String login = scanner.nextLine();
+    		String login = scanner.nextLine().trim();
     		System.out.print("Ingrese su contraseña : ");
-    		String password= scanner.nextLine();
+    		String password= scanner.nextLine().trim();
     		if (login.equals(this.admin.getLogin()) && password.equals(this.admin.getPassword())) {}
 
     		System.out.print("Por favor, ingrese el login del empleado: ");
-    		String loginE = scanner.nextLine();
+    		String loginE = scanner.nextLine().trim();
     		System.out.print("Por favor, ingrese la contraseña del empleado: ");
-    		String passwordE = scanner.nextLine();
+    		String passwordE = scanner.nextLine().trim();
     		System.out.print("Por favor, ingrese si es Operador o empleado: ");
-    		String rol = scanner.nextLine();
+    		String rol = scanner.nextLine().trim();
     		scanner.close();
     		if (rol.equalsIgnoreCase("Operador")) {
 
@@ -594,11 +575,9 @@ public class Galeria {
     			this.empleados.add(operador);
     		}
 
-
     		else if (rol.equalsIgnoreCase("Empleado")){
-    			Empleado empleado = new Empleado(login, passwordE,"None");
+    			Empleado empleado = new Empleado(login, passwordE,"Empleado");
     			this.empleados.add(empleado);}
-
 
     	}
     	catch (Exception e) {
@@ -615,17 +594,17 @@ public class Galeria {
         	Scanner scanner = new Scanner(System.in);
         	
     		System.out.print("Por favor, ingrese el login ");
-            String login = scanner.nextLine();
+            String login = scanner.nextLine().trim();
             
             System.out.print("Por favor, ingrese la contraseña ");
-            String password = scanner.nextLine();
+            String password = scanner.nextLine().trim();
             
             System.out.print("Por favor, el titulo de la pieza que quiere comprar ");
-            String nomPieza = scanner.nextLine();
+            String nomPieza = scanner.nextLine().trim();
            
             
             System.out.print("Por favor, ingrese la forma de pago ");
-            String formapago = scanner.nextLine();
+            String formapago = scanner.nextLine().trim();
             
             scanner.close();
     	
@@ -804,33 +783,34 @@ public class Galeria {
 			galeria.mostrarMenu();	
 		}catch(Exception e) {
 			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 	
 	
 	//Métodos de persistencia
     
-	private static void cargarGaleria() {
+	private static void cargarGaleria() throws MesajedeErrorException, PagoRechazado, Exception {
 		//Pedir los nombres de los archivos 
 		Scanner scanner = new Scanner(System.in);
 		
 		System.out.print("Por favor, ingrese el nombre del archivo (.txt) de inicio de galeria: ");
-        String archivoInicio = scanner.nextLine();
+        String archivoInicio = scanner.nextLine().trim();
         
         System.out.print("Por favor, ingrese el nombre del archivo (.txt) de los usuarios: ");
-        String archivoUsuarios = scanner.nextLine();
+        String archivoUsuarios = scanner.nextLine().trim();
         
         System.out.print("Por favor, ingrese el nombre del archivo (.txt) de las piezas: ");
-        String archivoPiezas = scanner.nextLine();
-		
+        String archivoPiezas = scanner.nextLine().trim();
+        Galeria galeria = new Galeria();
+        
 		try {
-			Galeria galeria = new Galeria();
-			CentralPersistencia.cargarGaleria(archivoInicio, archivoUsuarios, archivoPiezas,galeria);
-			galeria.mostrarMenu();
-			
+			CentralPersistencia.cargarGaleria(archivoInicio, archivoUsuarios, archivoPiezas,galeria);	
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.exit(1);
 		}
+		galeria.mostrarMenu();
 	}
 		
 	public void guardarGaleria() { 

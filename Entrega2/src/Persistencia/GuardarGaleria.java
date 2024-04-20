@@ -1,5 +1,6 @@
 package Persistencia;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -43,7 +44,10 @@ public class GuardarGaleria {
 
 	private void generarArchivoPiezas() {
 		//Quitar comas de descripciones
-		try (FileWriter writer = new FileWriter(this.archivoGaleria)) {
+		String ubicacion = encontrarRuta() + "\\Datos\\"+ this.archivoPiezas;
+		File archivof = new File(ubicacion);
+		
+		try (FileWriter writer = new FileWriter(archivof)) {
             // Escribir datos en el archivo
 			Inventario inventario= galeria.getInventario();
 			
@@ -58,13 +62,14 @@ public class GuardarGaleria {
         } catch (IOException e) {
             e.printStackTrace();
         }
-		
-		
-		
+
 	}
 
 	private void generarArchivoUsuarios() {
-		try (FileWriter writer = new FileWriter(this.archivoGaleria)) {
+		String ubicacion = encontrarRuta() + "\\Datos\\"+ this.archivoGaleria;
+		File archivof = new File(ubicacion);
+		
+		try (FileWriter writer = new FileWriter(archivof)) {
             // Escribir datos en el archivo
 			Administrador admin= galeria.getAdmin();
 	
@@ -84,7 +89,10 @@ public class GuardarGaleria {
 	}	
 
 	private void generarArchivoGaleria() {
-		try (FileWriter writer = new FileWriter(this.archivoGaleria)) {
+		String ubicacion = encontrarRuta() + "\\Datos\\"+ this.archivoGaleria;
+		File archivof = new File(ubicacion);
+		
+		try (FileWriter writer = new FileWriter(archivof)) {
             // Escribir datos en el archivo
 			if (!galeria.getNombre().equals("Galeria")) {
 				writer.write("nombreGaleria,"+ galeria.getNombre()+"\n");
@@ -102,5 +110,10 @@ public class GuardarGaleria {
         } catch (IOException e) {
             e.printStackTrace();
         }	
+	}
+	
+	public String encontrarRuta() {
+		String ruta = System.getProperty("user.dir");
+		return ruta;
 	}
 }

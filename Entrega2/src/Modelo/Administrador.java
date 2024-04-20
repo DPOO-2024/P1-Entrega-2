@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -21,6 +22,7 @@ import Usuarios.Operador;
 import Usuarios.Propietario;
 import Usuarios.Usuario;
 
+@SuppressWarnings("resource")
 public class Administrador {
 	
 	private String login;
@@ -127,7 +129,7 @@ public class Administrador {
 
 			System.out.print("Si desea asignar un operador ya registrado ingrese 1 ");
 			System.out.print("Si desea reasignar a un empleado como operador ingrese 2 ");
-			String opcion = scanner.nextLine();
+			String opcion = scanner.nextLine().trim();
 			Operador operadorAsignado = null;
 			boolean escogido = false;
 			int i =0;
@@ -226,42 +228,42 @@ public class Administrador {
 			System.out.print("Recuerde que los tipos de pieza que tenemos presentes son los siguientes: ");
 			System.out.print("- Escultura \n - Fotografia \n - Impresion \n - Pintura \n - Video \n - Otro");
 			System.out.print("Por favor, ingrese el tipo de la Pieza: ");
-			String tipoDePieza = scanner.nextLine();
+			String tipoDePieza = scanner.nextLine().trim();
 
 			System.out.print("Por favor, ingrese el titulo de la Pieza: ");
-			String titulo = scanner.nextLine();
+			String titulo = scanner.nextLine().trim();
 
 			System.out.print("Por favor, ingrese el año de creación de la Pieza: ");
-			String aniot = scanner.nextLine();
+			String aniot = scanner.nextLine().trim();
 			int anio=Integer.parseInt(aniot);
 
 			System.out.print("Por favor, ingrese el lugar de creación de la Pieza: ");
-			String lugarDeCreacion = scanner.nextLine();
+			String lugarDeCreacion = scanner.nextLine().trim();
 
 			System.out.print("Por favor, ingrese los autores (separados por comas) de la Pieza, si no se conoce el autor ingrese \"Anonimo\": ");
-			String autorest = scanner.nextLine();
+			String autorest = scanner.nextLine().trim();
 			String[] autoresf = autorest.split(",");
 			List<String> autores = Arrays.asList(autoresf);
 
 			System.out.print("Por favor, ingrese si desea aplicar la modalidad de \"marginalidad\" (Si o No): ");
-			String modalidadt = scanner.nextLine();
+			String modalidadt = scanner.nextLine().trim();
 
 			boolean modalidad = false;
 			int fechaMax = 0;
 
 			if (modalidadt.equals("Si") || modalidadt.equals("si")) {
 				modalidad = true;
-				System.out.print("Por favor, ingrese la fecha maxima, para la modalidad de \"marginalidad\" (AA/MM/DD): ");
-				String fechaMaxt = scanner.nextLine();
+				System.out.print("Por favor, ingrese la fecha maxima, para la modalidad de \"marginalidad\" (AAMMDD): ");
+				String fechaMaxt = scanner.nextLine().trim();
 				fechaMax=Integer.parseInt(fechaMaxt);
 			}
 
 			System.out.print("Por favor, ingrese el valor inicial de la pieza, si desea que sea incluida en una subasta, si no ingrese 0: ");
-			String valorInicialt = scanner.nextLine();
+			String valorInicialt = scanner.nextLine().trim();
 			int valorInicial=Integer.parseInt(valorInicialt);
 
 			System.out.print("Por favor, ingrese  si desea mostrar su Pieza (Si o No): ");
-			String ubicaciont = scanner.nextLine();
+			String ubicaciont = scanner.nextLine().trim();
 
 			String ubicacion = "Bodega";
 			if (ubicaciont.equals("Si") || ubicaciont.equals("si")) {
@@ -271,7 +273,7 @@ public class Administrador {
 			boolean vendido = false;
 
 			System.out.print("Por favor, ingrese el valor fijo al que desea vender la Pieza, si no desea que tenga valor fijo ingrese 0: ");
-			String valorFijot = scanner.nextLine();
+			String valorFijot = scanner.nextLine().trim();
 			int valorFijo=Integer.parseInt(valorFijot);
 
 			Pieza pieza;
@@ -280,28 +282,28 @@ public class Administrador {
 			if (tipoDePieza.equals("Escultura") || tipoDePieza.equals("escultura")) {
 
 				System.out.print("Por favor, ingrese el alto de la Pieza: ");
-				String altot = scanner.nextLine();
+				String altot = scanner.nextLine().trim();
 				int alto=Integer.parseInt(altot);
 
 				System.out.print("Por favor, ingrese el ancho de la Pieza: ");
-				String anchot = scanner.nextLine();
+				String anchot = scanner.nextLine().trim();
 				int ancho=Integer.parseInt(anchot);
 
 				System.out.print("Por favor, ingrese la profundidad de la Pieza: ");
-				String profundidadt = scanner.nextLine();
+				String profundidadt = scanner.nextLine().trim();
 				int profundidad=Integer.parseInt(profundidadt);
 
 				System.out.print("Por favor, ingrese los materiales (separados por comas) de la Pieza: ");
-				String materialest = scanner.nextLine();
+				String materialest = scanner.nextLine().trim();
 				String[] materialesf = materialest.split(",");
 				List<String> materiales = Arrays.asList(materialesf);
 
 				System.out.print("Por favor, ingrese el peso de la Pieza: ");
-				String pesot = scanner.nextLine();
+				String pesot = scanner.nextLine().trim();
 				int peso=Integer.parseInt(pesot);
 
 				System.out.print("Por favor, ingrese su Pieza requiere electricidad (Si o No): ");
-				String electricidadt = scanner.nextLine();
+				String electricidadt = scanner.nextLine().trim();
 
 				boolean electricidad = false;
 				if (electricidadt.equals("Si") || electricidadt.equals("si")) {
@@ -309,7 +311,7 @@ public class Administrador {
 				}
 
 				System.out.print("Por favor, ingrese alguna especificacion de la instalación: ");
-				String instalacion = scanner.nextLine();
+				String instalacion = scanner.nextLine().trim();
 
 				pieza=new Escultura("Escultura",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, 
 						valorInicial, ubicaciont, vendido, valorFijo, alto, ancho, profundidad, materiales, peso, electricidad, instalacion);
@@ -321,21 +323,21 @@ public class Administrador {
 			else if (tipoDePieza.equals("Fotografia") || tipoDePieza.equals("fotografia")){
 				//Falta hacer para el resto de las Piezas, con la info necesaria
 				System.out.print("Por favor, ingrese el tamaño de la Pieza (En pulgadas): ");
-				String tamanio = scanner.nextLine();
+				String tamanio = scanner.nextLine().trim();
 				
 				System.out.print("Por favor, ingrese el alto de la Pieza (En pulgadas): ");
-				String altot = scanner.nextLine();
+				String altot = scanner.nextLine().trim();
 				int alto=Integer.parseInt(altot);
 				
 				System.out.print("Por favor, ingrese la resolución de la Pieza (En ppp): ");
-				String resoluciont = scanner.nextLine();
+				String resoluciont = scanner.nextLine().trim();
 				int resolucion=Integer.parseInt(resoluciont);
 				
 				System.out.print("Por favor, ingrese la descripcion de la Pieza: ");
-				String descripcion = scanner.nextLine();
+				String descripcion = scanner.nextLine().trim();
 				
 				System.out.print("Por favor, ingrese el formato de la Pieza: ");
-				String formato = scanner.nextLine();
+				String formato = scanner.nextLine().trim();
 				
 				pieza=new Fotografia("Fotografia",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, ubicaciont, vendido, 
 						valorFijo, tamanio, alto, resolucion, descripcion, formato);
@@ -346,24 +348,24 @@ public class Administrador {
 			}else if (tipoDePieza.equals("Impresion") || tipoDePieza.equals("fotografia")){
 				//Falta hacer para el resto de las Piezas, con la info necesaria
 				System.out.print("Por favor, ingrese el material de papel de la Pieza (En pulgadas): ");
-				String materialPapel = scanner.nextLine();
+				String materialPapel = scanner.nextLine().trim();
 				
 				System.out.print("Por favor, ingrese el tamaño de la Pieza (En pulgadas): ");
-				String tamanio = scanner.nextLine();
+				String tamanio = scanner.nextLine().trim();
 				
 				System.out.print("Por favor, ingrese la resolución de la Pieza (En ppp): ");
-				String resoluciont = scanner.nextLine();
+				String resoluciont = scanner.nextLine().trim();
 				int resolucion=Integer.parseInt(resoluciont);
 				
 				System.out.print("Por favor, ingrese la flexibilidad de la Pieza (Alta, media, baja): ");
-				String flexibilidadt = scanner.nextLine();
+				String flexibilidadt = scanner.nextLine().trim();
 				int flexibilidad=Integer.parseInt(flexibilidadt);
 				
 				System.out.print("Por favor, ingrese la resistencia de la Pieza (Alta, media, baja): ");
-				String formato = scanner.nextLine();
+				String formato = scanner.nextLine().trim();
 				
 				System.out.print("Por favor, ingrese la descripcion de la Pieza: ");
-				String descripcion = scanner.nextLine();
+				String descripcion = scanner.nextLine().trim();
 				
 				pieza=new Impresion("Impresion",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, 
 						ubicaciont, vendido, valorFijo, materialPapel, tamanio, resolucion, flexibilidadt, formato, descripcion);
@@ -374,7 +376,7 @@ public class Administrador {
 			}else if (tipoDePieza.equals("Otro") || tipoDePieza.equals("otro")){
 				//Falta hacer para el resto de las Piezas, con la info necesaria
 				System.out.print("Por favor, ingrese la información extra que haya de la Pieza: ");
-				String infoExtra = scanner.nextLine();
+				String infoExtra = scanner.nextLine().trim();
 				
 				
 				pieza=new Otro("Otro",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, 
@@ -386,27 +388,27 @@ public class Administrador {
 			}else if (tipoDePieza.equals("Pintura") || tipoDePieza.equals("pintura")){
 				//Falta hacer para el resto de las Piezas, con la info necesaria
 				System.out.print("Por favor, ingrese la tecnica de la Pieza: ");
-				String tecnica = scanner.nextLine();
+				String tecnica = scanner.nextLine().trim();
 				
 				System.out.print("Por favor, ingrese el origen de la Pieza: ");
-				String origen = scanner.nextLine();
+				String origen = scanner.nextLine().trim();
 				
 				System.out.print("Por favor, ingrese la descripcion de la Pieza: ");
-				String descripcion = scanner.nextLine();
+				String descripcion = scanner.nextLine().trim();
 				
 				System.out.print("Por favor, ingrese la altura de la Pieza (En pulgadas): ");
-				String altot = scanner.nextLine();
+				String altot = scanner.nextLine().trim();
 				int alto=Integer.parseInt(altot);
 				
 				System.out.print("Por favor, ingrese el ancho de la Pieza (En pulgadas): ");
-				String anchot = scanner.nextLine();
+				String anchot = scanner.nextLine().trim();
 				int ancho=Integer.parseInt(anchot);
 				
 				System.out.print("Por favor, ingrese la forma de la Pieza (Cuadrada, Rectancular, etc): ");
-				String forma = scanner.nextLine();
+				String forma = scanner.nextLine().trim();
 				
 				System.out.print("Por favor, ingrese el tiempo de creación de la Pieza: ");
-				String tiempoDeCreacion = scanner.nextLine();
+				String tiempoDeCreacion = scanner.nextLine().trim();
 				
 				pieza=new Pintura("Pintura",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, 
 						ubicaciont, vendido, valorFijo, tecnica, origen, descripcion, alto, ancho, forma, tiempoDeCreacion);
@@ -417,24 +419,24 @@ public class Administrador {
 			}else if (tipoDePieza.equals("Video") || tipoDePieza.equals("video")){
 				//Falta hacer para el resto de las Piezas, con la info necesaria
 				System.out.print("Por favor, ingrese la duración de la Pieza (En minutos): ");
-				String duraciont = scanner.nextLine();
+				String duraciont = scanner.nextLine().trim();
 				int duracion=Integer.parseInt(duraciont);
 				
 				System.out.print("Por favor, ingrese el tamaño de la Pieza: ");
-				String tamanio = scanner.nextLine();
+				String tamanio = scanner.nextLine().trim();
 				
 				System.out.print("Por favor, ingrese el idioma de la Pieza: ");
-				String idioma = scanner.nextLine();
+				String idioma = scanner.nextLine().trim();
 				
 				System.out.print("Por favor, ingrese la descripcion de la Pieza: ");
-				String descripcion = scanner.nextLine();
+				String descripcion = scanner.nextLine().trim();
 				
 				System.out.print("Por favor, ingrese la resolución de la Pieza (En p): ");
-				String resoluciont = scanner.nextLine();
+				String resoluciont = scanner.nextLine().trim();
 				int resolucion=Integer.parseInt(resoluciont);
 				
 				System.out.print("Por favor, ingrese el formato de la Pieza: ");
-				String formato = scanner.nextLine();
+				String formato = scanner.nextLine().trim();
 
 				pieza=new Video("Video",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, 
 						valorInicial, ubicaciont, vendido, valorFijo, duracion, tamanio, idioma, descripcion, resolucion, formato);
@@ -459,11 +461,11 @@ public class Administrador {
 			Scanner scanner = new Scanner(System.in);
 			
 			System.out.print("Por favor, ingrese si quiere registrarse como Comprador o Propietario: ");
-			String rol = scanner.nextLine();
+			String rol = scanner.nextLine().trim();
 			
 
 			System.out.print("Por favor, ingrese su login: "); //Falta cambiar esto para verificar que puedan ser compradores y propietarios
-			String login = scanner.nextLine();
+			String login = scanner.nextLine().trim();
 			if (rol.equalsIgnoreCase("Comprador") && !this.loginsReservadosCompradores.contains(login)) {
 				loginsReservadosCompradores.add(this.login);
 			}
@@ -476,18 +478,18 @@ public class Administrador {
 			}
 
 			System.out.print("Por favor, ingrese su contraseña: ");
-			String password = scanner.nextLine();
+			String password = scanner.nextLine().trim();
 
 			System.out.print("Por favor, su numero de telefono: ");
-			String telefonof = scanner.nextLine();
+			String telefonof = scanner.nextLine().trim();
 			int telefono=Integer.parseInt(telefonof);
 
 			System.out.print("Por favor, ingrese su nombre : ");
-			String nombre =  scanner.nextLine();
+			String nombre =  scanner.nextLine().trim();
 
 
 			System.out.print("Por favor, ingrese su correo electronico: ");
-			String correo = scanner.nextLine();
+			String correo = scanner.nextLine().trim();
 
 			if (rol.equalsIgnoreCase("Comprador")) {
 

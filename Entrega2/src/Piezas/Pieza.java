@@ -1,5 +1,6 @@
 package Piezas;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Usuarios.Usuario;
@@ -39,6 +40,7 @@ public abstract class Pieza {
 		this.titulo=titulot;
 		this.anio=aniot;
 		this.lugarDeCreacion=lugarDeCreaciont;
+		this.autores=new ArrayList<Autor>();
 		addAutores(autores2);
 		this.modalidad=modalidadt;
 		this.fechaMax=fechaMaxt;
