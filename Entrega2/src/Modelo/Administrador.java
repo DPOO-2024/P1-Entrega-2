@@ -227,10 +227,12 @@ public class Administrador {
 		try {
 			Scanner scanner = new Scanner(System.in);
 
-			System.out.print("Recuerde que los tipos de pieza que tenemos presentes son los siguientes: ");
-			System.out.print("- Escultura \n - Fotografia \n - Impresion \n - Pintura \n - Video \n - Otro");
-			System.out.print("Por favor, ingrese el tipo de la Pieza: ");
+			System.out.print("\nRecuerde que los tipos de pieza que tenemos presentes son los siguientes: ");
+			System.out.print("\n- Escultura \n - Fotografia \n - Impresion \n - Pintura \n - Video \n - Otro");
+			System.out.print("\n\nPor favor, ingrese el tipo de la Pieza: ");
 			String tipoDePieza = scanner.nextLine().trim();
+			
+			
 
 			System.out.print("Por favor, ingrese el titulo de la Pieza: ");
 			String titulo = scanner.nextLine().trim();

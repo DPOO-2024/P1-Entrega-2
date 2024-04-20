@@ -43,7 +43,7 @@ public class Galeria {
         int opcion;
 
         do {
-            System.out.println("\n**Menú Galería**");
+            System.out.println("\n\n**Menú Galería**");
             System.out.println("1. Guardar Galería");
             System.out.println("2. Crear Subasta");
             System.out.println("3. Registrarse como Comprador o Propietario");
@@ -173,6 +173,7 @@ public class Galeria {
 				System.out.print("Subasta creada ");
 				
 
+				
 			}
 			else {
 				
@@ -420,7 +421,6 @@ public class Galeria {
 
 							}
 						}
-						scanner.close();
 					}
 					else {
 						List<String> ganadores =  subasta.getGanadores();
@@ -505,13 +505,12 @@ public class Galeria {
         if (this.admin != null) {
         	Scanner scanner = new Scanner(System.in);
         	
-    		System.out.print("Por favor, ingrese el login ");
+    		System.out.print("Por favor, ingrese el login (De propietario): ");
             String login = scanner.nextLine().trim();
             
-            System.out.print("Por favor, ingrese la contraseña ");
+            System.out.print("Por favor, ingrese la contraseña: ");
             String password = scanner.nextLine().trim();
             
-            scanner.close();
             try {
             	Propietario pro = admin.verificarPropietario(login,password);
             	admin.pedirInfoPieza(pro);
@@ -523,6 +522,7 @@ public class Galeria {
         } else {
             throw new MesajedeErrorException("No hay un administrador asignado para añadir piezas");
         }
+    }
     }
 
     private void asignarAdministrador() {
@@ -538,7 +538,6 @@ public class Galeria {
         this.setAdmin(admin);
     }
     
-    //solo existe un cajero
     private void asignarCajero() throws Exception {
     	try {
     		Scanner scanner = new Scanner(System.in);
@@ -552,7 +551,6 @@ public class Galeria {
     		String loginC = scanner.nextLine().trim();
     		System.out.print("Por favor, ingrese la contraseña del Cajero: ");
     		String passwordC = scanner.nextLine().trim();
-    		scanner.close(); 
     		
     		Cajero c = new Cajero(loginC, passwordC, "Cajero");
     		setCajero(c);
@@ -565,7 +563,6 @@ public class Galeria {
 
 
     }
-    // existen varios de estos empleados
     private void agregarEmpleado() throws Exception {
     	try {
     		Scanner scanner = new Scanner(System.in);
@@ -581,7 +578,6 @@ public class Galeria {
     		String passwordE = scanner.nextLine().trim();
     		System.out.print("Por favor, ingrese si es Operador o empleado: ");
     		String rol = scanner.nextLine().trim();
-    		scanner.close();
     		if (rol.equalsIgnoreCase("Operador")) {
 
     			Operador operador = new Operador(loginE, passwordE,"Operador");
@@ -619,7 +615,6 @@ public class Galeria {
             System.out.print("Por favor, ingrese la forma de pago ");
             String formapago = scanner.nextLine().trim();
             
-            scanner.close();
     	
     	try {
     		Comprador c = admin.verificarComprador(login,password);
@@ -664,8 +659,6 @@ public class Galeria {
     			throw new MesajedeErrorException("La pieza no se encuentra disponible");
     		}
     		
-        
-    		scanner.close();
     	}
     	catch(MesajedeErrorException e) {
     		throw e;
