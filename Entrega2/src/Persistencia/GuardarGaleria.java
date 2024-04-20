@@ -34,7 +34,8 @@ public class GuardarGaleria {
 			generarArchivoUsuarios();
 			generarArchivoPiezas();
 			
-			return "Se guardo con exito la galeria, en los siguientes documentos: " + this.archivoGaleria + "," + this.archivoUsuarios + 
+			System.out.println("\nLos archivos se guardaron en la siguiente ubicación: "+ encontrarRuta()+"\\Datos");
+			return "\nSe guardo con exito la galeria, en los siguientes documentos: " + this.archivoGaleria + "," + this.archivoUsuarios + 
 					"," + this.archivoPiezas ;
 			
 		}catch(Exception e) {
@@ -59,6 +60,7 @@ public class GuardarGaleria {
 				String info = guardarPiezas.guardarPieza(p,false);
 				writer.write(info);
 			}
+			writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,7 +68,7 @@ public class GuardarGaleria {
 	}
 
 	private void generarArchivoUsuarios() {
-		String ubicacion = encontrarRuta() + "\\Datos\\"+ this.archivoGaleria;
+		String ubicacion = encontrarRuta() + "\\Datos\\"+ this.archivoUsuarios;
 		File archivof = new File(ubicacion);
 		
 		try (FileWriter writer = new FileWriter(archivof)) {
@@ -83,6 +85,7 @@ public class GuardarGaleria {
 				writer.write("Propietario,"+ u.getLogin()+ "," + u.getPassword() + "," + propietario.getNombre() +
 					"," + propietario.getCorreo() + "," + propietario.getTelefono() + "\n");
 			}
+			writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,25 +94,26 @@ public class GuardarGaleria {
 	private void generarArchivoGaleria() {
 		String ubicacion = encontrarRuta() + "\\Datos\\"+ this.archivoGaleria;
 		File archivof = new File(ubicacion);
-		
+
 		try (FileWriter writer = new FileWriter(archivof)) {
-            // Escribir datos en el archivo
+			// Escribir datos en el archivo
 			if (!galeria.getNombre().equals("Galeria")) {
 				writer.write("nombreGaleria,"+ galeria.getNombre()+"\n");
 			}
 			//Añadir Administrador 
-				writer.write("Administrador,"+ galeria.getAdmin().getLogin()+ "," + galeria.getAdmin().getPassword() + "\n");
+			writer.write("Administrador,"+ galeria.getAdmin().getLogin()+ "," + galeria.getAdmin().getPassword() + "\n");
 			//Añadir Empleado
-				for(Empleado e:galeria.getEmpleados()) {
-					String tipoEmpleado="None";
-					if(!e.getRol().equals("None")) {
-						tipoEmpleado= e.getRol();
-					}
-					writer.write("Empleado,"+ e.getNombreUsuario()+ "," + e.getContraseña() + "," + tipoEmpleado +"\n");
+			for(Empleado e:galeria.getEmpleados()) {
+				String tipoEmpleado="None";
+				if(!e.getRol().equals("None")) {
+					tipoEmpleado= e.getRol();
 				}
-        } catch (IOException e) {
-            e.printStackTrace();
-        }	
+				writer.write("Empleado,"+ e.getNombreUsuario()+ "," + e.getContraseña() + "," + tipoEmpleado +"\n");
+			}
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
 	}
 	
 	public String encontrarRuta() {

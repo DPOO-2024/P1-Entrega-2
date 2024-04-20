@@ -43,7 +43,7 @@ public class Galeria {
         int opcion;
 
         do {
-            System.out.println("\n**Menú Galería**");
+            System.out.println("\n\n**Menú Galería**");
             System.out.println("1. Guardar Galería");
             System.out.println("2. Crear Subasta");
             System.out.println("3. Registrarse como Comprador o Propietario");
