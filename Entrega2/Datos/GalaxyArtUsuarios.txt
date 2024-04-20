@@ -1,6 +1,0 @@
-Comprador,maria_gomez,Maria-2024,María Gómez,mgomez@example.com,1234567890,2600,14000
-Comprador,robert_johnson,Bobby123!,Robert Johnson,bjohnson@email.com,1987654321,300,5000
-Comprador,david_brown,DBrown789,David Brown,david.brown@example.org,1650487654,6500,8000
-Propietario,david_brown,DBrown789,David Brown,david.brown@example.org,1650487654
-Propietario,sarah_miller,MillerSarah456!,Sarah Miller,sarah.miller@testdomain.com,1122334455
-Propietario,emma_smith,EmmSm1th,Emma Smith,emma.smith@example.net,1555123456
