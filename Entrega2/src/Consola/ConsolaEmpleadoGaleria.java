@@ -3,6 +3,7 @@ package Consola;
 import Exceptions.MensajedeErrorException;
 import Modelo.Empleado;
 import Modelo.Galeria;
+import Usuarios.Cajero;
 
 public class ConsolaEmpleadoGaleria implements ConsolaBase {
 	private Galeria gal;
@@ -98,8 +99,22 @@ public class ConsolaEmpleadoGaleria implements ConsolaBase {
 	}
 	
 	public void registrarPago() {
-		//No supe como implementarlo porque no queria dañarte como lo implementaste
-	}
+		String rol = this.empleado.getRol();
+		if (rol.equalsIgnoreCase("cajero"))	{
+			Cajero cajero =  (Cajero)this.empleado;
+			System.out.print("Ingreso el login del comprador: ");
+			System.out.print("\nIngrese  : ");
+			String login = ConsolaInicial.scanner.nextLine().trim();
+			System.out.print("\nIngrese su contraseña : ");
+			String password= ConsolaInicial.scanner.nextLine().trim();
+			cajero.generarPagoCajero(0, null, rol, null);
+			}
+		else {
+			System.out.println("Solo el cajero puede registrar pagos ");
+
+		}
+		
+		}
 		
 
 }

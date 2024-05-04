@@ -34,7 +34,7 @@ public class ConsolaInicial {
 	
 	            opcion = scanner.nextInt();
 	            scanner.nextLine(); // Consumir el salto de línea
-	            
+	             
 	            switch (opcion) {
 	            case 1:
 	            	ConsolaAdministrador conAdmin = new ConsolaAdministrador(this.galeria);

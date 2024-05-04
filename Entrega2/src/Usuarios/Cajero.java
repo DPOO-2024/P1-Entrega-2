@@ -23,9 +23,11 @@ public class Cajero extends Empleado{
 	
 	// como se cuando se registra un pago correctamente ???
 	public boolean generarPagoCajero(int precio,Pieza pieza,String formaPago, Comprador comprador) {
+		boolean respuesta =false;
 		Pago pago = Pago.generarPago(precio,pieza,formaPago,comprador);
+		if (pago!=null) {
 		registrarPago(pago);
-		boolean respuesta =true;
+		respuesta =true;}
 		return respuesta;
 		
 	}

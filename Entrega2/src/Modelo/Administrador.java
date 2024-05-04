@@ -245,6 +245,7 @@ public class Administrador {
 		}
 	}
 	
+	
 	public void agregarUsuario(ArrayList<String> info, String rol) throws MensajedeErrorException {
 		try {
 			int telefono=Integer.parseInt(info.get(1));
