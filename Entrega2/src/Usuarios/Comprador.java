@@ -1,10 +1,12 @@
 package Usuarios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Exceptions.PrecioBajoException;
 import Modelo.Administrador;
 import Modelo.Galeria;
+import Modelo.Pago;
 import Modelo.Subasta;
 import Piezas.Pieza;
 
@@ -22,6 +24,8 @@ public class Comprador extends Usuario{
 	
 	private int comprasMaximas;
 	
+	private ArrayList<Pieza> historialCompras;
+	
 	public Comprador(String login, String password,String nombre, String correo,int telefono,int comprasTotales, int comprasMaximas) {
 		super(login, password, "Comprador");
 		this.telefono=telefono;
@@ -29,10 +33,12 @@ public class Comprador extends Usuario{
 		this.correo=correo;
 		this.comprasTotales=comprasTotales;
 		this.comprasMaximas=comprasMaximas;
+		this.historialCompras=new ArrayList<Pieza>();
 	}
-	public void agregarCompra(int precio)
+	public void agregarCompra(int precio, Pieza p)
 	{
 		this.comprasTotales+=precio;
+		this.historialCompras.add(p);
 	}
 	
 
@@ -70,6 +76,14 @@ public class Comprador extends Usuario{
 
 	public int getComprasMaximas() {
 		return comprasMaximas;
+	}
+	
+	public void setHistorialCompras(ArrayList<Pieza> piezas) {
+		this.historialCompras = piezas;
+	}
+
+	public ArrayList<Pieza> getHistorialCompras() {
+		return this.historialCompras;
 	}
 
 	public void setComprasMaximas(int comprasMaximas) {

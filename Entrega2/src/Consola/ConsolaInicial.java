@@ -3,9 +3,7 @@ package Consola;
 import java.util.Scanner;
 
 import Exceptions.MensajedeErrorException;
-import Exceptions.PagoRechazado;
 import Modelo.Galeria;
-import Persistencia.CentralPersistencia;
 
 public class ConsolaInicial {
 	private Galeria galeria;
@@ -13,7 +11,7 @@ public class ConsolaInicial {
 	
 	public ConsolaInicial(Galeria galeriat) {
 		this.galeria=galeriat;
-		this.scanner= new Scanner(System.in);
+		scanner= new Scanner(System.in);
 	}
 	
 	public void mostrarMenu()
@@ -21,6 +19,7 @@ public class ConsolaInicial {
 		int opcion;
         try {
 	        do {
+	        	System.out.println("\n**Bienvenido a la Galeria "+this.galeria.getNombre() +" **");
 	            System.out.println("\n**Menú Inicio**");
 	            System.out.println("\n**Seleccione la opción de como va a iniciar sesión**");
 	            System.out.println("1. Adminstrador");
@@ -38,7 +37,7 @@ public class ConsolaInicial {
 	            case 1:
 	            	ConsolaAdministrador conAdmin = new ConsolaAdministrador(this.galeria);
 	            	try {         		
-	            		conAdmin.IniciarSesion();
+	            		conAdmin.iniciarSesion();
 	            		conAdmin.mostrarMenu();
 	            	}catch( MensajedeErrorException e){
 	            		System.out.println(e);
@@ -48,7 +47,7 @@ public class ConsolaInicial {
 	            case 2:
 	            	ConsolaEmpleadoGaleria conEmpleado = new ConsolaEmpleadoGaleria(this.galeria);
 	            	try {         		
-	            		conEmpleado.IniciarSesion();
+	            		conEmpleado.iniciarSesion();
 	            		conEmpleado.mostrarMenu();
 	            	}catch( Exception e){
 	            		System.out.println(e);
@@ -57,7 +56,7 @@ public class ConsolaInicial {
 	            case 3:
 	            	ConsolaComprador conComprador = new ConsolaComprador(this.galeria);
 	            	try {         		
-	            		conComprador.IniciarSesion();
+	            		conComprador.iniciarSesion();
 	            		conComprador.mostrarMenu();
 	            	}catch( Exception e){
 	            		System.out.println(e);
@@ -66,7 +65,7 @@ public class ConsolaInicial {
 	            case 4:
 	            	ConsolaPropietario conPropietario = new ConsolaPropietario(this.galeria);
 	            	try {         		
-	            		conPropietario.IniciarSesion();
+	            		conPropietario.iniciarSesion();
 	            		conPropietario.mostrarMenu();
 	            	}catch( Exception e){
 	            		System.out.println(e);
