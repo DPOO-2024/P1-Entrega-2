@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 
 import Exceptions.LoginDuplicadoException;
-import Exceptions.MesajedeErrorException;
+import Exceptions.MensajedeErrorException;
 import Exceptions.PagoRechazado;
 import Exceptions.PiezaRepetidaException;
 import Usuarios.*;
@@ -37,7 +37,7 @@ public class Galeria {
 	
 
 	//Muestra menú inicial a los Usuarios
-	public void mostrarMenu() throws MesajedeErrorException, PagoRechazado,Exception
+	public void mostrarMenu() throws MensajedeErrorException, PagoRechazado,Exception
 	{
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -124,6 +124,20 @@ public class Galeria {
 	
 	
 // Métodos para implementar las funcionalidades específicas (por ejemplo, crearSubasta(), crearUsuario(), etc.)
+	
+	//Metodos para verificar inicios de sesion
+	public void verificarEmpleado(String login2, String password2) throws MensajedeErrorException {
+		Empleado empleado = null;
+		for(Empleado e :getEmpleados()) {
+			if(e.getNombreUsuario().equals(login2)&&e.getContraseña().equals(password2)) {
+				empleado = e;
+			}
+		}
+		if (empleado == null) {
+			throw new MensajedeErrorException("No se pudo verificar al empleado");
+		}
+		
+	}
 	
 	
 	//AumentarCupo
@@ -288,7 +302,7 @@ public class Galeria {
 						imprimirPiezas(piezasSubasta);
 					}
 					else {
-						throw new MesajedeErrorException("No hay subastas activas para esa fecha");
+						throw new MensajedeErrorException("No hay subastas activas para esa fecha");
 
 					}
 				}
@@ -313,18 +327,18 @@ public class Galeria {
 						System.out.print("Ya no participas en la subasta ");
 					}
 					else {
-						throw new MesajedeErrorException("No es una respuesta valida");
+						throw new MensajedeErrorException("No es una respuesta valida");
 					}
 
 				}
 				else {
-					throw new MesajedeErrorException("La subasta no esta activa");
+					throw new MensajedeErrorException("La subasta no esta activa");
 				}
 
 			}
 
 		}
-		catch(MesajedeErrorException e) {
+		catch(MensajedeErrorException e) {
 			throw e;
 		}
 		catch(Exception e) {
@@ -336,7 +350,7 @@ public class Galeria {
 	
 	
 	//Termina la subasta y ejecuta los pagos a realizar de los ganadores
-	private void terminarSubasta() throws MesajedeErrorException {
+	private void terminarSubasta() throws MensajedeErrorException {
 		try {
 			Scanner scanner = new Scanner(System.in);
 			System.out.print("\n Ingrese login (administrador unicamente) : ");
@@ -361,14 +375,14 @@ public class Galeria {
 					subasta.getOperador().setAsignado(false);
 				}
 				else {
-					throw new MesajedeErrorException("No hay subastas activas para esa fecha");
+					throw new MensajedeErrorException("No hay subastas activas para esa fecha");
 				}	
 
 			}
 
 		}
 
-		catch(MesajedeErrorException e) {
+		catch(MensajedeErrorException e) {
 			throw e;
 		}
 		catch(Exception e) {
@@ -378,7 +392,7 @@ public class Galeria {
 	}
 	
 	// funcion para que el comprador revise los ganadores de la subasta si ya se acabo o si sigue activa puede hacer otra oferta si la que ya habia hecho fue superada
-	private void revisarSubasta() throws MesajedeErrorException {
+	private void revisarSubasta() throws MensajedeErrorException {
 		try {
 			Scanner scanner = new Scanner(System.in);
 			System.out.print("\n Ingrese login (solo compradores registrados) : ");
@@ -432,10 +446,10 @@ public class Galeria {
 				}
 
 				else {
-					throw new MesajedeErrorException("No hay subastas en esa fecha");
+					throw new MensajedeErrorException("No hay subastas en esa fecha");
 				}
 			}
-		}catch(MesajedeErrorException e) {
+		}catch(MensajedeErrorException e) {
 			throw e;
 		}catch(Exception e) {
 			throw e;
@@ -485,7 +499,7 @@ public class Galeria {
             }    
            
         } else {
-            throw new MesajedeErrorException("No hay un administrador asignado para añadir piezas");
+            throw new MensajedeErrorException("No hay un administrador asignado para añadir piezas");
         }
     }
     
@@ -563,7 +577,7 @@ public class Galeria {
   
 
     //M
-    public void comprarPieza()throws MesajedeErrorException, PagoRechazado, PiezaRepetidaException {
+    public void comprarPieza()throws MensajedeErrorException, PagoRechazado, PiezaRepetidaException {
     	if (this.admin != null) {
         	Scanner scanner = new Scanner(System.in);
         	
@@ -594,7 +608,7 @@ public class Galeria {
     					this.inventario.reservarPieza(pieza);
     				}
     				else {
-    					throw new MesajedeErrorException("La pieza solo se puede vender en una subasta");
+    					throw new MensajedeErrorException("La pieza solo se puede vender en una subasta");
     				}
     				
     			
@@ -619,17 +633,17 @@ public class Galeria {
 	            }
 	            else {
 	            	this.inventario.agregarPieza(pieza);
-	            	throw new MesajedeErrorException("Superaste el numero de compras maximas contactate con el administrador");
+	            	throw new MensajedeErrorException("Superaste el numero de compras maximas contactate con el administrador");
 	            }
         
     	
     		}	
     		else {
-    			throw new MesajedeErrorException("La pieza no se encuentra disponible");
+    			throw new MensajedeErrorException("La pieza no se encuentra disponible");
     		}
     		
     	}
-    	catch(MesajedeErrorException e) {
+    	catch(MensajedeErrorException e) {
     		throw e;
     	} catch (PagoRechazado e) {
 			throw e;
@@ -705,96 +719,28 @@ public class Galeria {
 		this.operador = operador;
 	}
 
-
-	// Método para iniciar la aplicación
-	public static void main(String[] args) throws MesajedeErrorException, PagoRechazado, Exception {
-    	Scanner scanner = new Scanner(System.in);
-        int opcion;
-        try {
-        do {
-            System.out.println("\n**Menú Inicio**");
-            System.out.println("1. Crear Galería");
-            System.out.println("2. Cargar Galería");
-            System.out.println("3. Salir");
-            System.out.print("Ingrese una opción: ");
-
-            opcion = scanner.nextInt();
-            scanner.nextLine(); // Consumir el salto de línea
-            
-            switch (opcion) {
-            case 1:
-            	crearGaleria();
-                break;
-            case 2:
-            	cargarGaleria();     
-                break;
-            case 3:
-            	System.out.println("Saliendo de la Aplicación...");
-                break;
-            default:
-                System.out.println("Opción inválida. Intente nuevamente.");
-                        }
-                    } while (opcion != 3);
-        }catch(Exception e) {
-        	e.printStackTrace();
-        }
-	}
-
-	
-	
-	//Este método crea la Galeria y llama a la función de mostrar menu
-	private static void crearGaleria() throws MesajedeErrorException, PagoRechazado, Exception {
-		try {
-			Galeria galeria = new Galeria();
-
-			Scanner scanner = new Scanner(System.in);
-
-			System.out.print("Por favor, ingrese el nombre de su Galeria: ");
-			String nomGaleria = scanner.next();    
-
-			galeria.setNombre(nomGaleria);
-			galeria.asignarAdministrador();
-
-			galeria.mostrarMenu();	
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
-	}
-	
 	
 	//Métodos de persistencia
     
-	private static void cargarGaleria() throws MesajedeErrorException, PagoRechazado, Exception {
-		//Pedir los nombres de los archivos 
-		Scanner scanner = new Scanner(System.in);
-		
-		System.out.print("Por favor, ingrese el nombre del archivo (.txt) de inicio de galeria: ");
-        String archivoInicio = scanner.nextLine().trim();
-        
-        System.out.print("Por favor, ingrese el nombre del archivo (.txt) de los usuarios: ");
-        String archivoUsuarios = scanner.nextLine().trim();
-        
-        System.out.print("Por favor, ingrese el nombre del archivo (.txt) de las piezas: ");
-        String archivoPiezas = scanner.nextLine().trim();
-        Galeria galeria = new Galeria();
+	public void cargarGaleria(Galeria galeria){
+
+        String archivoInicio = "InicioGaleria.txt";
+        String archivoUsuarios = "Usuarios.txt";
+        String archivoPiezas = "Piezas.txt";
         
 		try {
 			CentralPersistencia.cargarGaleria(archivoInicio, archivoUsuarios, archivoPiezas,galeria);	
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.exit(1);
+			System.out.println("Ocurrio un error iniciando la aplicacion");
+			System.out.println("Los archivos cargados para iniciar la aplicacion no son correctos");
 		}
-		galeria.mostrarMenu();
 	}
 		
 	public void guardarGaleria() { 
-		String nombre=this.nombre;
-		
 		try {
-			CentralPersistencia.guardarGaleria(nombre,this);
+			CentralPersistencia.guardarGaleria(this);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Hubo un error guardando la Galeria");
 	}
 	
 }

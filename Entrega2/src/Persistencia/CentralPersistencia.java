@@ -14,8 +14,8 @@ public class CentralPersistencia {
 	}
 	}
 	
-	public static void guardarGaleria(String nomGaleria,Galeria gal) {
-		GuardarGaleria perGal= new GuardarGaleria(nomGaleria, gal);
+	public static void guardarGaleria(Galeria gal) {
+		GuardarGaleria perGal= new GuardarGaleria(gal);
 	try {
 		String respuesta = perGal.generarArchivos();
 		System.out.println(respuesta);

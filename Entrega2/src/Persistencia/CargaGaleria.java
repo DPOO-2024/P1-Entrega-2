@@ -9,7 +9,7 @@ import java.io.Reader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import Exceptions.MesajedeErrorException;
+import Exceptions.MensajedeErrorException;
 import Modelo.Galeria;
 import Piezas.Pieza;
 import Usuarios.Cajero;
@@ -74,7 +74,7 @@ public class CargaGaleria {
                 
             }       
         } catch (FileNotFoundException e) {
-        	throw new MesajedeErrorException("No se encontro el archivo: " + this.archivoGaleria);
+        	throw new MensajedeErrorException("No se encontro el archivo: " + this.archivoGaleria);
         } catch(Exception e) {
         	throw e;
         }
@@ -109,7 +109,7 @@ public class CargaGaleria {
             }
                 
         } catch (FileNotFoundException e) {
-        	throw new MesajedeErrorException("No se encontro el archivo: " + this.archivoGaleria);
+        	throw new MensajedeErrorException("No se encontro el archivo: " + this.archivoGaleria);
         } catch(Exception e) {
         	throw e;
         }
@@ -151,7 +151,7 @@ public class CargaGaleria {
                 		this.galeria.setCajero(c);
                 		this.galeria.getEmpleados().add(c);
                 	}else {
-                		throw new MesajedeErrorException("Ese rol de empleado no existe");
+                		throw new MensajedeErrorException("Ese rol de empleado no existe");
                 	}
                 }
                 else {
@@ -160,11 +160,11 @@ public class CargaGaleria {
                 i++;
             }
             if (galeria.getAdmin().equals(null)) {
-            	throw new MesajedeErrorException("La galeria que se intenta cargar no cuenta con administrador y asi no puede funcionar");
+            	throw new MensajedeErrorException("La galeria que se intenta cargar no cuenta con administrador y asi no puede funcionar");
             }
                 
         } catch (FileNotFoundException e) {
-        	throw new MesajedeErrorException("No se encontro el archivo: " + this.archivoGaleria);
+        	throw new MensajedeErrorException("No se encontro el archivo: " + this.archivoGaleria);
         } catch(Exception e) {
         	throw e;
         }

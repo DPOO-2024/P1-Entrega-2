@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import Exceptions.LoginDuplicadoException;
-import Exceptions.MesajedeErrorException;
+import Exceptions.MensajedeErrorException;
 import Exceptions.PiezaRepetidaException;
 import Piezas.Escultura;
 import Piezas.Fotografia;
@@ -48,11 +48,11 @@ public class Administrador {
 	//Falta Crear Subasta
 
 	//M
-	public boolean confirmarVenta(Pieza pieza, Comprador comprador) throws MesajedeErrorException {
+	public boolean confirmarVenta(Pieza pieza, Comprador comprador) throws MensajedeErrorException {
 				int valorMaximo = comprador.getComprasMaximas();
 				int valorActual = comprador.getComprasTotales();
 				if (valorMaximo< valorActual+pieza.getValorFijo()) {
-					throw new MesajedeErrorException("Comprador excede compras maximas");
+					throw new MensajedeErrorException("Comprador excede compras maximas");
 				}
 				else {
 						return true;
@@ -64,12 +64,12 @@ public class Administrador {
 		
 	
 
-	public boolean verificarOferta(Oferta oferta) throws MesajedeErrorException {
+	public boolean verificarOferta(Oferta oferta) throws MensajedeErrorException {
 		boolean rta = false;
 		int valorMaximo = oferta.getComprador().getComprasMaximas();
 		int valorActual = oferta.getComprador().getComprasTotales();
 		if (valorMaximo< valorActual+oferta.getValorOferta()) {
-			throw new MesajedeErrorException("Comprador excede compras maximas");
+			throw new MensajedeErrorException("Comprador excede compras maximas");
 		}
 	
 		else {
@@ -81,7 +81,7 @@ public class Administrador {
 	}
 	
 	//Verifica si la informacion ingresada es de un comprador
-	public Comprador verificarComprador(String login2, String password2) throws MesajedeErrorException {
+	public Comprador verificarComprador(String login2, String password2) throws MensajedeErrorException {
 		Comprador comprador=null;
 		for(Comprador c :compradores) {
 			if(c.getLogin().equals(login2)&&c.getPassword().equals(password2)) {
@@ -89,13 +89,13 @@ public class Administrador {
 			}
 		}
 		if (comprador == null) {
-			throw new MesajedeErrorException("No estas registrado como comprador");
+			throw new MensajedeErrorException("No estas registrado como comprador");
 		}
 		return comprador;
 	}
 	
 	//Verifica si la informacion ingresada es de un propietario
-	public Propietario verificarPropietario(String login2, String password2) throws MesajedeErrorException {
+	public Propietario verificarPropietario(String login2, String password2) throws MensajedeErrorException {
 		Propietario propietario =null;
 		for(Propietario p : propietarios) {
 			if (p.getLogin().equals(login2)&&p.getPassword().equals(password2)) {
@@ -103,12 +103,12 @@ public class Administrador {
 			}
 		}
 		if (propietario == null) {
-			throw new MesajedeErrorException("No estas registrado como propietario");
+			throw new MensajedeErrorException("No estas registrado como propietario");
 		}
 		return propietario;
 	}
 	
-	public Propietario encontrarPropietario(String login) throws MesajedeErrorException {
+	public Propietario encontrarPropietario(String login) throws MensajedeErrorException {
 		Propietario propietario =null;
 		for(Propietario p : propietarios) {
 			if (p.getLogin().equals(login)) {
@@ -116,7 +116,7 @@ public class Administrador {
 			}
 		}
 		if (propietario == null) {
-			throw new MesajedeErrorException("No existe ese propietario");
+			throw new MensajedeErrorException("No existe ese propietario");
 		}
 		return propietario;
 	}
@@ -169,14 +169,14 @@ public class Administrador {
 
 			}
 			else {
-				throw new MesajedeErrorException("No es una respuesta valida");
+				throw new MensajedeErrorException("No es una respuesta valida");
 			}
 			if (!escogido) {
-				throw new MesajedeErrorException("No se encontro empleado disponible para asignar");
+				throw new MensajedeErrorException("No se encontro empleado disponible para asignar");
 			}
 			return operadorAsignado;    
 		}
-		catch(MesajedeErrorException e ) {
+		catch(MensajedeErrorException e ) {
 			throw e;
 		}
 		catch(Exception e ) {
@@ -526,6 +526,9 @@ public class Administrador {
 		}
 		
 	}
+
+
+
 
 
 

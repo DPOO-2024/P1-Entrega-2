@@ -4,10 +4,10 @@ package Exceptions;
  * Esta clase se usa pa enviar mensjaes de error, en donde puede variar el contexto.
  */
 @SuppressWarnings("serial")
-public class MesajedeErrorException extends Exception
+public class MensajedeErrorException extends Exception
 {
 
-    public MesajedeErrorException( String mensaje )
+    public MensajedeErrorException( String mensaje )
     {
         super( mensaje );
     }

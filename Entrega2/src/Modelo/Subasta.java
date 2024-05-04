@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
 
-import Exceptions.MesajedeErrorException;
+import Exceptions.MensajedeErrorException;
 import Piezas.Pieza;
 import Usuarios.Cajero;
 import Usuarios.Comprador;
@@ -53,7 +53,7 @@ public class Subasta {
 	}
 
 
-	public void hacerOferta(Comprador comprador, Administrador admin, Pieza p) throws MesajedeErrorException {
+	public void hacerOferta(Comprador comprador, Administrador admin, Pieza p) throws MensajedeErrorException {
 		try {
 			Scanner scanner = new Scanner(System.in);
 
@@ -69,17 +69,17 @@ public class Subasta {
 					this.operador.crearOferta(valor, comprador, p, formaPago, admin);
 				}
 				else {
-					throw new MesajedeErrorException("Aumenta tu oferta");
+					throw new MensajedeErrorException("Aumenta tu oferta");
 				}
 
 
 			}
 			else {
-				throw new MesajedeErrorException("La pieza ingresada no esta disponible en esta subasta");
+				throw new MensajedeErrorException("La pieza ingresada no esta disponible en esta subasta");
 			}
 
 		} 
-		catch(MesajedeErrorException e) {
+		catch(MensajedeErrorException e) {
 			throw e;
 		}
 	}
@@ -100,7 +100,7 @@ public class Subasta {
 		return inventario;
 	}
 
-	public void ganadorSubasta(Cajero cajero) throws MesajedeErrorException {
+	public void ganadorSubasta(Cajero cajero) throws MensajedeErrorException {
 		try {
 			Map<Pieza, List<Oferta>> reporte = this.operador.generarReporte();
 			for (Map.Entry<Pieza, List<Oferta>> entry : reporte.entrySet()) {
@@ -129,7 +129,7 @@ public class Subasta {
 
 				}
 				else {
-					throw new MesajedeErrorException("Datos inconsistentes(Max no se ecnuentre en las ofertas)");
+					throw new MensajedeErrorException("Datos inconsistentes(Max no se ecnuentre en las ofertas)");
 				}
 
 
@@ -138,7 +138,7 @@ public class Subasta {
 
 
 		}
-		catch(MesajedeErrorException e) {
+		catch(MensajedeErrorException e) {
 			throw e;
 		}
 		catch(Exception e) {
@@ -173,12 +173,12 @@ public class Subasta {
 	public void setInventario(List<Pieza> inventario) {
 		this.inventario = inventario;
 	}
-	public List<Pieza> agregarComprador(Comprador comprador) throws MesajedeErrorException {
+	public List<Pieza> agregarComprador(Comprador comprador) throws MensajedeErrorException {
 		if (!compradores.contains(comprador)) {
 			compradores.add(comprador);
 			return this.inventario;}
 		else {
-			throw new MesajedeErrorException("El comprador ya se encuentra registrado en la subasta");
+			throw new MensajedeErrorException("El comprador ya se encuentra registrado en la subasta");
 		}
 	}
 	public void quitarComprador(Comprador comprador) {

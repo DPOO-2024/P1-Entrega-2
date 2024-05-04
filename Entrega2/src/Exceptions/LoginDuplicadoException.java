@@ -2,7 +2,7 @@ package Exceptions;
 
 
 @SuppressWarnings("serial")
-public class LoginDuplicadoException extends MesajedeErrorException
+public class LoginDuplicadoException extends MensajedeErrorException
 {
 
     

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import Exceptions.MesajedeErrorException;
+import Exceptions.MensajedeErrorException;
 import Modelo.Administrador;
 import Modelo.Empleado;
 import Modelo.Oferta;
@@ -23,7 +23,7 @@ public class Operador extends Empleado{
 	
 	private   Map<Pieza, List<Oferta>> ofertas;
 	
-	public Operador(String nombreUsuario, String contraseña, String rol) throws MesajedeErrorException {
+	public Operador(String nombreUsuario, String contraseña, String rol) throws MensajedeErrorException {
 		super(nombreUsuario, contraseña, rol);
 		this.ofertas = new HashMap<>();
 		this.asignado = false;
@@ -74,7 +74,7 @@ public class Operador extends Empleado{
 	
 
 	
-	public void crearOferta(int valoferta, Comprador comprador ,Pieza pieza, String formaPago, Administrador admin) throws MesajedeErrorException {
+	public void crearOferta(int valoferta, Comprador comprador ,Pieza pieza, String formaPago, Administrador admin) throws MensajedeErrorException {
 		Oferta oferta = Oferta.generarOferta(valoferta, comprador, formaPago);
 		this.verificarOferta(oferta,pieza,admin);
 		
@@ -83,7 +83,7 @@ public class Operador extends Empleado{
 		
 	}
 	
-	public  void verificarOferta(Oferta oferta, Pieza pieza, Administrador admin) throws MesajedeErrorException {
+	public  void verificarOferta(Oferta oferta, Pieza pieza, Administrador admin) throws MensajedeErrorException {
 		boolean aceptado = admin.verificarOferta( oferta);
 		if (aceptado) {
 	

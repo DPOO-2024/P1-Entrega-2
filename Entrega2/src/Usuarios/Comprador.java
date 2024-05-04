@@ -2,7 +2,6 @@ package Usuarios;
 
 import java.util.List;
 
-import Exceptions.MesajedeErrorException;
 import Exceptions.PrecioBajoException;
 import Modelo.Administrador;
 import Modelo.Galeria;

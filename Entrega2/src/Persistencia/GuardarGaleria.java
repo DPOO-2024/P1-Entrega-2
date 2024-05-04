@@ -21,10 +21,10 @@ public class GuardarGaleria {
 	private Galeria galeria;
 	
 	
-	public GuardarGaleria(String nomGaleria,Galeria gal) {
-		this.archivoGaleria = nomGaleria+".txt";
-		this.archivoUsuarios = nomGaleria+"Usuarios.txt";
-		this.archivoPiezas = nomGaleria+"Piezas.txt";
+	public GuardarGaleria(Galeria gal) {
+		this.archivoGaleria = "InicioGaleria.txt";
+		this.archivoUsuarios = "Usuarios.txt";
+		this.archivoPiezas = "Piezas.txt";
 		this.galeria=gal;
 	}
 	

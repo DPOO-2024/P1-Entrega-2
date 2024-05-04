@@ -3,7 +3,7 @@ package Persistencia;
 import java.util.Arrays;
 import java.util.List;
 
-import Exceptions.MesajedeErrorException;
+import Exceptions.MensajedeErrorException;
 import Piezas.Escultura;
 import Piezas.Fotografia;
 import Piezas.Impresion;
@@ -15,7 +15,7 @@ import Usuarios.Usuario;
 
 public abstract class cargaPiezas {
 
-	public static Pieza cargaPieza (String[] l, Usuario u) throws MesajedeErrorException {
+	public static Pieza cargaPieza (String[] l, Usuario u) throws MensajedeErrorException {
 		l[6] = l[6].trim();
 		l[6]=l[6].substring(1, l[6].length()-1);
 		String[] autoresp = l[6].split("/");
@@ -67,7 +67,7 @@ public abstract class cargaPiezas {
 						(int)Integer.valueOf(l[12].trim()), (int)Integer.valueOf(l[13].trim()),l[14], l[15],l[16],(int)Integer.valueOf(l[17].trim()), l[18]);
 				return v;
 			}else {
-				throw new MesajedeErrorException("Ese tipo de Piza no existe");
+				throw new MensajedeErrorException("Ese tipo de Piza no existe");
 			}
 		}catch(Exception e) {
 			throw e;

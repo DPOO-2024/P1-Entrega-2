@@ -4,7 +4,7 @@ package Exceptions;
  * Esta excepción se usa para indicar que hay un empate en una subasta.
  */
 @SuppressWarnings("serial")
-public class EmpateSubastaException extends MesajedeErrorException
+public class EmpateSubastaException extends MensajedeErrorException
 {
     
     private String cliente1;

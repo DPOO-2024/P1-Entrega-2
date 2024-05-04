@@ -3,7 +3,7 @@ package Usuarios;
 import java.util.ArrayList;
 import java.util.List;
 
-import Exceptions.MesajedeErrorException;
+import Exceptions.MensajedeErrorException;
 import Modelo.Empleado;
 import Modelo.Pago;
 import Piezas.Pieza;
@@ -13,7 +13,7 @@ public class Cajero extends Empleado{
 	
 	private  List<Pago> pagos;
 	
-	public Cajero(String nombreUsuario, String contraseña, String rol) throws MesajedeErrorException {
+	public Cajero(String nombreUsuario, String contraseña, String rol) throws MensajedeErrorException {
 		super(nombreUsuario, contraseña, rol);
 		this.pagos = new ArrayList<Pago>();
 	}
