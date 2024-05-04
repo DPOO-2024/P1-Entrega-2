@@ -3,6 +3,7 @@ package Modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exceptions.MensajedeErrorException;
 import Exceptions.PiezaRepetidaException;
 import Piezas.Pieza;
 
@@ -38,6 +39,7 @@ public class Inventario {
 		return "Pieza añadida con exito";
 	}
 	
+	
 	/*Si la pieza se encuentra en la lista de piezas disponibles la mueve a la lista de histroial de piezas y viceversa*/
 	public void moverPieza(Pieza pieza) {
 		if (this.piezasDisponibles.contains(pieza)) {
@@ -49,6 +51,23 @@ public class Inventario {
 			this.historialPiezas.remove(pieza);
 		}
 	}
+	
+	public Pieza getPieza(String titulo) throws MensajedeErrorException {
+		Pieza pE=null;
+		for (Pieza p: piezasDisponibles)
+			if (p.getTitulo().equals(titulo)) {
+				pE=p;
+		}
+		for (Pieza p: historialPiezas)
+			if (p.getTitulo().contentEquals(titulo)) {
+				pE=p;
+		}
+		if (pE==null) {
+			throw new MensajedeErrorException("La pieza no se encontro");
+		}
+		return pE;
+	}
+	
 	
 	/*Genera una lista con las piezas disponibles para subasta, si encuentra que 
 	una pieza debe ser devuelta llama a la funcion de devolver pieza*/

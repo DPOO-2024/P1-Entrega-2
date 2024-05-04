@@ -98,7 +98,7 @@ public class ConsolaAdministrador implements ConsolaBase{
 
 	@Override
 	public void iniciarSesion() throws MensajedeErrorException {
-		System.out.print("Inicio de sesión de Administrador... ");
+		System.out.print("\nInicio de sesión de Administrador... ");
 		System.out.print("\nIngrese login : ");
 		String login = ConsolaInicial.scanner.nextLine().trim();
 		System.out.print("\nIngrese su contraseña : ");

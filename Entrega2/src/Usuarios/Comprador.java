@@ -24,7 +24,7 @@ public class Comprador extends Usuario{
 	
 	private int comprasMaximas;
 	
-	private ArrayList<Pieza> historialCompras;
+	private ArrayList<String> historialCompras; //nombrePieza,fecha
 	
 	public Comprador(String login, String password,String nombre, String correo,int telefono,int comprasTotales, int comprasMaximas) {
 		super(login, password, "Comprador");
@@ -33,12 +33,17 @@ public class Comprador extends Usuario{
 		this.correo=correo;
 		this.comprasTotales=comprasTotales;
 		this.comprasMaximas=comprasMaximas;
-		this.historialCompras=new ArrayList<Pieza>();
+		this.historialCompras=new ArrayList<String>();
 	}
-	public void agregarCompra(int precio, Pieza p)
+	public void agregarCompra(int precio)
 	{
 		this.comprasTotales+=precio;
-		this.historialCompras.add(p);
+	}
+	
+	public void agregarPiezaCompra(int fecha, String tituloP)
+	{
+		this.historialCompras.add(tituloP);
+		this.historialCompras.add(String.valueOf(fecha));
 	}
 	
 
@@ -78,11 +83,11 @@ public class Comprador extends Usuario{
 		return comprasMaximas;
 	}
 	
-	public void setHistorialCompras(ArrayList<Pieza> piezas) {
+	public void setHistorialCompras(ArrayList<String> piezas) {
 		this.historialCompras = piezas;
 	}
 
-	public ArrayList<Pieza> getHistorialCompras() {
+	public ArrayList<String> getHistorialCompras() {
 		return this.historialCompras;
 	}
 

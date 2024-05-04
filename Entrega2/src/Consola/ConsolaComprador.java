@@ -1,8 +1,11 @@
 package Consola;
 
 
+import java.util.ArrayList;
+
 import Exceptions.MensajedeErrorException;
 import Modelo.Galeria;
+import Piezas.Pieza;
 import Usuarios.Comprador;
 
 public class ConsolaComprador implements ConsolaBase{
@@ -79,7 +82,7 @@ public class ConsolaComprador implements ConsolaBase{
 
 	@Override
 	public void iniciarSesion() throws MensajedeErrorException {
-		System.out.print("Inicio de sesión de Comprador... ");
+		System.out.print("\nInicio de sesión de Comprador... ");
 		System.out.print("\nIngrese login : ");
 		String login = ConsolaInicial.scanner.nextLine().trim();
 		System.out.print("\nIngrese su contraseña : ");
@@ -149,7 +152,27 @@ public class ConsolaComprador implements ConsolaBase{
 	}
 	
 	public void revisarComprasRealizadas() {
-		System.out.println("Las piezas que ha comprado son: \n ");
-		this.gal.imprimirPiezas(this.comprador.getHistorialCompras());
+		try {
+			System.out.println("Las piezas que ha comprado son: \n ");
+			ArrayList<String> listaPiezas=this.comprador.getHistorialCompras();
+			if (listaPiezas.size()>1) {
+				for (int i=0; i<listaPiezas.size(); i+=2) {
+					Pieza p = this.gal.getInventario().getPieza(listaPiezas.get(i));
+					ArrayList<Pieza> pieza = new ArrayList<Pieza>();
+					pieza.add(p);
+					
+					this.gal.imprimirPiezas(pieza);
+					System.out.println("\nEsta pieza fue comprada el "+ listaPiezas.get(i+1));
+				}
+			}
+			else {
+				System.out.println("No ha adquirido ninguna pieza aun.");
+			}
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
 	}
+		
+	
 }

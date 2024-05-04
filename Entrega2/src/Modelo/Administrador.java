@@ -277,6 +277,21 @@ public class Administrador {
 	}
 
 
+	public Comprador getComprador(String login) throws MensajedeErrorException {
+		Comprador comp =null;
+		for(Comprador comprador:compradores) {
+			if(comprador.getLogin().equals(login)) {
+				comp=comprador;
+			}
+		}
+		if (comp.equals(null)) {
+			throw new MensajedeErrorException("El Comprador no existe");
+		}
+		return comp;
+		
+	}
+
+
 
 
 
