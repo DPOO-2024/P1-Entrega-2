@@ -15,20 +15,19 @@ public class ConsolaEmpleadoGaleria implements ConsolaBase {
 	
 	@Override
 	public void mostrarMenu() {
-		{
-	        int opcion;
+        int opcion;
 
-	        do {
-	            System.out.println("\n\n**Menú Empleado**");
-	            System.out.println("1. Guardar Galería");
-	            System.out.println("2. Verificar tipo de empleado");
-	            System.out.println("3. Registrar Pago");
-	            System.out.println("4. Ver Piezas Disponibles");
-	            System.out.println("5. Ver Historial de todas las Piezas (No disponibles)");
-	            System.out.println("6. Ver Historial de una Pieza");
-	            System.out.println("7. Ver Historial de un Artista");
-	            System.out.println("8. Cerrar sesión");
-	            System.out.print("Ingrese una opción: ");
+        do {
+            System.out.println("\n\n**Menú Empleado**");
+            System.out.println("1. Guardar Galería");
+            System.out.println("2. Verificar tipo de empleado");
+            System.out.println("3. Registrar Pago");
+            System.out.println("4. Ver Piezas Disponibles");
+            System.out.println("5. Ver Historial de todas las Piezas (No disponibles)");
+            System.out.println("6. Ver Historial de una Pieza");
+            System.out.println("7. Ver Historial de un Artista");
+            System.out.println("8. Cerrar sesión");
+            System.out.print("Ingrese una opción: ");
   
 	            try {
 	            String input = ConsolaInicial.scanner.nextLine();
@@ -58,20 +57,19 @@ public class ConsolaEmpleadoGaleria implements ConsolaBase {
 	                	break;
 	                case 8:
 	                    System.out.println("Cerrando sesión...");
-	                    break;
-	                default:
-	                	System.out.println("Opción inválida. Intente nuevamente.");
-	            }
-	        } catch (NumberFormatException e) {
-	            System.out.println("Por favor, ingrese un número entero.");
-	            opcion = -1;
-	            
-	            }
-	        } while (opcion != 8);
-		}
-		
+                    break;
+                default:
+                	System.out.println("Opción inválida. Intente nuevamente.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Por favor, ingrese un número entero.");
+            opcion = -1;
+            
+            }
+        } while (opcion != 8);
 	}
-
+		
+	
 	@Override
 	public void iniciarSesion() throws MensajedeErrorException {
 		System.out.print("Inicio de sesión de Empleado de la Galeria... ");

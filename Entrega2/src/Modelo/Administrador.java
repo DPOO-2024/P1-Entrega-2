@@ -221,303 +221,51 @@ public class Administrador {
 	
 
 
-	//Pedir info pieza
-	public void pedirInfoPieza(Propietario pro) throws Exception {
-
+	//Agregar piezas
+	
+	public void agregarPieza(Pieza pieza, Propietario p) throws MensajedeErrorException {
 		try {
-			Scanner scanner = new Scanner(System.in);
-
-			System.out.print("\nRecuerde que los tipos de pieza que tenemos presentes son los siguientes: ");
-			System.out.print("\n- Escultura \n - Fotografia \n - Impresion \n - Pintura \n - Video \n - Otro");
-			System.out.print("\n\nPor favor, ingrese el tipo de la Pieza: ");
-			String tipoDePieza = scanner.nextLine().trim();
-			
-			
-
-			System.out.print("Por favor, ingrese el titulo de la Pieza: ");
-			String titulo = scanner.nextLine().trim();
-
-			System.out.print("Por favor, ingrese el año de creación de la Pieza: ");
-			String aniot = scanner.nextLine().trim();
-			int anio=Integer.parseInt(aniot);
-
-			System.out.print("Por favor, ingrese el lugar de creación de la Pieza: ");
-			String lugarDeCreacion = scanner.nextLine().trim();
-
-			System.out.print("Por favor, ingrese los autores (separados por comas) de la Pieza, si no se conoce el autor ingrese \"Anonimo\": ");
-			String autorest = scanner.nextLine().trim();
-			String[] autoresf = autorest.split(",");
-			List<String> autores = Arrays.asList(autoresf);
-
-			System.out.print("Por favor, ingrese si desea aplicar la modalidad de \"marginalidad\" (Si o No): ");
-			String modalidadt = scanner.nextLine().trim();
-
-			boolean modalidad = false;
-			int fechaMax = 0;
-
-			if (modalidadt.equals("Si") || modalidadt.equals("si")) {
-				modalidad = true;
-				System.out.print("Por favor, ingrese la fecha maxima, para la modalidad de \"marginalidad\" (AAMMDD): ");
-				String fechaMaxt = scanner.nextLine().trim();
-				fechaMax=Integer.parseInt(fechaMaxt);
-			}
-
-			System.out.print("Por favor, ingrese el valor inicial de la pieza, si desea que sea incluida en una subasta, si no ingrese 0: ");
-			String valorInicialt = scanner.nextLine().trim();
-			int valorInicial=Integer.parseInt(valorInicialt);
-
-			System.out.print("Por favor, ingrese  si desea mostrar su Pieza (Si o No): ");
-			String ubicaciont = scanner.nextLine().trim();
-
-			String ubicacion = "Bodega";
-			if (ubicaciont.equals("Si") || ubicaciont.equals("si")) {
-				ubicacion = "Mostrador";
-			}
-
-			boolean vendido = false;
-
-			System.out.print("Por favor, ingrese el valor fijo al que desea vender la Pieza, si no desea que tenga valor fijo ingrese 0: ");
-			String valorFijot = scanner.nextLine().trim();
-			int valorFijo=Integer.parseInt(valorFijot);
-
-			Pieza pieza;
-
-
-			if (tipoDePieza.equals("Escultura") || tipoDePieza.equals("escultura")) {
-
-				System.out.print("Por favor, ingrese el alto de la Pieza: ");
-				String altot = scanner.nextLine().trim();
-				int alto=Integer.parseInt(altot);
-
-				System.out.print("Por favor, ingrese el ancho de la Pieza: ");
-				String anchot = scanner.nextLine().trim();
-				int ancho=Integer.parseInt(anchot);
-
-				System.out.print("Por favor, ingrese la profundidad de la Pieza: ");
-				String profundidadt = scanner.nextLine().trim();
-				int profundidad=Integer.parseInt(profundidadt);
-
-				System.out.print("Por favor, ingrese los materiales (separados por comas) de la Pieza: ");
-				String materialest = scanner.nextLine().trim();
-				String[] materialesf = materialest.split(",");
-				List<String> materiales = Arrays.asList(materialesf);
-
-				System.out.print("Por favor, ingrese el peso de la Pieza: ");
-				String pesot = scanner.nextLine().trim();
-				int peso=Integer.parseInt(pesot);
-
-				System.out.print("Por favor, ingrese su Pieza requiere electricidad (Si o No): ");
-				String electricidadt = scanner.nextLine().trim();
-
-				boolean electricidad = false;
-				if (electricidadt.equals("Si") || electricidadt.equals("si")) {
-					electricidad = true;
-				}
-
-				System.out.print("Por favor, ingrese alguna especificacion de la instalación: ");
-				String instalacion = scanner.nextLine().trim();
-
-				pieza=new Escultura("Escultura",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, 
-						valorInicial, ubicaciont, vendido, valorFijo, alto, ancho, profundidad, materiales, peso, electricidad, instalacion);
-
-				this.inventario.agregarPieza(pieza);
-				pro.ingresarPieza(pieza);
-
-			}
-			else if (tipoDePieza.equals("Fotografia") || tipoDePieza.equals("fotografia")){
-				//Falta hacer para el resto de las Piezas, con la info necesaria
-				System.out.print("Por favor, ingrese el tamaño de la Pieza (En pulgadas): ");
-				String tamanio = scanner.nextLine().trim();
-				
-				System.out.print("Por favor, ingrese el alto de la Pieza (En pulgadas): ");
-				String altot = scanner.nextLine().trim();
-				int alto=Integer.parseInt(altot);
-				
-				System.out.print("Por favor, ingrese la resolución de la Pieza (En ppp): ");
-				String resoluciont = scanner.nextLine().trim();
-				int resolucion=Integer.parseInt(resoluciont);
-				
-				System.out.print("Por favor, ingrese la descripcion de la Pieza: ");
-				String descripcion = scanner.nextLine().trim();
-				
-				System.out.print("Por favor, ingrese el formato de la Pieza: ");
-				String formato = scanner.nextLine().trim();
-				
-				pieza=new Fotografia("Fotografia",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, ubicaciont, vendido, 
-						valorFijo, tamanio, alto, resolucion, descripcion, formato);
-
-				this.inventario.agregarPieza(pieza);
-				pro.ingresarPieza(pieza);
-				
-			}else if (tipoDePieza.equals("Impresion") || tipoDePieza.equals("fotografia")){
-				//Falta hacer para el resto de las Piezas, con la info necesaria
-				System.out.print("Por favor, ingrese el material de papel de la Pieza (En pulgadas): ");
-				String materialPapel = scanner.nextLine().trim();
-				
-				System.out.print("Por favor, ingrese el tamaño de la Pieza (En pulgadas): ");
-				String tamanio = scanner.nextLine().trim();
-				
-				System.out.print("Por favor, ingrese la resolución de la Pieza (En ppp): ");
-				String resoluciont = scanner.nextLine().trim();
-				int resolucion=Integer.parseInt(resoluciont);
-				
-				System.out.print("Por favor, ingrese la flexibilidad de la Pieza (Alta, media, baja): ");
-				String flexibilidadt = scanner.nextLine().trim();
-				int flexibilidad=Integer.parseInt(flexibilidadt);
-				
-				System.out.print("Por favor, ingrese la resistencia de la Pieza (Alta, media, baja): ");
-				String formato = scanner.nextLine().trim();
-				
-				System.out.print("Por favor, ingrese la descripcion de la Pieza: ");
-				String descripcion = scanner.nextLine().trim();
-				
-				pieza=new Impresion("Impresion",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, 
-						ubicaciont, vendido, valorFijo, materialPapel, tamanio, resolucion, flexibilidadt, formato, descripcion);
-
-				this.inventario.agregarPieza(pieza);
-				pro.ingresarPieza(pieza);
-				
-			}else if (tipoDePieza.equals("Otro") || tipoDePieza.equals("otro")){
-				//Falta hacer para el resto de las Piezas, con la info necesaria
-				System.out.print("Por favor, ingrese la información extra que haya de la Pieza: ");
-				String infoExtra = scanner.nextLine().trim();
-				
-				
-				pieza=new Otro("Otro",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, 
-						ubicaciont, vendido, valorFijo, infoExtra);
-
-				this.inventario.agregarPieza(pieza);
-				pro.ingresarPieza(pieza);
-				
-			}else if (tipoDePieza.equals("Pintura") || tipoDePieza.equals("pintura")){
-				//Falta hacer para el resto de las Piezas, con la info necesaria
-				System.out.print("Por favor, ingrese la tecnica de la Pieza: ");
-				String tecnica = scanner.nextLine().trim();
-				
-				System.out.print("Por favor, ingrese el origen de la Pieza: ");
-				String origen = scanner.nextLine().trim();
-				
-				System.out.print("Por favor, ingrese la descripcion de la Pieza: ");
-				String descripcion = scanner.nextLine().trim();
-				
-				System.out.print("Por favor, ingrese la altura de la Pieza (En pulgadas): ");
-				String altot = scanner.nextLine().trim();
-				int alto=Integer.parseInt(altot);
-				
-				System.out.print("Por favor, ingrese el ancho de la Pieza (En pulgadas): ");
-				String anchot = scanner.nextLine().trim();
-				int ancho=Integer.parseInt(anchot);
-				
-				System.out.print("Por favor, ingrese la forma de la Pieza (Cuadrada, Rectancular, etc): ");
-				String forma = scanner.nextLine().trim();
-				
-				System.out.print("Por favor, ingrese el tiempo de creación de la Pieza: ");
-				String tiempoDeCreacion = scanner.nextLine().trim();
-				
-				pieza=new Pintura("Pintura",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, valorInicial, 
-						ubicaciont, vendido, valorFijo, tecnica, origen, descripcion, alto, ancho, forma, tiempoDeCreacion);
-						
-				this.inventario.agregarPieza(pieza);
-				pro.ingresarPieza(pieza);
-				
-			}else if (tipoDePieza.equals("Video") || tipoDePieza.equals("video")){
-				//Falta hacer para el resto de las Piezas, con la info necesaria
-				System.out.print("Por favor, ingrese la duración de la Pieza (En minutos): ");
-				String duraciont = scanner.nextLine().trim();
-				int duracion=Integer.parseInt(duraciont);
-				
-				System.out.print("Por favor, ingrese el tamaño de la Pieza: ");
-				String tamanio = scanner.nextLine().trim();
-				
-				System.out.print("Por favor, ingrese el idioma de la Pieza: ");
-				String idioma = scanner.nextLine().trim();
-				
-				System.out.print("Por favor, ingrese la descripcion de la Pieza: ");
-				String descripcion = scanner.nextLine().trim();
-				
-				System.out.print("Por favor, ingrese la resolución de la Pieza (En p): ");
-				String resoluciont = scanner.nextLine().trim();
-				int resolucion=Integer.parseInt(resoluciont);
-				
-				System.out.print("Por favor, ingrese el formato de la Pieza: ");
-				String formato = scanner.nextLine().trim();
-
-				pieza=new Video("Video",(Usuario)pro, titulo, anio, lugarDeCreacion, autores, modalidad, fechaMax, 
-						valorInicial, ubicaciont, vendido, valorFijo, duracion, tamanio, idioma, descripcion, resolucion, formato);
-						
-				this.inventario.agregarPieza(pieza);
-				pro.ingresarPieza(pieza);
-				
-			}
-		}catch(PiezaRepetidaException e) {
-			throw e;
-		}catch(Exception e) {
-			throw e;
+			this.inventario.agregarPieza(pieza);
+			p.ingresarPieza(pieza);
+		} catch (PiezaRepetidaException e) {
+			throw new MensajedeErrorException("Ya existe una pieza con ese nombre");
 		}
-
 	}
 	
-
-//Pedir informacion para hacer usuario
-
-	public void pedirInfoUsuario() throws LoginDuplicadoException  {
-		try {
-			Scanner scanner = new Scanner(System.in);
-			
-			System.out.print("Por favor, ingrese si quiere registrarse como Comprador o Propietario: ");
-			String rol = scanner.nextLine().trim();
-			
-
-			System.out.print("Por favor, ingrese su login: "); //Falta cambiar esto para verificar que puedan ser compradores y propietarios
-			String login = scanner.nextLine().trim();
-			if (rol.equalsIgnoreCase("Comprador") && !this.loginsReservadosCompradores.contains(login)) {
-				loginsReservadosCompradores.add(this.login);
-			}
-			else if (rol.equalsIgnoreCase("Propietario") && !this.loginsReservadosPropietarios.contains(login)) {
-				loginsReservadosPropietarios.add(this.login);
-			}
+	public void verificarLogin(String login,String rol) throws LoginDuplicadoException {
 		
-			else { throw new LoginDuplicadoException(login);
-
-			}
-
-			System.out.print("Por favor, ingrese su contraseña: ");
-			String password = scanner.nextLine().trim();
-
-			System.out.print("Por favor, su numero de telefono: ");
-			String telefonof = scanner.nextLine().trim();
-			int telefono=Integer.parseInt(telefonof);
-
-			System.out.print("Por favor, ingrese su nombre : ");
-			String nombre =  scanner.nextLine().trim();
-
-
-			System.out.print("Por favor, ingrese su correo electronico: ");
-			String correo = scanner.nextLine().trim();
-
+		if (rol.equalsIgnoreCase("Comprador") && !this.loginsReservadosCompradores.contains(login)) {
+			loginsReservadosCompradores.add(this.login);
+		}
+		else if (rol.equalsIgnoreCase("Propietario") && !this.loginsReservadosPropietarios.contains(login)) {
+			loginsReservadosPropietarios.add(this.login);
+		}
+	
+		else { throw new LoginDuplicadoException(login);
+		}
+	}
+	
+	public void agregarUsuario(ArrayList<String> info, String rol) throws MensajedeErrorException {
+		try {
+			int telefono=Integer.parseInt(info.get(1));
+			
 			if (rol.equalsIgnoreCase("Comprador")) {
-
-				Comprador comprador = new Comprador(login, password,nombre, correo,telefono,0,5000);
+				Comprador comprador = new Comprador(login, info.get(0),info.get(2), info.get(3),telefono,0,5000);
+				
 				this.compradores.add(comprador);
 			}
 
 
 			else if (rol.equalsIgnoreCase("propietario")){
-				Propietario propietario = new Propietario(login, password,nombre, correo,telefono);
+				Propietario propietario = new Propietario(login,info.get(0),info.get(2), info.get(3),telefono);
 				this.propietarios.add(propietario);
-
 			}
+		}catch(Exception e) {
+			throw new MensajedeErrorException("El usuario no se pudo agregar correctamente");
 		}
-		catch(LoginDuplicadoException e) {
-			throw e;
-		}
-		catch(Exception e) {
-			throw e;
-		}
-
+		
 	}
-
-
+	
 	public void aumentarCupoComprador(String loginComprador, int aumento) {
 		for(Comprador comprador:compradores) {
 			if(comprador.getLogin().equals(loginComprador)) {

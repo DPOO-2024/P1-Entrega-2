@@ -24,24 +24,24 @@ public class ConsolaAdministrador implements ConsolaBase{
 	
 	@Override
 	public void mostrarMenu() {
-		{
-	        int opcion;
+	
+        int opcion;
 
-	        do {
-	            System.out.println("\n\n**Menú Administrador**");
-	            System.out.println("1. Guardar Galería");
-	            System.out.println("2. Crear Subasta");
-	            System.out.println("3. Agregar Empleado");
-	            System.out.println("4. Ver Piezas Disponibles");
-	            System.out.println("5. Ver Historial de todas las Piezas (No disponibles)");
-	            System.out.println("6. Ver Historial de una Pieza");
-	            System.out.println("7. Ver Historial de un Artista");
-	            System.out.println("8. Ver Historial de un Cliente");
-	            System.out.println("9. Terminar subasta");
-	            System.out.println("10. Asignar Cajero");
-	            System.out.println("11. Asignar nuevo Administrador");
-	            System.out.println("12. Cerrar sesión");
-	            System.out.print("Ingrese una opción: ");
+        do {
+            System.out.println("\n\n**Menú Administrador**");
+            System.out.println("1. Guardar Galería");
+            System.out.println("2. Crear Subasta");
+            System.out.println("3. Agregar Empleado");
+            System.out.println("4. Ver Piezas Disponibles");
+            System.out.println("5. Ver Historial de todas las Piezas (No disponibles)");
+            System.out.println("6. Ver Historial de una Pieza");
+            System.out.println("7. Ver Historial de un Artista");
+            System.out.println("8. Ver Historial de un Cliente");
+            System.out.println("9. Terminar subasta");
+            System.out.println("10. Asignar Cajero");
+            System.out.println("11. Asignar nuevo Administrador");
+            System.out.println("12. Cerrar sesión");
+            System.out.print("Ingrese una opción: ");
   
 	            try {
 	            String input = ConsolaInicial.scanner.nextLine();
@@ -83,17 +83,16 @@ public class ConsolaAdministrador implements ConsolaBase{
 	                    break;
 	                case 12:
 	                    System.out.println("Cerrando sesión...");
-	                    break;
-	                default:
-	                	System.out.println("Opción inválida. Intente nuevamente.");
-	            }
-	        } catch (NumberFormatException e) {
-	            System.out.println("Por favor, ingrese un número entero.");
-	            opcion = -1;
-	            
-	            }
-	        } while (opcion != 12);
-		}
+                    break;
+                default:
+                	System.out.println("Opción inválida. Intente nuevamente.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Por favor, ingrese un número entero.");
+            opcion = -1;
+            
+            }
+        } while (opcion != 12);
 	}
 
 
@@ -204,6 +203,6 @@ public class ConsolaAdministrador implements ConsolaBase{
 	
 	
 	public static void main(String[] args) {
-		
+		//Esto como seria 
 	}
 }

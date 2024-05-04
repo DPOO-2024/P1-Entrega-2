@@ -36,92 +36,6 @@ public class Galeria {
 	}
 	
 
-	//Muestra menú inicial a los Usuarios
-	public void mostrarMenu() throws MensajedeErrorException, PagoRechazado,Exception
-	{
-        Scanner scanner = new Scanner(System.in);
-        int opcion;
-
-        do {
-            System.out.println("\n\n**Menú Galería**");
-            System.out.println("1. Guardar Galería");
-            System.out.println("2. Crear Subasta");
-            System.out.println("3. Registrarse como Comprador o Propietario");
-            System.out.println("4. Crear Empledo");
-            System.out.println("5. Añadir Pieza");
-            System.out.println("6. Aumentar cupo Compras");
-            System.out.println("7. Ver Piezas Disponibles");
-            System.out.println("8. Ver Historial de Piezas (No disponibles)");
-            System.out.println("9. Comprar Pieza");
-            System.out.println("10. Participar en una Subasta");
-            System.out.println("11. Revisar Estado de la subasta");
-            System.out.println("12. Terminar subasta");
-            System.out.println("13. Asignar Cajero");
-            System.out.println("14. Volver al menu Inicial");
-            System.out.print("Ingrese una opción: ");
-
-      
-            try {
-            String input = scanner.nextLine();
-            opcion = Integer.parseInt(input);
-
-            switch (opcion) {
-                case 1:
-                    guardarGaleria();
-                    break;
-                case 2:
-                    crearSubasta();
-                    break;
-                case 3:
-                    registrarUsuario();
-                    break;
-                case 4:
-                	agregarEmpleado();
-                	break;
-                case 5:
-                    añadirPieza();
-                    break;
-                case 6:
-                    aumentarCupo();
-                    break;
-                case 7:
-                    mostrarPiezasDisponibles();
-                    break;
-                case 8:
-                    mostrarHistorialPiezas();
-                    break;
-                case 9:
-                    comprarPieza();
-                    break;
-                case 10:
-                	participarSubasta();
-                	break;
-                case 11:
-                    revisarSubasta();
-                    break;
-                case 12:
-                    terminarSubasta();
-                    break;
-                case 13:
-                    asignarCajero();
-                    break;
-                case 14:
-                    System.out.println("Saliendo de la Galería...");
-                    break;
-                default:
-                	System.out.println("Opción inválida. Intente nuevamente.");
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Por favor, ingrese un número entero.");
-            opcion = -1;
-            
-            }
-        } while (opcion != 14);
-        
-
-	}
-
-	
 	
 // Métodos para implementar las funcionalidades específicas (por ejemplo, crearSubasta(), crearUsuario(), etc.)
 	
@@ -236,7 +150,7 @@ public class Galeria {
 
 			System.out.println("Año: " + pieza.getAnio());
 			System.out.println("Lugar de creacion: " + pieza.getLugarDeCreacion());
-			System.out.println("Valor Inicial para subastar la pieza, si es 0 no se subasta " + pieza.getValorInicial());
+			System.out.println("Valor Inicial para subastar la pieza (si es 0 no se subasta): " + pieza.getValorInicial());
 			System.out.println("Precio: " + pieza.getValorFijo());
 			System.out.println("Autores: ");
 			for (Autor autor :pieza.getAutores() ) {
@@ -394,12 +308,6 @@ public class Galeria {
 	
 
 	
-	
-	public void registrarUsuario() throws LoginDuplicadoException {
-		this.admin.pedirInfoUsuario();
-	}
-	
-	
 
 
 	public void mostrarPiezasDisponibles() {
@@ -413,30 +321,7 @@ public class Galeria {
 	    }
 
     
-    //Añade una pieza cuando un Propietario 
-    public void añadirPieza()throws Exception {
-        if (this.admin != null) {
-        	Scanner scanner = new Scanner(System.in);
-        	
-    		System.out.print("Por favor, ingrese el login (De propietario): ");
-            String login = scanner.nextLine().trim();
-            
-            System.out.print("Por favor, ingrese la contraseña: ");
-            String password = scanner.nextLine().trim();
-            
-            try {
-            	Propietario pro = admin.verificarPropietario(login,password);
-            	admin.pedirInfoPieza(pro);
-            
-            }catch(Exception e) {
-            	throw e;
-            }    
-           
-        } else {
-            throw new MensajedeErrorException("No hay un administrador asignado para añadir piezas");
-        }
-    }
-    
+   
 
     public void asignarAdministrador(String login,String password) throws MensajedeErrorException {
     	try {

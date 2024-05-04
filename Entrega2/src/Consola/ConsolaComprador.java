@@ -1,12 +1,8 @@
 package Consola;
 
-import java.util.List;
-import java.util.Scanner;
 
 import Exceptions.MensajedeErrorException;
 import Modelo.Galeria;
-import Modelo.Subasta;
-import Piezas.Pieza;
 import Usuarios.Comprador;
 
 public class ConsolaComprador implements ConsolaBase{
@@ -20,21 +16,21 @@ public class ConsolaComprador implements ConsolaBase{
 	
 	@Override
 	public void mostrarMenu() {
-		{
-	        int opcion;
+		
+        int opcion;
 
-	        do {
-	            System.out.println("\n\n**Menú Comprador**");
-	            System.out.println("1. Comprar Pieza");
-	            System.out.println("2. Aumentar cupo Compras");
-	            System.out.println("3. Ver Piezas Disponibles");
-	            System.out.println("4. Ver Historia de una Pieza");
-	            System.out.println("5. Ver Historia de un Artista");
-	            System.out.println("6. Participar en una Subasta");
-	            System.out.println("7. Revisar Estado de la subasta");
-	            System.out.println("8. Ver compras realizadas");
-	            System.out.println("9. Cerrar sesión");
-	            System.out.print("Ingrese una opción: ");
+        do {
+            System.out.println("\n\n**Menú Comprador**");
+            System.out.println("1. Comprar Pieza");
+            System.out.println("2. Aumentar cupo Compras");
+            System.out.println("3. Ver Piezas Disponibles");
+            System.out.println("4. Ver Historia de una Pieza");
+            System.out.println("5. Ver Historia de un Artista");
+            System.out.println("6. Participar en una Subasta");
+            System.out.println("7. Revisar Estado de la subasta");
+            System.out.println("8. Ver compras realizadas");
+            System.out.println("9. Cerrar sesión");
+            System.out.print("Ingrese una opción: ");
   
 	            try {
 	            String input = ConsolaInicial.scanner.nextLine();
@@ -67,18 +63,18 @@ public class ConsolaComprador implements ConsolaBase{
 	                    break;
 	                case 9:
 	                    System.out.println("Cerrando sesión...");
-	                    break;
-	                default:
-	                	System.out.println("Opción inválida. Intente nuevamente.");
-	            }
-	        } catch (NumberFormatException e) {
-	            System.out.println("Por favor, ingrese un número entero.");
-	            opcion = -1;
-	            
-	            }
-	        } while (opcion != 9);
-		}
+                    break;
+                default:
+                	System.out.println("Opción inválida. Intente nuevamente.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Por favor, ingrese un número entero.");
+            opcion = -1;
+            
+            }
+        } while (opcion != 9);
 	}
+
 		
 
 	@Override

@@ -1,7 +1,9 @@
 package Consola;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import Exceptions.LoginDuplicadoException;
 import Exceptions.MensajedeErrorException;
 import Modelo.Galeria;
 
@@ -72,7 +74,7 @@ public class ConsolaInicial {
 	            	}
 	            	break;
 	            case 5:
-	            	//Falta
+	            	agregarUsuario();
 	            	break;
 	            case 6:
 	            	System.out.println("Saliendo de la Aplicación...");
@@ -88,6 +90,28 @@ public class ConsolaInicial {
         }
 
     }
+	
+	
+	public void agregarUsuario() {
+
+		try {
+			System.out.print("Por favor, ingrese si quiere registrarse como Comprador o Propietario: ");
+			String rol = scanner.nextLine().trim();
+			System.out.print("Por favor, ingrese su login: ");
+			String login = scanner.nextLine().trim();
+			
+			this.galeria.getAdmin().verificarLogin(login, rol);
+			ArrayList<String> info = ConsolaInfo.pedirInfoUsuario();
+			
+			this.galeria.getAdmin().agregarUsuario(info, rol);
+			
+		} catch (LoginDuplicadoException e) {
+			System.out.println(e.getMessage());
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+		
+	}
 	
 	public static void main(String[] args) {
 		Galeria galeriaNueva = new Galeria();
