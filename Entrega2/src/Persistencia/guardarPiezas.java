@@ -119,4 +119,21 @@ public abstract class guardarPiezas {
         
         return formato.toString();
 	}
+	
+	public static String getFormatoPiezasUsuario(List<String> piezas) {
+		StringBuilder formato = new StringBuilder();
+        formato.append("(");
+
+        for (int i = 0; i < piezas.size(); i+=2) {
+        	formato.append(piezas.get(i));
+        	formato.append("-");
+        	formato.append(piezas.get(i+1));
+            if (i+1 < piezas.size() - 1) {
+            	formato.append("/");
+            }
+        }
+        formato.append(")");
+        
+        return formato.toString();
+	}
 }

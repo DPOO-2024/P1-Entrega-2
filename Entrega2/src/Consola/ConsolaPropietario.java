@@ -58,7 +58,7 @@ public class ConsolaPropietario implements ConsolaBase{
 
 	@Override
 	public void iniciarSesion() throws MensajedeErrorException {
-		System.out.print("Inicio de sesión de Propietario... ");
+		System.out.print("\nInicio de sesión de Propietario... ");
 		System.out.print("\nIngrese login : ");
 		String login = ConsolaInicial.scanner.nextLine().trim();
 		System.out.print("\nIngrese su contraseña : ");

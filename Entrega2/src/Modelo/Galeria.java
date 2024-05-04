@@ -82,6 +82,7 @@ public class Galeria {
 		}
 
 	}
+	
 	//meu imprimir pieza oferta 
 	public void imprimirPiezas(List<Pieza> piezasSubasta) { 
 		int i = 1;
@@ -380,7 +381,7 @@ public class Galeria {
     		if (!pieza.equals(null)) {
     			boolean confirmado = this.admin.confirmarVenta(pieza,c);
 	            if ( confirmado){
-	  
+	            	//Toca cambiar lo del añadir compra en los compradores para poder guardar la fecha
 	            	if (this.cajero.generarPagoCajero(pieza.getValorFijo(),pieza,formapago,c)) {
 	            		this.inventario.moverPieza(pieza);
 	            		c.agregarCompra(pieza.getValorFijo(),pieza);

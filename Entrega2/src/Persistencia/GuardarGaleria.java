@@ -43,7 +43,7 @@ public class GuardarGaleria {
 		}
 	}
 
-	private void generarArchivoPiezas() {
+	public void generarArchivoPiezas() {
 		//Quitar comas de descripciones
 		String ubicacion = encontrarRuta() + "\\Datos\\"+ this.archivoPiezas;
 		File archivof = new File(ubicacion);
@@ -67,7 +67,7 @@ public class GuardarGaleria {
 
 	}
 
-	private void generarArchivoUsuarios() {
+	public void generarArchivoUsuarios() {
 		String ubicacion = encontrarRuta() + "\\Datos\\"+ this.archivoUsuarios;
 		File archivof = new File(ubicacion);
 		
@@ -77,8 +77,10 @@ public class GuardarGaleria {
 	
 			for(Usuario u: admin.getCompradores()) {
 				Comprador comprador = (Comprador) u;
+				String piezas = guardarPiezas.getFormatoPiezasUsuario(comprador.getHistorialCompras());
 				writer.write("Comprador,"+ u.getLogin()+ "," + u.getPassword() + "," + comprador.getNombre() +
-							"," + comprador.getCorreo() + "," + comprador.getTelefono() +"," + comprador.getComprasTotales() +"," + comprador.getComprasMaximas()+ "\n");
+							"," + comprador.getCorreo() + "," + comprador.getTelefono() +"," + comprador.getComprasTotales() 
+							+"," + comprador.getComprasMaximas()+ ","+piezas+"\n");
 			}
 			for(Usuario u: admin.getPropietarios()) {
 				Propietario propietario= (Propietario) u;
@@ -91,7 +93,7 @@ public class GuardarGaleria {
         }
 	}	
 
-	private void generarArchivoGaleria() {
+	public void generarArchivoGaleria() {
 		String ubicacion = encontrarRuta() + "\\Datos\\"+ this.archivoGaleria;
 		File archivof = new File(ubicacion);
 

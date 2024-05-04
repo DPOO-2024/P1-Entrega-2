@@ -4,10 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import Exceptions.MensajedeErrorException;
 import Modelo.Galeria;
@@ -38,15 +35,37 @@ public class CargaGaleria {
 	public void cargarArchivos() throws Exception {
 		try {
 			cargarBasico();
-			cargarUsuarios();
+			ArrayList<String> piezasUsuarios=cargarUsuarios();
 			cargarPiezas();
+			asignarPiezas(piezasUsuarios);
 		}catch(Exception e) {
 			throw e;
 		}
 	}
 	
+	
+	public void asignarPiezas(ArrayList<String> piezas) throws Exception {
+		try {
+			for(int i=0; i<piezas.size();i+=2) {
+				String loginU = piezas.get(i);
+				Comprador c = this.galeria.getAdmin().getComprador(loginU);
+				String p = piezas.get(i+1);
+				if (p.length()>2) {
+					p =p.substring(1,p.length() - 1);
+					String[] piezasCadauna = p.split("/");
+					for (String piezt:piezasCadauna) {
+						String[] p1 = piezt.split("-");
+						c.agregarPiezaCompra(Integer.parseInt(p1[1]),p1[0] );
+					}
+				}
+				
+			}
+		}catch (Exception e) {
+			throw new Exception();
+		}
+	}
 
-	private void cargarPiezas() throws Exception {
+	public void cargarPiezas() throws Exception {
 		String ubicacion = encontrarRuta() + "\\Datos\\"+ this.archivoPiezas;
 		File archivof = new File(ubicacion);
 		
@@ -82,12 +101,13 @@ public class CargaGaleria {
 	}
 	
 	//Carga los Usuarios de la Galeria
-	private void cargarUsuarios() throws Exception {
+	public ArrayList<String> cargarUsuarios() throws Exception {
 		String ubicacion = encontrarRuta() + "\\Datos\\"+ this.archivoUsuarios;
 		File archivof = new File(ubicacion);
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(archivof))) {
             String linea;
+            ArrayList<String> piezasComprador= new ArrayList<String>();
             while ((linea = br.readLine()) != null) {
                 String[] l = linea.split(",");
                 if (l[0].equals("Comprador") || l[0].equals("Propietario")) {
@@ -97,6 +117,8 @@ public class CargaGaleria {
                 		int valMax = Integer.valueOf(l[7].trim());
                 		Comprador c = new Comprador(l[1].trim(), l[2].trim(), l[3].trim(), l[4].trim(), telefono, compras, valMax );
                 		this.galeria.getAdmin().getCompradores().add(c);
+                		piezasComprador.add(l[1].trim());
+                		piezasComprador.add(l[8].trim());
                 	}else {
                 		int telefono=Integer.valueOf(l[5].trim());
                 		Propietario p = new Propietario(l[1].trim(), l[2].trim(), l[3].trim(), l[4].trim(), telefono );
@@ -106,7 +128,7 @@ public class CargaGaleria {
                 else {
                 	throw new IllegalArgumentException("Formato incorrecto en la línea: " + linea);
                 } 	
-            }
+            }return piezasComprador;
                 
         } catch (FileNotFoundException e) {
         	throw new MensajedeErrorException("No se encontro el archivo: " + this.archivoGaleria);
@@ -117,7 +139,7 @@ public class CargaGaleria {
 	}
 	
 	//Inicializa la galeria, asignando empleados y el administrador
-	private void cargarBasico() throws Exception {	
+	public void cargarBasico() throws Exception {	
 		String ubicacion = encontrarRuta() + "\\Datos\\"+ this.archivoGaleria;
 		File archivof = new File(ubicacion);
 		
