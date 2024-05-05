@@ -70,11 +70,9 @@ public class Galeria {
 	}
 	
 	//Crea una subasta, unicamente por el administrador
-	public void crearSubasta(int fecha) throws Exception {
+	public void crearSubasta(int fecha, String opcion) throws Exception {
 		try {			
-			List<Pieza> piezasSubasta = this.inventario.generarInventarioSubasta(fecha);
-			Operador op=this.admin.asignarOperador(this.empleados);
-			Subasta subasta = new Subasta(fecha,piezasSubasta,op);
+			Subasta subasta = this.admin.crearSubastaAdmin(fecha, this,opcion);
 			subastasActivas.add(subasta);
 		}
 		catch(Exception e) {
@@ -163,58 +161,25 @@ public class Galeria {
 	} 
 
 	//Le permite a los compradores participar en una subasta
-	public void participarSubasta(int fecha,Comprador c) throws Exception {
-		try {
-			List<Pieza> piezasSubasta;
-			
+	public Subasta participarSubasta(int fecha,Comprador c) throws Exception {
+
 			Subasta subasta = null;
 			for (Subasta s : subastasActivas) {
 				if (s.getFechaSubasta()==fecha) {
 					subasta = s;
-					piezasSubasta = subasta.agregarComprador(c);
-					System.out.print("ya estas registrado en la subasta,esta es la oferta de piezas : ");
-					imprimirPiezas(piezasSubasta);
+					subasta.agregarComprador(c);
 				}
 				else {
 					throw new MensajedeErrorException("No hay subastas activas para esa fecha");
 
 				}
 			}
-			if (subasta.isActiva()) {
-				System.out.print("Por favor, ingrese si esta interesado en hacer una oferta para una pieza (Si o No): ");
-				String ofertar = ConsolaInicial.scanner.nextLine().trim();
-
-
-				if (ofertar.equalsIgnoreCase("Si") ) {
-
-					System.out.print("Ingrese el numero de la pieza : ");
-					String id= ConsolaInicial.scanner.nextLine().trim();
-					int idx=Integer.parseInt(id);
-					Pieza pieza = subasta.getInventario().get(idx-1);
-					
-
-					subasta.hacerOferta(c, this.admin,pieza);
-				}
-
-				else if (ofertar.equalsIgnoreCase("No") ) {
-					subasta.quitarComprador(c);
-					System.out.print("Ya no participas en la subasta ");
-				}
-				else {
-					throw new MensajedeErrorException("No es una respuesta valida");
-				}
-
-			}
-			else {
-				throw new MensajedeErrorException("La subasta no esta activa");
-			}
-		}catch(Exception e) {
-			throw e;
-		}
+			
+			return subasta;
+			
 	}
+		
 
-	
-	
 	
 	//Termina la subasta y ejecuta los pagos a realizar de los ganadores
 	public void terminarSubasta(int fecha) throws MensajedeErrorException {
@@ -226,10 +191,7 @@ public class Galeria {
 				}
 			}
 			if (!subasta.equals(null)) {
-				subasta.finalizarSubasta();
-				subasta.finalizarSubasta();
-				subasta.ganadorSubasta(this.cajero);
-				subasta.getOperador().setAsignado(false);
+				this.admin.terminarSubastaAdmin(subasta,this.cajero);
 			}
 			else {
 				throw new MensajedeErrorException("No hay subastas activas para esa fecha");
@@ -240,74 +202,19 @@ public class Galeria {
 
 	}
 	
-	// funcion para que el comprador revise los ganadores de la subasta si ya se acabo o si sigue activa puede hacer otra oferta si la que ya habia hecho fue superada
-	public void revisarSubasta() throws MensajedeErrorException {
-		try {
-			Scanner scanner = new Scanner(System.in);
-			System.out.print("\n Ingrese login (solo compradores registrados) : ");
-			String login = scanner.nextLine().trim();
-			System.out.print("Ingrese su contraseña : ");
-			String password= scanner.nextLine().trim();
-			Comprador c = this.admin.verificarComprador(login, password);
-			if (!c.equals(null)) {
-				System.out.print("Ingrese la fecha (AAMMDD) de la subasta que quiere revisar : ");
-				String fechat = scanner.nextLine().trim();
-				int fecha=Integer.parseInt(fechat);	
-				Subasta subasta = null;
-				for (Subasta s : subastasActivas) {
-					if (s.getFechaSubasta()==fecha) {
-						subasta = s;}}
-				if (!subasta.equals(null)) {
-
-					if(subasta.isActiva()) {
-						int i = 1;
-						for(Pieza pieza:subasta.getInventario()) {
-							System.out.println("\n \n"+i+". " + pieza.getTitulo());
-							i++;}
-						System.out.print("Ingrese el numero de la pieza : ");
-						String pi= scanner.nextLine().trim();
-						int idx=Integer.parseInt(pi);
-						Pieza p =subasta.getInventario().get(idx-1);
-						
-						if (!p.equals(null)) {
-							Operador op = subasta.getOperador();
-							int valorMax = op.mayorOferta(p);
-							System.out.println("Si tu oferta fue menor a " + valorMax +" perdiste, quieres volver a hacer una oferta ? ");
-							String rta = scanner.nextLine().trim();
-
-							if (rta.equalsIgnoreCase("Si") ) {
-								subasta.hacerOferta(c, this.admin,p);
-							}
-							else {
-								System.out.println("Ya no participas en la subasta");
-							}
-						}
-					}
-					else {
-						List<String> ganadores =  subasta.getGanadores();
-						System.out.println("Los ganadores son:");
-						for (String ganador:ganadores) {
-							System.out.println(ganador);
-						}
-					}
-
-
-				}
-
-				else {
-					throw new MensajedeErrorException("No hay subastas en esa fecha");
-				}
-			}
-		}catch(MensajedeErrorException e) {
-			throw e;
-		}catch(Exception e) {
-			throw e;
-		}
-
+	
+	
+	public void historialPiezas() {
+		// TODO Auto-generated method stub
+		
 	}
-	
-	
 
+
+
+	public void historialArtista() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 
@@ -365,57 +272,7 @@ public class Galeria {
     }
   
 
-    //M
-    public void comprarPieza(int idx,String formapago, Comprador c)throws MensajedeErrorException, PagoRechazado, PiezaRepetidaException {
-		ArrayList<Pieza> piezasDisponibles= this.inventario.getPiezasDisponibles();
-		Pieza pieza =piezasDisponibles.get(idx-1);
-
-    	try {
-			if (pieza.getValorFijo()!=0) {
-				this.inventario.reservarPieza(pieza);
-			}
-			else {
-				throw new MensajedeErrorException("La pieza solo se puede vender en una subasta");
-			}
-
-    		if (!pieza.equals(null)) {
-    			boolean confirmado = this.admin.confirmarVenta(pieza,c);
-	            if ( confirmado){
-	            	//Toca cambiar lo del añadir compra en los compradores para poder guardar la fecha
-	            	if (this.cajero.generarPagoCajero(pieza.getValorFijo(),pieza,formapago,c)) {
-	            		this.inventario.moverPieza(pieza);
-	            		c.agregarCompra(pieza.getValorFijo(),pieza);
-	            		Propietario pro =(Propietario) pieza.getPropietario();
-	            		pro.venderPieza(pieza);
-	            		System.out.print("Pieza comprada ");
-	            	}
-	            	else {
-	            		this.inventario.agregarPieza(pieza);
-	            		throw new PagoRechazado();
-	            	
-	            	}
-	            }
-	            else {
-	            	this.inventario.agregarPieza(pieza);
-	            	throw new MensajedeErrorException("Superaste el numero de compras maximas contactate con el administrador");
-	            }
-        
-    	
-    		}	
-    		else {
-    			throw new MensajedeErrorException("La pieza no se encuentra disponible");
-    		}
-    		
-    	}
-    	catch(MensajedeErrorException e) {
-    		throw e;
-    	} catch (PagoRechazado e) {
-			throw e;
-		}
-    	
-    }
-
-
+   
     
     
 
@@ -505,6 +362,20 @@ public class Galeria {
 	}
 	
 }
+
+
+
+	public Subasta encontrarSubasta(int fecha) {
+		Subasta subasta = null;
+		for (Subasta s : subastasActivas) {
+			if (s.getFechaSubasta()==fecha) {
+				subasta = s;}}
+		return subasta;
+	}
+
+
+
+
 
 	
 	

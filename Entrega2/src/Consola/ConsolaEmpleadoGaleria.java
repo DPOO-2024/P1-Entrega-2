@@ -22,12 +22,11 @@ public class ConsolaEmpleadoGaleria implements ConsolaBase {
             System.out.println("\n\n**Menú Empleado**");
             System.out.println("1. Guardar Galería");
             System.out.println("2. Verificar tipo de empleado");
-            System.out.println("3. Registrar Pago");
-            System.out.println("4. Ver Piezas Disponibles");
-            System.out.println("5. Ver Historial de todas las Piezas (No disponibles)");
-            System.out.println("6. Ver Historial de una Pieza");
-            System.out.println("7. Ver Historial de un Artista");
-            System.out.println("8. Cerrar sesión");
+            System.out.println("3. Ver Piezas Disponibles");
+            System.out.println("4. Ver Historial de todas las Piezas (No disponibles)");
+            System.out.println("5. Ver Historial de una Pieza");
+            System.out.println("6. Ver Historial de un Artista");
+            System.out.println("7. Cerrar sesión");
             System.out.print("Ingrese una opción: ");
   
 	            try {
@@ -42,21 +41,18 @@ public class ConsolaEmpleadoGaleria implements ConsolaBase {
 	                    verificarTipodeEmpleado();
 	                    break;
 	                case 3:
-	                	registrarPago();
-	                    break;
-	                case 4:
 	                	this.gal.mostrarPiezasDisponibles();
 	                	break;
-	                case 5:
+	                case 4:
 	                	this.gal.mostrarHistorialPiezas();
 	                    break;
-	                case 6:
+	                case 5:
 	                	ConsolaInfo.mostrarHistorialPieza(this.gal);
 	                    break;
-	                case 7:
+	                case 6:
 	                	ConsolaInfo.mostrarHistorialArtista(this.gal);
 	                	break;
-	                case 8:
+	                case 7:
 	                    System.out.println("Cerrando sesión...");
                     break;
                 default:
@@ -98,23 +94,5 @@ public class ConsolaEmpleadoGaleria implements ConsolaBase {
 		
 	}
 	
-	public void registrarPago() {
-		String rol = this.empleado.getRol();
-		if (rol.equalsIgnoreCase("cajero"))	{
-			Cajero cajero =  (Cajero)this.empleado;
-			System.out.print("Ingreso el login del comprador: ");
-			System.out.print("\nIngrese  : ");
-			String login = ConsolaInicial.scanner.nextLine().trim();
-			System.out.print("\nIngrese su contraseña : ");
-			String password= ConsolaInicial.scanner.nextLine().trim();
-			cajero.generarPagoCajero(0, null, rol, null);
-			}
-		else {
-			System.out.println("Solo el cajero puede registrar pagos ");
-
-		}
-		
-		}
-		
 
 }

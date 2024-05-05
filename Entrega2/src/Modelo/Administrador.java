@@ -45,9 +45,17 @@ public class Administrador {
 	}
 
 	
-	//Falta Crear Subasta
+	//Crear Subasta
+	
+	public Subasta crearSubastaAdmin(int fecha, Galeria gal, String opcion) throws Exception {		
+			List<Pieza> piezasSubasta = gal.getInventario().generarInventarioSubasta(fecha);
+			Operador op=this.asignarOperador(gal.getEmpleados(),opcion);
+			Subasta subasta = new Subasta(fecha,piezasSubasta,op);
+		return subasta;
 
-	//M
+	}
+
+	//Confirmar que se le puede realizar la venta al comprador
 	public boolean confirmarVenta(Pieza pieza, Comprador comprador) throws MensajedeErrorException {
 				int valorMaximo = comprador.getComprasMaximas();
 				int valorActual = comprador.getComprasTotales();
@@ -63,7 +71,7 @@ public class Administrador {
 	
 		
 	
-
+	// verificar que la oferta es valida
 	public boolean verificarOferta(Oferta oferta) throws MensajedeErrorException {
 		boolean rta = false;
 		int valorMaximo = oferta.getComprador().getComprasMaximas();
@@ -123,17 +131,12 @@ public class Administrador {
 	
 
 	// le asigna uno de los operadores de la lista a una subasta o cambia un empleado que este en none
-	public Operador asignarOperador(List<Empleado> empleados) throws Exception {
+	public Operador asignarOperador(List<Empleado> empleados, String opcion) throws Exception {
 		try {
-			Scanner scanner = new Scanner(System.in);
-
-			System.out.println("Si desea asignar un operador ya registrado ingrese 1 ");
-			System.out.println("Si desea reasignar a un empleado como operador ingrese 2 ");
-			String opci = scanner.nextLine();
 			Operador operadorAsignado = null;
 			boolean escogido = false;
 			int i =0;
-			if (opci.equals("1")) {
+			if (opcion.equals("1")) {
 
 				while (!escogido && i < empleados.size()) {
 					Empleado empleado = empleados.get(i);
@@ -152,7 +155,7 @@ public class Administrador {
 				}
 			}
 
-			else if (opci.equals("2")) {
+			else if (opcion.equals("2")) {
 
 				while (!escogido && i < empleados.size()) {
 					Empleado empleado = empleados.get(i);
@@ -275,7 +278,7 @@ public class Administrador {
 		}
 		
 	}
-
+	
 
 	public Comprador getComprador(String login) throws MensajedeErrorException {
 		Comprador comp =null;
@@ -288,6 +291,27 @@ public class Administrador {
 			throw new MensajedeErrorException("El Comprador no existe");
 		}
 		return comp;
+		
+	}
+
+	//terminar subasta
+	public void terminarSubastaAdmin(Subasta subasta, Cajero cajero) throws MensajedeErrorException {
+		subasta.finalizarSubasta();
+		subasta.ganadorSubasta(cajero);
+		subasta.getOperador().setAsignado(false);
+		
+	}
+
+
+	public void historialComprador(String loginU) throws MensajedeErrorException {
+		List <Pieza> piezasPropietario = null;
+		for(Propietario p : propietarios) {
+			if (p.getLogin().equals(loginU)) {
+				 piezasPropietario= p.getEstadoPiezas();
+			}}
+				
+		Comprador c = getComprador(loginU);
+		
 		
 	}
 

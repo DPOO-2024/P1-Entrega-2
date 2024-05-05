@@ -53,38 +53,6 @@ public class Subasta {
 	}
 
 
-	public void hacerOferta(Comprador comprador, Administrador admin, Pieza p) throws MensajedeErrorException {
-		try {
-			Scanner scanner = new Scanner(System.in);
-
-			if (!p.equals(null)) {
-				int valorI = p.getValorInicial();
-				System.out.print("Por favor, ingrese su oferta, recuerde que el valor inicial de esta pieza es de " + valorI + ":");
-				String oferta = scanner.nextLine();
-				int valor=Integer.parseInt(oferta);
-				List<Integer> valores = this.operador.listaValoresOferta(p);
-				if (!(valores.contains(valor)) && valor>this.operador.mayorOferta(p) && valor>valorI) {
-					System.out.print("Por favor, ingrese su forma de pago si gana la subasta" );
-					String formaPago = scanner.nextLine();
-					this.operador.crearOferta(valor, comprador, p, formaPago, admin);
-				}
-				else {
-					throw new MensajedeErrorException("Aumenta tu oferta");
-				}
-
-
-			}
-			else {
-				throw new MensajedeErrorException("La pieza ingresada no esta disponible en esta subasta");
-			}
-
-		} 
-		catch(MensajedeErrorException e) {
-			throw e;
-		}
-	}
-
-
 	public List<Comprador> getCompradores() {
 		return compradores;
 	}
@@ -99,6 +67,7 @@ public class Subasta {
 
 		return inventario;
 	}
+
 
 	public void ganadorSubasta(Cajero cajero) throws MensajedeErrorException {
 		try {
@@ -147,6 +116,8 @@ public class Subasta {
 
 
 	}
+	
+	
 
 	public List<String> getGanadores() {
 		return this.ganadores;
@@ -173,10 +144,10 @@ public class Subasta {
 	public void setInventario(List<Pieza> inventario) {
 		this.inventario = inventario;
 	}
-	public List<Pieza> agregarComprador(Comprador comprador) throws MensajedeErrorException {
+	public void agregarComprador(Comprador comprador) throws MensajedeErrorException {
 		if (!compradores.contains(comprador)) {
 			compradores.add(comprador);
-			return this.inventario;}
+			}
 		else {
 			throw new MensajedeErrorException("El comprador ya se encuentra registrado en la subasta");
 		}
@@ -194,6 +165,9 @@ public class Subasta {
 	public void setOperador(Operador operador) {
 		this.operador = operador;
 	}
+
+
+	
 
 
 	

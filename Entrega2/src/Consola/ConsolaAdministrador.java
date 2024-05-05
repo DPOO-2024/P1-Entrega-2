@@ -120,7 +120,10 @@ public class ConsolaAdministrador implements ConsolaBase{
 			System.out.print("Ingrese la fecha (AAMMDD)en la que desea realizar la subasta : ");
 			String fechat = ConsolaInicial.scanner.nextLine().trim();
 			int fecha=Integer.parseInt(fechat);
-			this.gal.crearSubasta(fecha);	
+			System.out.println("Si desea asignar un operador ya registrado ingrese 1 ");
+			System.out.println("Si desea reasignar a un empleado como operador ingrese 2 ");
+			String opcion = ConsolaInicial.scanner.nextLine().trim();
+			this.gal.crearSubasta(fecha,opcion);	
 			System.out.print("Subasta creada ");
 		}
 		catch(Exception e) {
@@ -190,11 +193,13 @@ public class ConsolaAdministrador implements ConsolaBase{
 	}
 	
 	
+	
+	
 	public void mostrarHistorialCliente() {
 		try {
     		System.out.print("Por favor, ingrese el login del Usuario: ");
     		String loginU = ConsolaInicial.scanner.nextLine().trim();
-    		//Llamar funcion
+    		this.gal.getAdmin().historialComprador(loginU);
     	}
     	catch (Exception e) {
     		System.out.println(e);

@@ -24,7 +24,7 @@ public class ConsolaInfo {
 		try {
     		System.out.print("Por favor, ingrese el nombre de la Pieza: ");
     		String nombreP = ConsolaInicial.scanner.nextLine().trim();
-    		//Llamar funcion
+    		gal.historialPiezas();
     	}
     	catch (Exception e) {
     		System.out.println(e);
@@ -35,7 +35,7 @@ public class ConsolaInfo {
 		try {
     		System.out.print("Por favor, ingrese el nombre del Artista: ");
     		String nombreA = ConsolaInicial.scanner.nextLine().trim();
-    		//Llamar funcion
+    		gal.historialArtista();
     	}
     	catch (Exception e) {
     		System.out.println(e);
