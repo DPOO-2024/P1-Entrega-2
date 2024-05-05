@@ -312,6 +312,25 @@ public class Administrador {
 				
 		Comprador c = getComprador(loginU);
 		
+		System.out.println("HISTORIAL DEL COMPRADOR: ");
+		System.out.println("Piezas que ha comprado: ");
+		int i = 0;
+		while(i<c.getHistorialCompras().size()){
+			System.out.println(c.getHistorialCompras().get(i));
+			System.out.print(" ,fue comprada:"+c.getHistorialCompras().get(i+1));
+			i=i+2;
+		
+		}
+		
+		if(piezasPropietario!= null) {
+			System.out.println("Las piezas de las que es dueño son : ");
+			for(Pieza pieza:piezasPropietario) {
+				System.out.println(pieza.getTitulo());
+			}
+		}
+		
+		System.out.println("Valor de su coleccion: " + c.getComprasTotales());
+		
 		
 	}
 

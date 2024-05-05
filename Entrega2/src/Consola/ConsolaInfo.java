@@ -24,7 +24,7 @@ public class ConsolaInfo {
 		try {
     		System.out.print("Por favor, ingrese el nombre de la Pieza: ");
     		String nombreP = ConsolaInicial.scanner.nextLine().trim();
-    		gal.historialPiezas();
+    		gal.historialPiezas(nombreP);
     	}
     	catch (Exception e) {
     		System.out.println(e);

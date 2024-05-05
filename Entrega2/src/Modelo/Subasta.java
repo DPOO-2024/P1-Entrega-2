@@ -98,7 +98,7 @@ public class Subasta {
 
 				}
 				else {
-					throw new MensajedeErrorException("Datos inconsistentes(Max no se ecnuentre en las ofertas)");
+					throw new MensajedeErrorException("Datos inconsistentes: ese precio no se encuentra en las ofertas)");
 				}
 
 
