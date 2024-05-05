@@ -90,6 +90,7 @@ public class Subasta {
 						comprador.agregarCompra(max);
 						Propietario pro = (Propietario) pieza.getPropietario();
 						pro.venderPieza(pieza);
+						pieza.setVendido(true);
 						
 						
 					}

@@ -204,42 +204,11 @@ public class Galeria {
 	
 	
 	
-	public void historialPiezas(String nombreP) {
+	public void historialPiezas(String nombreP) throws MensajedeErrorException {
 		
 		System.out.println("HISTORIAL DE LA PIEZA");
-		Pieza pieza = null;
-		for(Pieza pi:this.inventario.getPiezasDisponibles()) {
-			if (pi.getTitulo().equalsIgnoreCase(nombreP)) {
-				pieza = pi;
-				System.out.println("La pieza aun no ha sido vendida");
-				System.out.println("Su propietarios es " + pieza.getPropietario().getLogin());
-				System.out.println("Se encuentra en " + pieza.getUbicacion());
-				if(pieza.isModalidad()) {
-				System.out.println("Se encuentra en modalidad de consignacion");
-				}
-			}
-			
-		}
-		
-		if (pieza==null) {
-			
-			for(Pieza pi:this.inventario.getHistorialPiezas()) {
-				if (pi.getTitulo().equalsIgnoreCase(nombreP)) {
-					pieza = pi;
-					System.out.println("La pieza ya fue vendida");
-					System.out.println("Su propietarios era " + pieza.getPropietario().getLogin());
-					for(Comprador comprador :this.admin.getCompradores()) {
-						if (comprador.getHistorialCompras().contains(nombreP)) {
-							
-						}
-					}
-					
-					
-				}
-				
-			}
-			
-		}
+		Pieza pieza = this.inventario.getPieza(nombreP);
+	
 		
 		if (pieza!=null) {
 			System.out.println("Datos Generales de "+ nombreP);
@@ -311,6 +280,44 @@ public class Galeria {
 			for (Autor autor :pieza.getAutores() ) {
 				System.out.print(autor.getNombre() + ", ");
 			}
+			
+			
+			
+			if (pieza.isVendido()) {
+				System.out.println("La pieza ya fue vendida");
+				System.out.println("Su propietario fue "+pieza.getPropietario() );
+				Comprador c = null;
+				for(Comprador comprador:this.admin.getCompradores()) {
+					if(comprador.getHistorialCompras().contains(nombreP)) {
+						System.out.println("Fue comprada por "+comprador.getLogin());
+						c=comprador;
+					}
+				}
+				if (c!=null) {
+					int i =0;
+					while(i<c.getHistorialCompras().size()) {
+						if( c.getHistorialCompras().get(i)==nombreP) {
+							System.out.println("La pieza fue vendida: "+c.getHistorialCompras().get(i+1));
+							}
+						i=i+2;
+					}
+				}
+				else {
+					throw new MensajedeErrorException("Ningun comprador compro esta pieza");
+				}
+				
+				
+				
+			}
+			
+			else {
+				System.out.println("La pieza no ha sido vendida");
+				System.out.println("Su propietario es "+pieza.getPropietario() );
+				System.out.println("La pieza se encnuentra en " + pieza.getUbicacion());
+				if(pieza.isModalidad()) {
+				System.out.println("La pieza se encuentra en modalidad de consignacion" );}
+				
+			}
 
 		}
 			
@@ -320,9 +327,105 @@ public class Galeria {
 
 
 
-	public void historialArtista() {
-		// TODO Auto-generated method stub
+	public void historialArtista(String nombreA) throws MensajedeErrorException {
+		boolean encontrado = false;
+		System.out.println("HISTORIAL DEL ARTISTA");
+		System.out.println("Creador de:");
+		for(Pieza pieza :this.inventario.getPiezasDisponibles()) {
+			for (Autor autor:pieza.getAutores()) {
+				if (autor.getNombre().equals(nombreA)) {
+					encontrado = true;
+					System.out.println("- "+pieza.getTitulo());
+					System.out.println("Fue creada en el año "+pieza.getAnio());
+					if (pieza.isVendido()) {
+						System.out.println("La pieza ya fue vendida");
+						System.out.println("Su propietario fue "+pieza.getPropietario() );
+						Comprador c = null;
+						for(Comprador comprador:this.admin.getCompradores()) {
+							if(comprador.getHistorialCompras().contains(pieza.getTitulo())) {
+								System.out.println("Fue comprada por "+comprador.getLogin());
+								c=comprador;
+							}
+						}
+						if (c!=null) {
+							int i =0;
+							while(i<c.getHistorialCompras().size()) {
+								if( c.getHistorialCompras().get(i)==pieza.getTitulo()) {
+									System.out.println("La pieza fue vendida: "+c.getHistorialCompras().get(i+1));
+									}
+								i=i+2;
+							}
+						}
+						else {
+							throw new MensajedeErrorException("Ningun comprador compro esta pieza");
+						}
+						
+						
+						
+					}
+					
+					else {
+						System.out.println("La pieza no ha sido vendida");
+						System.out.println("Su propietario es "+pieza.getPropietario() );
+						System.out.println("La pieza se encnuentra en " + pieza.getUbicacion());
+						if(pieza.isModalidad()) {
+						System.out.println("La pieza se encuentra en modalidad de consignacion" );}
+						
+					}
+					
+				}
+			}
+		}
 		
+		for(Pieza pieza :this.inventario.getHistorialPiezas()) {
+			for (Autor autor:pieza.getAutores()) {
+				if (autor.getNombre().equals(nombreA)) {
+					encontrado = true;
+					System.out.println("- "+pieza.getTitulo());
+					System.out.println("Fue creada en el año "+pieza.getAnio());
+					if (pieza.isVendido()) {
+						System.out.println("La pieza ya fue vendida");
+						System.out.println("Su propietario fue "+pieza.getPropietario() );
+						Comprador c = null;
+						for(Comprador comprador:this.admin.getCompradores()) {
+							if(comprador.getHistorialCompras().contains(pieza.getTitulo())) {
+								System.out.println("Fue comprada por "+comprador.getLogin());
+								c=comprador;
+							}
+						}
+						if (c!=null) {
+							int i =0;
+							while(i<c.getHistorialCompras().size()) {
+								if( c.getHistorialCompras().get(i)==pieza.getTitulo()) {
+									System.out.println("La pieza fue vendida: "+c.getHistorialCompras().get(i+1));
+									}
+								i=i+2;
+							}
+						}
+						else {
+							throw new MensajedeErrorException("Ningun comprador compro esta pieza");
+						}
+						
+						
+						
+					}
+					
+					else {
+						System.out.println("La pieza no ha sido vendida");
+						System.out.println("Su propietario es "+pieza.getPropietario() );
+						System.out.println("La pieza se encnuentra en " + pieza.getUbicacion());
+						if(pieza.isModalidad()) {
+						System.out.println("La pieza se encuentra en modalidad de consignacion" );}
+						
+					}
+					
+				}
+			}
+		}
+		if (!encontrado) {
+			throw new MensajedeErrorException("El artista que ingreso no ha hecho ninguna de nuestras obras");
+			
+		}
 	}
 	
 

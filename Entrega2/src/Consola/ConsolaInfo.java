@@ -35,7 +35,7 @@ public class ConsolaInfo {
 		try {
     		System.out.print("Por favor, ingrese el nombre del Artista: ");
     		String nombreA = ConsolaInicial.scanner.nextLine().trim();
-    		gal.historialArtista();
+    		gal.historialArtista(nombreA);
     	}
     	catch (Exception e) {
     		System.out.println(e);
