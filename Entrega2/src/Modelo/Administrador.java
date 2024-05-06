@@ -251,17 +251,18 @@ public class Administrador {
 	
 	public void agregarUsuario(ArrayList<String> info, String rol) throws MensajedeErrorException {
 		try {
+			rol=rol.replaceAll("\\s", "").toLowerCase();
 			int telefono=Integer.parseInt(info.get(1));
 			
 			if (rol.equalsIgnoreCase("Comprador")) {
-				Comprador comprador = new Comprador(login, info.get(0),info.get(2), info.get(3),telefono,0,5000);
+				Comprador comprador = new Comprador(info.get(4), info.get(0),info.get(2), info.get(3),telefono,0,5000);
 				
 				this.compradores.add(comprador);
 			}
 
 
 			else if (rol.equalsIgnoreCase("propietario")){
-				Propietario propietario = new Propietario(login,info.get(0),info.get(2), info.get(3),telefono);
+				Propietario propietario = new Propietario(info.get(4),info.get(0),info.get(2), info.get(3),telefono);
 				this.propietarios.add(propietario);
 			}
 		}catch(Exception e) {

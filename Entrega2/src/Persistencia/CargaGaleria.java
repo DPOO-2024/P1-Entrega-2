@@ -55,7 +55,7 @@ public class CargaGaleria {
 					String[] piezasCadauna = p.split("/");
 					for (String piezt:piezasCadauna) {
 						String[] p1 = piezt.split("-");
-						c.agregarPiezaCompra(Integer.parseInt(p1[1]),p1[0] );
+						c.agregarPiezaCompraPersistencia(p1[0],p1[1],p1[2]);
 					}
 				}
 				
@@ -161,7 +161,7 @@ public class CargaGaleria {
                 	Operador o = null;
                 	Cajero c = null;
                 	
-                	if (l[3].equals("Empleado")) {
+                	if (l[3].equals("None")) {
                 		e = new Empleado(l[1].trim(), l[2].trim(), "Empleado");
                 		this.galeria.getEmpleados().add(e);
                 	}else if (l[3].equals("Operador")) {

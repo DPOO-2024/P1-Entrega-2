@@ -102,6 +102,7 @@ public class ConsolaInicial {
 			
 			this.galeria.getAdmin().verificarLogin(login, rol);
 			ArrayList<String> info = ConsolaInfo.pedirInfoUsuario();
+			info.add(login);
 			
 			this.galeria.getAdmin().agregarUsuario(info, rol);
 			

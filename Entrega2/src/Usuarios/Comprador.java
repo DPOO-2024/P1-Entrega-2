@@ -112,6 +112,13 @@ public class Comprador extends Usuario{
 		this.historialCompras.add(precioS);
 	}
 	
+	public void agregarPiezaCompraPersistencia( String tituloP, String fecha,String precio)
+	{
+		this.historialCompras.add(tituloP);
+		this.historialCompras.add(fecha);
+		this.historialCompras.add(precio);
+	}
+	
 	
 	public void hacerOferta(Administrador admin, String oferta, String formaPago, Operador operador, Pieza pieza) throws MensajedeErrorException {
 		int valor=Integer.parseInt(oferta);

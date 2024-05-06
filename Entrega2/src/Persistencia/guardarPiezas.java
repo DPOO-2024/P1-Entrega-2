@@ -124,10 +124,12 @@ public abstract class guardarPiezas {
 		StringBuilder formato = new StringBuilder();
         formato.append("(");
 
-        for (int i = 0; i < piezas.size(); i+=2) {
+        for (int i = 0; i < piezas.size(); i+=3) {
         	formato.append(piezas.get(i));
         	formato.append("-");
         	formato.append(piezas.get(i+1));
+        	formato.append("-");
+        	formato.append(piezas.get(i+2));
             if (i+1 < piezas.size() - 1) {
             	formato.append("/");
             }

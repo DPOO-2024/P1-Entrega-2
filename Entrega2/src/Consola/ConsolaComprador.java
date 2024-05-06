@@ -207,13 +207,14 @@ public class ConsolaComprador implements ConsolaBase{
 			System.out.println("Las piezas que ha comprado son: \n ");
 			ArrayList<String> listaPiezas=this.comprador.getHistorialCompras();
 			if (listaPiezas.size()>1) {
-				for (int i=0; i<listaPiezas.size(); i+=2) {
+				for (int i=0; i<listaPiezas.size(); i+=3) {
 					Pieza p = this.gal.getInventario().getPieza(listaPiezas.get(i));
 					ArrayList<Pieza> pieza = new ArrayList<Pieza>();
 					pieza.add(p);
 					
 					this.gal.imprimirPiezas(pieza);
 					System.out.println("\nEsta pieza fue comprada el "+ listaPiezas.get(i+1));
+					System.out.println("\nEsta pieza fue comprada por el precio de "+ listaPiezas.get(i+2));
 				}
 			}
 			else {
