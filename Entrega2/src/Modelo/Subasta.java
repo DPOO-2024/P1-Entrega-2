@@ -88,6 +88,7 @@ public class Subasta {
 				if (!comprador.equals(null) && !formaPago.equals(null)) {
 					if (cajero.generarPagoCajero(max, pieza,formaPago,comprador)){
 						comprador.agregarCompra(max);
+						comprador.agregarPiezaCompra(pieza.getTitulo(), max);
 						Propietario pro = (Propietario) pieza.getPropietario();
 						pro.venderPieza(pieza);
 						pieza.setVendido(true);

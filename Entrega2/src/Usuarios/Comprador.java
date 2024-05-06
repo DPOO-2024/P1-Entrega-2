@@ -62,7 +62,7 @@ public class Comprador extends Usuario{
 	            	if (gal.getCajero().generarPagoCajero(pieza.getValorFijo(),pieza,formapago,this)) {
 	            		gal.getInventario().moverPieza(pieza);
 	            		this.agregarCompra(pieza.getValorFijo());
-	            		this.agregarPiezaCompra(pieza.getTitulo());
+	            		this.agregarPiezaCompra(pieza.getTitulo(),pieza.getValorFijo());
 	            		Propietario pro =(Propietario) pieza.getPropietario();
 	            		pro.venderPieza(pieza);
 	            		pieza.setVendido(true);
@@ -101,13 +101,15 @@ public class Comprador extends Usuario{
 		this.comprasTotales+=precio;
 	}
 	
-	public void agregarPiezaCompra( String tituloP)
+	public void agregarPiezaCompra( String tituloP,int precio)
 	{
 		this.historialCompras.add(tituloP);
 		Date fechaActual = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("yyMMdd");
         String fecha = formato.format(fechaActual);
 		this.historialCompras.add(fecha);
+		String precioS= String.valueOf(precio);	
+		this.historialCompras.add(precioS);
 	}
 	
 	
