@@ -2,7 +2,6 @@ package Consola;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import Exceptions.MensajedeErrorException;
 import Modelo.Galeria;

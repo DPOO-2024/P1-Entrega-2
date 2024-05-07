@@ -8,11 +8,8 @@ import java.util.List;
 import Exceptions.MensajedeErrorException;
 import Exceptions.PagoRechazado;
 import Exceptions.PiezaRepetidaException;
-import Exceptions.PrecioBajoException;
 import Modelo.Administrador;
 import Modelo.Galeria;
-import Modelo.Pago;
-import Modelo.Subasta;
 import Piezas.Pieza;
 
 public class Comprador extends Usuario{

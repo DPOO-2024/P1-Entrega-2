@@ -1,15 +1,7 @@
 package Consola;
 
-import java.util.List;
-import java.util.Scanner;
-
 import Exceptions.MensajedeErrorException;
-import Modelo.Empleado;
 import Modelo.Galeria;
-import Modelo.Subasta;
-import Piezas.Pieza;
-import Usuarios.Cajero;
-import Usuarios.Operador;
 
 public class ConsolaAdministrador implements ConsolaBase{
 	private Galeria gal;
@@ -194,7 +186,6 @@ public class ConsolaAdministrador implements ConsolaBase{
     	}
 		
 	}
-	
 	
 	
 	

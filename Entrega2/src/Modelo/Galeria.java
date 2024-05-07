@@ -1,20 +1,11 @@
 package Modelo;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
-
-import Consola.ConsolaInicial;
-import Exceptions.LoginDuplicadoException;
 import Exceptions.MensajedeErrorException;
-import Exceptions.PagoRechazado;
-import Exceptions.PiezaRepetidaException;
 import Usuarios.*;
 import Piezas.*;
 import Persistencia.CentralPersistencia;
 
-@SuppressWarnings("resource")
 public class Galeria {
 	private Administrador admin;
 	private String nombre;

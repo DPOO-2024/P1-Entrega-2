@@ -3,8 +3,6 @@ package Modelo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Scanner;
 
 import Exceptions.MensajedeErrorException;
 import Piezas.Pieza;
@@ -13,7 +11,7 @@ import Usuarios.Comprador;
 import Usuarios.Operador;
 import Usuarios.Propietario;
 
-@SuppressWarnings("resource")
+
 public class Subasta {
 	
 	private int fechaSubasta;

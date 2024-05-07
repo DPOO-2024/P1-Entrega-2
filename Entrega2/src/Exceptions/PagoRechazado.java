@@ -1,8 +1,5 @@
 package Exceptions;
 
-import Modelo.Pago;
-
-
 
 @SuppressWarnings("serial")
 public class PagoRechazado extends Exception

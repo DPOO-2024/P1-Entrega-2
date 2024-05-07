@@ -3,7 +3,6 @@ package Consola;
 import Exceptions.MensajedeErrorException;
 import Modelo.Empleado;
 import Modelo.Galeria;
-import Usuarios.Cajero;
 
 public class ConsolaEmpleadoGaleria implements ConsolaBase {
 	private Galeria gal;

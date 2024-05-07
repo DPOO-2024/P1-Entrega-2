@@ -1,7 +1,6 @@
 package Usuarios;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import Piezas.Pieza;

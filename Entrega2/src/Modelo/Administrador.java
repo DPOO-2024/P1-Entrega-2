@@ -2,27 +2,17 @@ package Modelo;
 
 import java.util.ArrayList;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 import Exceptions.LoginDuplicadoException;
 import Exceptions.MensajedeErrorException;
 import Exceptions.PiezaRepetidaException;
-import Piezas.Escultura;
-import Piezas.Fotografia;
-import Piezas.Impresion;
-import Piezas.Otro;
 import Piezas.Pieza;
-import Piezas.Pintura;
-import Piezas.Video;
 import Usuarios.Cajero;
 import Usuarios.Comprador;
 import Usuarios.Operador;
 import Usuarios.Propietario;
-import Usuarios.Usuario;
 
-@SuppressWarnings("resource")
 public class Administrador {
 	
 	private String login;
