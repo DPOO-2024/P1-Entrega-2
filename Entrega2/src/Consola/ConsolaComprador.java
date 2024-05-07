@@ -203,11 +203,15 @@ public class ConsolaComprador implements ConsolaBase{
 					String rta = ConsolaInicial.scanner.nextLine().trim();
 
 					if (rta.equalsIgnoreCase("Si") | rta.equalsIgnoreCase("Sí")) {
+						if (subasta.revisarInscripcion(comprador)) {
 						System.out.println("Por favor, ingrese su oferta :");
 						String oferta = ConsolaInicial.scanner.nextLine().trim();
 						System.out.println("Por favor, ingrese su forma de pago si gana la subasta" );
 						String formaPago = ConsolaInicial.scanner.nextLine();
-						this.comprador.hacerOferta(this.gal.getAdmin(),oferta,formaPago,subasta.getOperador(),p);
+						this.comprador.hacerOferta(this.gal.getAdmin(),oferta,formaPago,subasta.getOperador(),p);}
+						else {
+							throw new MensajedeErrorException("No puedes realizar otra oferta si no estas registrado");
+						}
 					}
 						
 					
