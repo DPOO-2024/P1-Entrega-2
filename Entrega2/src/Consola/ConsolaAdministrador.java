@@ -120,6 +120,9 @@ public class ConsolaAdministrador implements ConsolaBase{
 			System.out.print("Ingrese la fecha (AAMMDD)en la que desea realizar la subasta : ");
 			String fechat = ConsolaInicial.scanner.nextLine().trim();
 			int fecha=Integer.parseInt(fechat);
+			if(fechat.length()!=6) {
+				throw new MensajedeErrorException("No es una fecha valida");
+			}
 			System.out.println("Si desea asignar un operador ya registrado ingrese 1 ");
 			System.out.println("Si desea reasignar a un empleado como operador ingrese 2 ");
 			String opcion = ConsolaInicial.scanner.nextLine().trim();

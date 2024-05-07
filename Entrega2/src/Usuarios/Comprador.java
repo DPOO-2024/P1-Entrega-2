@@ -54,6 +54,7 @@ public class Comprador extends Usuario{
 			else {
 				throw new MensajedeErrorException("La pieza solo se puede vender en una subasta");
 			}
+			if(!pieza.isVendido()) {
 
     		if (!pieza.equals(null)) {
     			boolean confirmado = gal.getAdmin().confirmarVenta(pieza,this);
@@ -85,6 +86,10 @@ public class Comprador extends Usuario{
     			throw new MensajedeErrorException("La pieza no se encuentra disponible");
     		}
     		
+			}
+			else {
+				throw new MensajedeErrorException("La pieza ya fue vendida");
+			}
     	}
     	catch(MensajedeErrorException e) {
     		throw e;

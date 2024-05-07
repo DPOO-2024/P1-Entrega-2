@@ -72,6 +72,12 @@ public class Galeria {
 	//Crea una subasta, unicamente por el administrador
 	public void crearSubasta(int fecha, String opcion) throws Exception {
 		try {			
+			for(Subasta sub:this.subastasActivas) {
+				if(sub.getFechaSubasta() == fecha) {
+					throw new MensajedeErrorException("Ya existe una subasta en esa fecha");
+				}
+				
+			}
 			Subasta subasta = this.admin.crearSubastaAdmin(fecha, this,opcion);
 			subastasActivas.add(subasta);
 		}
@@ -161,13 +167,21 @@ public class Galeria {
 	} 
 
 	//Le permite a los compradores participar en una subasta
-	public Subasta participarSubasta(int fecha,Comprador c) throws Exception {
+	public Subasta participarSubasta(int fecha,Comprador c, int opcion) throws Exception {
 
 			Subasta subasta = null;
 			for (Subasta s : subastasActivas) {
 				if (s.getFechaSubasta()==fecha) {
 					subasta = s;
-					subasta.agregarComprador(c);
+					if(opcion==1) {
+					subasta.agregarComprador(c);}
+					else {
+						if (!subasta.revisarInscripcion(c)) {
+							throw new MensajedeErrorException("No estas registrado no puedes participar todavia");
+						}
+						
+						
+					}
 				}
 				else {
 					throw new MensajedeErrorException("No hay subastas activas para esa fecha");
@@ -284,25 +298,24 @@ public class Galeria {
 			
 			
 			if (pieza.isVendido()) {
-				System.out.println("La pieza ya fue vendida");
-				System.out.println("Su propietario fue "+pieza.getPropietario() );
+				System.out.println("\nLa pieza ya fue vendida");
+				System.out.println("Su propietario fue "+pieza.getPropietario().getLogin() );
 				Comprador c = null;
 				for(Comprador comprador:this.admin.getCompradores()) {
-					if(comprador.getHistorialCompras().contains(nombreP)) {
+					int i =0;
+					while(i<comprador.getHistorialCompras().size()) {
+					String titulo = comprador.getHistorialCompras().get(i).replaceAll("\\s", "");
+					String nombre = nombreP.replaceAll("\\s", "");
+					if(titulo.equalsIgnoreCase(nombre)) {
 						System.out.println("Fue comprada por "+comprador.getLogin());
 						c=comprador;
+						System.out.println("La pieza fue vendida: "+comprador.getHistorialCompras().get(i+1));
+						System.out.println("El precio por la que fue vendida: "+comprador.getHistorialCompras().get(i+2));
 					}
-				}
-				if (c!=null) {
-					int i =0;
-					while(i<c.getHistorialCompras().size()) {
-						if( c.getHistorialCompras().get(i)==nombreP) {
-							System.out.println("La pieza fue vendida: "+c.getHistorialCompras().get(i+1));
-							}
-						i=i+2;
-					}
-				}
-				else {
+					i=i+3;
+				}}
+				if (c==null) {
+					
 					throw new MensajedeErrorException("Ningun comprador compro esta pieza");
 				}
 				
@@ -339,7 +352,7 @@ public class Galeria {
 					System.out.println("Fue creada en el año "+pieza.getAnio());
 					if (pieza.isVendido()) {
 						System.out.println("La pieza ya fue vendida");
-						System.out.println("Su propietario fue "+pieza.getPropietario() );
+						System.out.println("Su propietario fue "+pieza.getPropietario().getLogin() );
 						Comprador c = null;
 						for(Comprador comprador:this.admin.getCompradores()) {
 							if(comprador.getHistorialCompras().contains(pieza.getTitulo())) {
@@ -350,10 +363,11 @@ public class Galeria {
 						if (c!=null) {
 							int i =0;
 							while(i<c.getHistorialCompras().size()) {
-								if( c.getHistorialCompras().get(i)==pieza.getTitulo()) {
+								if( c.getHistorialCompras().get(i).equalsIgnoreCase(pieza.getTitulo())) {
 									System.out.println("La pieza fue vendida: "+c.getHistorialCompras().get(i+1));
+									System.out.println("El precio por la que fue vendida: "+c.getHistorialCompras().get(i+2));
 									}
-								i=i+2;
+								i=i+3;
 							}
 						}
 						else {
@@ -366,8 +380,8 @@ public class Galeria {
 					
 					else {
 						System.out.println("La pieza no ha sido vendida");
-						System.out.println("Su propietario es "+pieza.getPropietario() );
-						System.out.println("La pieza se encnuentra en " + pieza.getUbicacion());
+						System.out.println("Su propietario es "+pieza.getPropietario().getLogin() );
+						System.out.println("La pieza se encuentra en " + pieza.getUbicacion());
 						if(pieza.isModalidad()) {
 						System.out.println("La pieza se encuentra en modalidad de consignacion" );}
 						
@@ -385,7 +399,7 @@ public class Galeria {
 					System.out.println("Fue creada en el año "+pieza.getAnio());
 					if (pieza.isVendido()) {
 						System.out.println("La pieza ya fue vendida");
-						System.out.println("Su propietario fue "+pieza.getPropietario() );
+						System.out.println("Su propietario fue "+pieza.getPropietario().getLogin() );
 						Comprador c = null;
 						for(Comprador comprador:this.admin.getCompradores()) {
 							if(comprador.getHistorialCompras().contains(pieza.getTitulo())) {
@@ -396,10 +410,12 @@ public class Galeria {
 						if (c!=null) {
 							int i =0;
 							while(i<c.getHistorialCompras().size()) {
-								if( c.getHistorialCompras().get(i)==pieza.getTitulo()) {
-									System.out.println("La pieza fue vendida: "+c.getHistorialCompras().get(i+1));
+								String titulo = c.getHistorialCompras().get(i);
+								if( titulo.equalsIgnoreCase(pieza.getTitulo())) {
+									System.out.println("La pieza fue vendida en "+c.getHistorialCompras().get(i+1));
+									System.out.println("El precio por la que fue vendida fue "+c.getHistorialCompras().get(i+2));
 									}
-								i=i+2;
+								i=i+3;
 							}
 						}
 						else {
@@ -412,7 +428,7 @@ public class Galeria {
 					
 					else {
 						System.out.println("La pieza no ha sido vendida");
-						System.out.println("Su propietario es "+pieza.getPropietario() );
+						System.out.println("Su propietario es "+pieza.getPropietario().getLogin() );
 						System.out.println("La pieza se encnuentra en " + pieza.getUbicacion());
 						if(pieza.isModalidad()) {
 						System.out.println("La pieza se encuentra en modalidad de consignacion" );}
@@ -428,7 +444,21 @@ public class Galeria {
 		}
 	}
 	
-
+	public void mostrarSubastasActivas() {
+		
+		int i =1;
+		if(this.subastasActivas != null) {
+			System.out.println("Las fechas de las subastas activas en este momento son :");
+		for(Subasta subasta:this.subastasActivas) {
+			System.out.println(i+ ". " + subasta.getFechaSubasta());
+			i++;
+		}
+		}
+		else {
+			System.out.println("No hay subastas Activas" );
+		}
+		
+	}
 
 	public void mostrarPiezasDisponibles() {
 		ArrayList<Pieza> piezasDisponibles= this.inventario.getPiezasDisponibles();
@@ -584,6 +614,10 @@ public class Galeria {
 				subasta = s;}}
 		return subasta;
 	}
+
+
+
+	
 
 
 

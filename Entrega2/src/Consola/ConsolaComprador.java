@@ -32,10 +32,12 @@ public class ConsolaComprador implements ConsolaBase{
             System.out.println("3. Ver Piezas Disponibles");
             System.out.println("4. Ver Historia de una Pieza");
             System.out.println("5. Ver Historia de un Artista");
-            System.out.println("6. Participar en una Subasta");
-            System.out.println("7. Revisar Estado de la subasta");
-            System.out.println("8. Ver compras realizadas");
-            System.out.println("9. Cerrar sesión");
+            System.out.println("6. Ver Subastas Activas");
+            System.out.println("7. Registrarse en una Subasta");
+            System.out.println("8. Participar en una Subasta");
+            System.out.println("9. Revisar Estado de la subasta");
+            System.out.println("10. Ver compras realizadas");
+            System.out.println("11. Cerrar sesión");
             System.out.print("Ingrese una opción: ");
   
 	            try {
@@ -59,15 +61,21 @@ public class ConsolaComprador implements ConsolaBase{
 	                	ConsolaInfo.mostrarHistorialArtista(this.gal);
 	                    break;
 	                case 6:
-	                	participarSubasta();
+	                	this.gal.mostrarSubastasActivas();
 	                    break;
 	                case 7:
-	                	revisarSubasta();
-	                	break;
+	                	resgistrarSubasta();
+	                    break;
 	                case 8:
-	                	revisarComprasRealizadas();
+	                	participarSubasta();
 	                    break;
 	                case 9:
+	                	revisarSubasta();
+	                	break;
+	                case 10:
+	                	revisarComprasRealizadas();
+	                    break;
+	                case 11:
 	                    System.out.println("Cerrando sesión...");
                     break;
                 default:
@@ -82,6 +90,7 @@ public class ConsolaComprador implements ConsolaBase{
 	}
 
 		
+
 
 	@Override
 	public void iniciarSesion() throws MensajedeErrorException {
@@ -101,8 +110,9 @@ public class ConsolaComprador implements ConsolaBase{
 	
 	public void comprarPieza() {
 		try {
+			System.out.println("Las piezas disponibles son:");
 			this.gal.mostrarPiezasDisponibles();
-			System.out.print("Ingrese el numero de la pieza : ");
+			System.out.println("\nIngrese el numero de la pieza : ");
 			String pi= ConsolaInicial.scanner.nextLine().trim();
 			int idx=Integer.parseInt(pi);
 			System.out.print("Por favor, ingrese la forma de pago ");
@@ -132,12 +142,30 @@ public class ConsolaComprador implements ConsolaBase{
 		
 	}
 	
-	public void participarSubasta() {
+	private void resgistrarSubasta() {
 		try {
-			System.out.print("Ingrese la fecha (AAMMDD) de la subasta en la que quiere participar : ");
+			System.out.println("Ingrese la fecha (AAMMDD) de la subasta en la que quiere inscribirse : ");
 			String fechat = ConsolaInicial.scanner.nextLine().trim();
 			int fecha=Integer.parseInt(fechat);	
-			Subasta subasta =this.gal.participarSubasta(fecha,this.comprador);
+			Subasta subasta =this.gal.participarSubasta(fecha,this.comprador,1);
+			System.out.println("Ya estas registrado, ahora puedes participar en la subasta: " + subasta.getFechaSubasta());
+	}
+	catch(MensajedeErrorException e) {
+		System.out.println(e);
+	}
+	catch(Exception e) {
+		System.out.println(e);
+	}
+		
+	}
+	
+	public void participarSubasta() {
+		try {
+			System.out.println("PARA PARTICIPAR DEBE ESTAR INSCRITO !!! ");
+			System.out.println("Ingrese la fecha (AAMMDD) de la subasta en la que quiere hacer una oferta : ");
+			String fechat = ConsolaInicial.scanner.nextLine().trim();
+			int fecha=Integer.parseInt(fechat);	
+			Subasta subasta =this.gal.participarSubasta(fecha,this.comprador,0);
 			ConsolaSubasta consolaSub = new ConsolaSubasta(this.gal,subasta);
 			consolaSub.iniciarOferta(this.comprador);
 			
@@ -152,7 +180,7 @@ public class ConsolaComprador implements ConsolaBase{
 	
 	public void revisarSubasta() {
 		try {
-		System.out.print("Ingrese la fecha (AAMMDD) de la subasta en la que quiere participar : ");
+		System.out.println("Ingrese la fecha (AAMMDD) de la subasta en la que quiere participar : ");
 		String fechat = ConsolaInicial.scanner.nextLine().trim();
 		int fecha=Integer.parseInt(fechat);
 		Subasta subasta = this.gal.encontrarSubasta(fecha);
@@ -163,7 +191,7 @@ public class ConsolaComprador implements ConsolaBase{
 				for(Pieza pieza:subasta.getInventario()) {
 					System.out.println("\n \n"+i+". " + pieza.getTitulo());
 					i++;}
-				System.out.print("Ingrese el numero de la pieza : ");
+				System.out.println("Ingrese el numero de la pieza : ");
 				String pi= ConsolaInicial.scanner.nextLine().trim();
 				int idx=Integer.parseInt(pi);
 				Pieza p =subasta.getInventario().get(idx-1);
@@ -174,17 +202,22 @@ public class ConsolaComprador implements ConsolaBase{
 					System.out.println("Si tu oferta fue menor a " + valorMax +" perdiste, quieres volver a hacer una oferta ? ");
 					String rta = ConsolaInicial.scanner.nextLine().trim();
 
-					if (rta.equalsIgnoreCase("Si") ) {
-						System.out.print("Por favor, ingrese su oferta :");
+					if (rta.equalsIgnoreCase("Si") | rta.equalsIgnoreCase("Sí")) {
+						System.out.println("Por favor, ingrese su oferta :");
 						String oferta = ConsolaInicial.scanner.nextLine().trim();
-						System.out.print("Por favor, ingrese su forma de pago si gana la subasta" );
+						System.out.println("Por favor, ingrese su forma de pago si gana la subasta" );
 						String formaPago = ConsolaInicial.scanner.nextLine();
 						this.comprador.hacerOferta(this.gal.getAdmin(),oferta,formaPago,subasta.getOperador(),p);
 					}
 						
 					
+					else if(rta.equalsIgnoreCase("No") ) {
+						System.out.println("Perdiste");
+					}
+					
 					else {
-						System.out.println("Ya no participas en la subasta");
+						throw new MensajedeErrorException("No es una respuesta valida");
+						
 					}
 				}
 			}
@@ -200,6 +233,10 @@ public class ConsolaComprador implements ConsolaBase{
 		}
 	}catch( MensajedeErrorException e) {
 		System.out.println(e);}
+	
+	catch( Exception e) {
+		System.out.println(e);}
+	
 	}
 	
 	public void revisarComprasRealizadas() {

@@ -154,6 +154,18 @@ public class Subasta {
 			throw new MensajedeErrorException("El comprador ya se encuentra registrado en la subasta");
 		}
 	}
+	
+	public boolean revisarInscripcion(Comprador comprador) {
+		if (compradores.contains(comprador)) {
+		return true ;}
+		else {
+			return false;
+		}
+		
+		
+		
+		
+	}
 	public void quitarComprador(Comprador comprador) {
 		compradores.remove(comprador);
 	}

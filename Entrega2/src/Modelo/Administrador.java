@@ -316,10 +316,13 @@ public class Administrador {
 		System.out.println("HISTORIAL DEL COMPRADOR: ");
 		System.out.println("Piezas que ha comprado: ");
 		int i = 0;
+		int p = 1;
 		while(i<c.getHistorialCompras().size()){
-			System.out.println(c.getHistorialCompras().get(i));
-			System.out.print(" ,fue comprada:"+c.getHistorialCompras().get(i+1));
-			i=i+2;
+			System.out.println(p+" " +c.getHistorialCompras().get(i));
+			System.out.print("Fue comprada en "+c.getHistorialCompras().get(i+1));
+			System.out.print("Por un valor de "+c.getHistorialCompras().get(i+2));
+			i=i+3;
+			p++;
 		
 		}
 		
@@ -330,7 +333,7 @@ public class Administrador {
 			}
 		}
 		
-		System.out.println("Valor de su coleccion: " + c.getComprasTotales());
+		System.out.println("\nValor de su coleccion: " + c.getComprasTotales());
 		
 		
 	}

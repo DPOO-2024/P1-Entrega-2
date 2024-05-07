@@ -1,6 +1,7 @@
 package Modelo;
 
 
+import Exceptions.MensajedeErrorException;
 import Usuarios.Comprador;
 
 public class Oferta {
@@ -35,10 +36,13 @@ public class Oferta {
 		this.comprador = comprador;
 	}
 	
-	public static Oferta generarOferta(int valorOferta, Comprador comprador, String formaPago) {
-		
+	public static Oferta generarOferta(int valorOferta, Comprador comprador, String formaPago) throws MensajedeErrorException {
+		if(formaPago.equalsIgnoreCase("Tarjeta") | formaPago.equalsIgnoreCase("Efectivo") | formaPago.equalsIgnoreCase("Transferencia")) {
 		Oferta oferta = new Oferta(valorOferta,comprador, formaPago);
-		return oferta;
+		return oferta;}
+		else {
+			throw new MensajedeErrorException("No es una forma de pago valida");
+		}
 		
 	}
 

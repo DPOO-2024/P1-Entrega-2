@@ -54,13 +54,18 @@ public class Inventario {
 	
 	public Pieza getPieza(String titulo) throws MensajedeErrorException {
 		Pieza pE=null;
-		for (Pieza p: piezasDisponibles)
-			if (p.getTitulo().equals(titulo)) {
+		String titulo1 = titulo.replaceAll("\\s", "");
+		for (Pieza p: piezasDisponibles) {
+			String cadena = p.getTitulo().replaceAll("\\s", "");
+			if (cadena.equalsIgnoreCase(titulo1)) {
 				pE=p;
 		}
-		for (Pieza p: historialPiezas)
-			if (p.getTitulo().contentEquals(titulo)) {
+		}
+		for (Pieza p: historialPiezas) {
+			String cadena2 = p.getTitulo().replaceAll("\\s", "");
+			if (cadena2.equalsIgnoreCase(titulo1)) {
 				pE=p;
+		}
 		}
 		if (pE==null) {
 			throw new MensajedeErrorException("La pieza no se encontro");

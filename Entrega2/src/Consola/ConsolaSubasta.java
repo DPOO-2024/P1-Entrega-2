@@ -18,24 +18,24 @@ public class ConsolaSubasta {
 	
 	public void iniciarOferta(Comprador c) throws MensajedeErrorException {
 
-		System.out.print("ya estas registrado en la subasta,esta es la oferta de piezas : ");
+		System.out.println("Esta es la oferta de piezas : ");
 		gal.imprimirPiezas(this.subasta.getInventario());
 		if (this.subasta.isActiva()) {
-			System.out.print("Por favor, ingrese si esta interesado en hacer una oferta para una pieza (Si o No): ");
+			System.out.println("Por favor, ingrese si esta interesado en hacer una oferta para una pieza (Si o No): ");
 			String ofertar = ConsolaInicial.scanner.nextLine().trim();
 
 
-			if (ofertar.equalsIgnoreCase("Si") ) {
+			if (ofertar.equalsIgnoreCase("Si") | ofertar.equalsIgnoreCase("Sí") ) {
 
-				System.out.print("Ingrese el numero de la pieza : ");
+				System.out.println("Ingrese el numero de la pieza : ");
 				String id= ConsolaInicial.scanner.nextLine().trim();
 				int idx=Integer.parseInt(id);
 				Pieza pieza = this.subasta.getInventario().get(idx-1);
 				if (!pieza.equals(null)) {
 					int valorI = pieza.getValorInicial();
-					System.out.print("Por favor, ingrese su oferta, recuerde que el valor inicial de esta pieza es de " + valorI + ":");
+					System.out.println("Por favor, ingrese su oferta, recuerde que el valor inicial de esta pieza es de " + valorI + ":");
 					String oferta = ConsolaInicial.scanner.nextLine().trim();
-					System.out.print("Por favor, ingrese su forma de pago si gana la subasta" );
+					System.out.println("Por favor, ingrese su forma de pago si gana la subasta" );
 					String formaPago = ConsolaInicial.scanner.nextLine();
 					c.hacerOferta(this.gal.getAdmin(),oferta,formaPago,this.subasta.getOperador(), pieza);
 					
@@ -48,7 +48,7 @@ public class ConsolaSubasta {
 			}
 			else if (ofertar.equalsIgnoreCase("No") ) {
 				this.subasta.quitarComprador(c);
-				System.out.print("Ya no participas en la subasta ");
+				System.out.println("Ya no participas en la subasta ");
 			}
 			else {
 				throw new MensajedeErrorException("No es una respuesta valida");

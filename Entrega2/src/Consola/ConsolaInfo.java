@@ -22,7 +22,7 @@ public class ConsolaInfo {
 	
 	public static void mostrarHistorialPieza(Galeria gal) {
 		try {
-    		System.out.print("Por favor, ingrese el nombre de la Pieza: ");
+    		System.out.println("Por favor, ingrese el nombre de la Pieza: ");
     		String nombreP = ConsolaInicial.scanner.nextLine().trim();
     		gal.historialPiezas(nombreP);
     	}
@@ -33,7 +33,7 @@ public class ConsolaInfo {
 	
 	public static void mostrarHistorialArtista(Galeria gal) {
 		try {
-    		System.out.print("Por favor, ingrese el nombre del Artista: ");
+    		System.out.println("Por favor, ingrese el nombre del Artista: ");
     		String nombreA = ConsolaInicial.scanner.nextLine().trim();
     		gal.historialArtista(nombreA);
     	}
