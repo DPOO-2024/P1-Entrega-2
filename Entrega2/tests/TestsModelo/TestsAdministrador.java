@@ -14,6 +14,8 @@ import Exceptions.MensajedeErrorException;
 import Modelo.Administrador;
 import Modelo.Empleado;
 import Modelo.Galeria;
+import Piezas.Fotografia;
+import Piezas.Pieza;
 import Usuarios.Comprador;
 import Usuarios.Propietario;
 
@@ -36,8 +38,7 @@ class TestsAdministrador {
 		datos2.add("301236587");
 		datos2.add("David Andres Brown");
 		datos2.add("davBrown@gmil.com");
-		datos2.add("david_brown");
-						
+		datos2.add("david_brown");						
 		
 	}
 	
@@ -116,5 +117,7 @@ class TestsAdministrador {
 			admin.verificarPropietario("Veronica_lino" ,"Veri_324");
         });
 	}
+	
+	
 
 }
