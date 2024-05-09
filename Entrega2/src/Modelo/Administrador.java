@@ -149,7 +149,8 @@ public class Administrador {
 
 				while (!escogido && i < empleados.size()) {
 					Empleado empleado = empleados.get(i);
-					if (empleado.getRol().equals("None")) {
+					if(!empleado.getRol().equalsIgnoreCase("Operador")&&!empleado.getRol().equalsIgnoreCase("Cajero"))
+					if (empleado.getRol().equalsIgnoreCase("None")) {
 						empleado.setRol("Operador");
 						escogido = true;
 						operadorAsignado=new Operador(empleado.getNombreUsuario(),empleado.getContraseña(),empleado.getRol());
@@ -287,9 +288,9 @@ public class Administrador {
 	}
 
 	//terminar subasta
-	public void terminarSubastaAdmin(Subasta subasta, Cajero cajero) throws MensajedeErrorException {
+	public void terminarSubastaAdmin(Subasta subasta, Cajero cajero, Galeria gal) throws Exception {
 		subasta.finalizarSubasta();
-		subasta.ganadorSubasta(cajero);
+		subasta.ganadorSubasta(cajero,gal);
 		subasta.getOperador().setAsignado(false);
 		
 	}

@@ -85,7 +85,7 @@ public class ConsolaComprador implements ConsolaBase{
             opcion = -1;
             
             }
-        } while (opcion != 9);
+        } while (opcion != 11);
 	}
 
 		
@@ -167,6 +167,7 @@ public class ConsolaComprador implements ConsolaBase{
 			Subasta subasta =this.gal.participarSubasta(fecha,this.comprador,0);
 			ConsolaSubasta consolaSub = new ConsolaSubasta(this.gal,subasta);
 			consolaSub.iniciarOferta(this.comprador);
+			System.out.println("Su oferta fue exitosa, recuerde seguir revisando el estado de la subasta ");
 			
 		}
 		catch(MensajedeErrorException e) {

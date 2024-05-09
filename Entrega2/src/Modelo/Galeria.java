@@ -77,32 +77,35 @@ public class Galeria {
 
 	//Le permite a los compradores participar en una subasta
 	public Subasta participarSubasta(int fecha,Comprador c, int opcion) throws Exception {
-
+			boolean encontrado = false;
 			Subasta subasta = null;
 			for (Subasta s : subastasActivas) {
 				if (s.getFechaSubasta()==fecha) {
 					subasta = s;
 					if(s.isActiva()) {
-					if(opcion==1) {
-					subasta.agregarComprador(c);}
-					else {
-						if (!subasta.revisarInscripcion(c)) {
-							throw new MensajedeErrorException("No estas registrado no puedes participar todavia");
+						encontrado =true;
+						if(opcion==1) {
+							subasta.agregarComprador(c);
 						}
+						else if (opcion==0) {
+							if (!subasta.revisarInscripcion(c)) {
+								throw new MensajedeErrorException("No estas registrado no puedes participar todavia");
+							}
 						
 						
+						}
 					}
-				}
 				else {
 					throw new MensajedeErrorException("Esta subasta ya no esta activa");
 					}
 				
 			}
-				else {
-					throw new MensajedeErrorException("No hay subastas activas para esa fecha");
-
-				}
+				
 			}
+			
+		
+
+			
 			
 			return subasta;
 			
@@ -111,7 +114,7 @@ public class Galeria {
 
 	
 	//Termina la subasta y ejecuta los pagos a realizar de los ganadores
-	public void terminarSubasta(int fecha) throws MensajedeErrorException {
+	public void terminarSubasta(int fecha) throws Exception {
 		try {
 			Subasta subasta = null;
 			for (Subasta s : subastasActivas) {
@@ -120,7 +123,7 @@ public class Galeria {
 				}
 			}
 			if (!subasta.equals(null)) {
-				this.admin.terminarSubastaAdmin(subasta,this.cajero);
+				this.admin.terminarSubastaAdmin(subasta,this.cajero,this);
 				this.subastasActivas.remove(subasta);
 			}
 			else {

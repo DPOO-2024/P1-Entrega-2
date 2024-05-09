@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import Exceptions.MensajedeErrorException;
+import Exceptions.PagoRechazado;
 import Piezas.Pieza;
 import Usuarios.Cajero;
 import Usuarios.Comprador;
@@ -67,7 +68,7 @@ public class Subasta {
 	}
 
 
-	public void ganadorSubasta(Cajero cajero) throws MensajedeErrorException {
+	public void ganadorSubasta(Cajero cajero, Galeria gal) throws Exception {
 		try {
 			Map<Pieza, List<Oferta>> reporte = this.operador.generarReporte();
 			for (Map.Entry<Pieza, List<Oferta>> entry : reporte.entrySet()) {
@@ -87,12 +88,16 @@ public class Subasta {
 					if (cajero.generarPagoCajero(max, pieza,formaPago,comprador)){
 						comprador.agregarCompra(max);
 						comprador.agregarPiezaCompra(pieza.getTitulo(), max);
+						gal.getInventario().moverPieza(pieza);
 						Propietario pro = (Propietario) pieza.getPropietario();
 						pro.venderPieza(pieza);
 						pieza.setVendido(true);
 						
 						
 					}
+					
+					else {
+						throw new PagoRechazado();					}
 					
 					ganadores.add("("+pieza.getTitulo()+" , " + comprador.getLogin() + ")");
 
@@ -110,7 +115,7 @@ public class Subasta {
 		catch(MensajedeErrorException e) {
 			throw e;
 		}
-		catch(Exception e) {
+		catch(PagoRechazado e) {
 			throw e;
 		}
 

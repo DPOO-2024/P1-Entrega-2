@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Exceptions.MensajedeErrorException;
+import Exceptions.PagoRechazado;
 import Modelo.Empleado;
 import Modelo.Pago;
 import Piezas.Pieza;
@@ -22,9 +23,15 @@ public class Cajero extends Empleado{
 
 	
 	// como se cuando se registra un pago correctamente ???
-	public boolean generarPagoCajero(int precio,Pieza pieza,String formaPago, Comprador comprador) {
+	public boolean generarPagoCajero(int precio,Pieza pieza,String formaPago, Comprador comprador) throws PagoRechazado {
 		boolean respuesta =false;
-		Pago pago = Pago.generarPago(precio,pieza,formaPago,comprador);
+		Pago pago = null;
+		if(formaPago.equalsIgnoreCase("Tarjeta") | formaPago.equalsIgnoreCase("Efectivo") | formaPago.equalsIgnoreCase("Transferencia")) {
+		pago = Pago.generarPago(precio,pieza,formaPago,comprador);}
+		
+		else {
+		return respuesta;
+		}
 		if (pago!=null) {
 		registrarPago(pago);
 		respuesta =true;}

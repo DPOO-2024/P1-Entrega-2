@@ -136,7 +136,7 @@ public class ConsolaAdministrador implements ConsolaBase{
 			System.out.print("La subasta de la fecha "+fechat+ " se elimino con exito.");
 
 		}
-		catch(MensajedeErrorException e) {
+		catch(Exception e) {
 			System.out.println(e);
 		}
 	}

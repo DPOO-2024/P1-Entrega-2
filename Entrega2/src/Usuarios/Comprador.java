@@ -56,7 +56,6 @@ public class Comprador extends Usuario{
     		if (!pieza.equals(null)) {
     			boolean confirmado = gal.getAdmin().confirmarVenta(pieza,this);
 	            if ( confirmado){
-	            	//Toca cambiar lo del añadir compra en los compradores para poder guardar la fecha
 	            	if (gal.getCajero().generarPagoCajero(pieza.getValorFijo(),pieza,formapago,this)) {
 	            		gal.getInventario().moverPieza(pieza);
 	            		this.agregarCompra(pieza.getValorFijo());
@@ -126,9 +125,11 @@ public class Comprador extends Usuario{
 		int valor=Integer.parseInt(oferta);
 		int valorI = pieza.getValorInicial();
 		List<Integer> valores = operador.listaValoresOferta(pieza);
-		if (!(valores.contains(valor)) && valor>operador.mayorOferta(pieza) && valor>valorI) {
+		if (!(valores.contains(valor)) && valor>operador.mayorOferta(pieza) && valor>=valorI) {
+			
+		
 			operador.crearOferta(valor, this, pieza, formaPago, admin);
-		}
+	}
 		else {
 			throw new MensajedeErrorException("Aumenta tu oferta");
 		}
