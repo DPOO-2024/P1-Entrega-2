@@ -225,38 +225,39 @@ public class Administrador {
 		}
 	}
 	
+	//Verificar que el login no exista ya 
 	public void verificarLogin(String login,String rol) throws LoginDuplicadoException {
 		
 		if (rol.equalsIgnoreCase("Comprador") && !this.loginsReservadosCompradores.contains(login)) {
-			loginsReservadosCompradores.add(this.login);
+			loginsReservadosCompradores.add(login);
 		}
 		else if (rol.equalsIgnoreCase("Propietario") && !this.loginsReservadosPropietarios.contains(login)) {
-			loginsReservadosPropietarios.add(this.login);
+			loginsReservadosPropietarios.add(login);
 		}
 	
-		else { throw new LoginDuplicadoException(login);
+		else { 
+			throw new LoginDuplicadoException(login);
 		}
 	}
 	
 	
 	public void agregarUsuario(ArrayList<String> info, String rol) throws MensajedeErrorException {
-		try {
-			rol=rol.replaceAll("\\s", "").toLowerCase();
-			int telefono=Integer.parseInt(info.get(1));
+		rol=rol.replaceAll("\\s", "").toLowerCase();
+		int telefono=Integer.parseInt(info.get(1));
+		
+		if (rol.equalsIgnoreCase("Comprador")) {
+			Comprador comprador = new Comprador(info.get(4), info.get(0),info.get(2), info.get(3),telefono,0,5000);
 			
-			if (rol.equalsIgnoreCase("Comprador")) {
-				Comprador comprador = new Comprador(info.get(4), info.get(0),info.get(2), info.get(3),telefono,0,5000);
-				
-				this.compradores.add(comprador);
-			}
+			this.compradores.add(comprador);
+		}
 
 
-			else if (rol.equalsIgnoreCase("propietario")){
-				Propietario propietario = new Propietario(info.get(4),info.get(0),info.get(2), info.get(3),telefono);
-				this.propietarios.add(propietario);
-			}
-		}catch(Exception e) {
-			throw new MensajedeErrorException("El usuario no se pudo agregar correctamente");
+		else if (rol.equalsIgnoreCase("propietario")){
+			Propietario propietario = new Propietario(info.get(4),info.get(0),info.get(2), info.get(3),telefono);
+			this.propietarios.add(propietario);
+		
+		}else {
+			throw new MensajedeErrorException("El rol ingresado no existe");
 		}
 		
 	}
