@@ -24,7 +24,7 @@ public class ConsolaInicial {
 	        	System.out.println("\n**Bienvenido a la Galeria "+this.galeria.getNombre() +" **");
 	            System.out.println("\n**Menú Inicio**");
 	            System.out.println("\n**Seleccione la opción de como va a iniciar sesión**");
-	            System.out.println("1. Adminstrador");
+	            System.out.println("1. Administrador");
 	            System.out.println("2. Empleado de Galeria");
 	            System.out.println("3. Comprador");
 	            System.out.println("4. Propietario");

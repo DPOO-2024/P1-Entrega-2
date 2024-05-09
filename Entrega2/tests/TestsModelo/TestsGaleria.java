@@ -90,6 +90,10 @@ class TestsGaleria {
 			fail("No se pudo asignar el cajero");
 		}
 	}
+	
+	
+	
+	
 
 
 }

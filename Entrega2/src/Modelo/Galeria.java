@@ -82,6 +82,7 @@ public class Galeria {
 			for (Subasta s : subastasActivas) {
 				if (s.getFechaSubasta()==fecha) {
 					subasta = s;
+					if(s.isActiva()) {
 					if(opcion==1) {
 					subasta.agregarComprador(c);}
 					else {
@@ -92,6 +93,11 @@ public class Galeria {
 						
 					}
 				}
+				else {
+					throw new MensajedeErrorException("Esta subasta ya no esta activa");
+					}
+				
+			}
 				else {
 					throw new MensajedeErrorException("No hay subastas activas para esa fecha");
 
@@ -115,6 +121,7 @@ public class Galeria {
 			}
 			if (!subasta.equals(null)) {
 				this.admin.terminarSubastaAdmin(subasta,this.cajero);
+				this.subastasActivas.remove(subasta);
 			}
 			else {
 				throw new MensajedeErrorException("No hay subastas activas para esa fecha");

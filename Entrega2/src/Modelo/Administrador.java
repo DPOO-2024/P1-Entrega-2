@@ -58,7 +58,8 @@ public class Administrador {
 
 					}
 				}
-
+	
+		
 	
 	// verificar que la oferta es valida
 	public boolean verificarOferta(Oferta oferta) throws MensajedeErrorException {
