@@ -127,7 +127,7 @@ public class ConsolaComprador implements ConsolaBase{
 	
 	public void aumentarCupo() {
 		try {
-			System.out.print("Ingrese el valor de aumento : ");
+			System.out.print("Ingrese el valor con el cual desea aumentar el cupo de sus compras: ");
 			String valort= ConsolaInicial.scanner.nextLine().trim();
 			int valor=Integer.parseInt(valort);
 			
