@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +19,7 @@ import Piezas.Fotografia;
 import Piezas.Pieza;
 import Usuarios.Comprador;
 import Usuarios.Propietario;
+import Usuarios.Usuario;
 
 class TestsAdministrador {
 	private Administrador admin;
@@ -116,6 +118,27 @@ class TestsAdministrador {
 		assertThrows(MensajedeErrorException.class, () -> {
 			admin.verificarPropietario("Veronica_lino" ,"Veri_324");
         });
+	}
+	
+	@Test
+	void agregarPiezaTest() {
+		try {
+			Propietario u =admin.encontrarPropietario("david_brown");
+			List<String> autoresP1 =new ArrayList<String>();
+			autoresP1.add("Jane Smith");
+			autoresP1.add("Michael Johnson");
+			
+			
+			Pieza p1=new Fotografia("Fotografia",(Usuario)u,"Puesta de sol en la playa",2023,"Playa del Carmen, México",
+					autoresP1,true,240224,100,"Mostrador",false,500,"8x10 pulgadas",2000,300, 
+					"Una impresionante fotografía de una puesta de sol en la playa","JPEG");		
+		
+			int tam = u.getEstadoPiezas().size();
+			admin.agregarPieza(p1, u);
+			assertEquals(tam+1, u.getEstadoPiezas().size(), "No se agrego correctamente la pieza al propietario");
+		}catch(Exception e) {
+			fail("La pieza se debio agregar sin problema");
+		}
 	}
 	
 	

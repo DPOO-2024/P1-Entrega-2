@@ -83,7 +83,6 @@ public class CargaGaleria {
                 	p.ingresarPieza(pieza);
                 	
                 	if (!l[2].trim().equalsIgnoreCase("true")) {
-                		this.galeria.getInventario().moverPieza(pieza);
                 		p.venderPieza(pieza);
                 	}
                 	

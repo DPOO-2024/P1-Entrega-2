@@ -34,8 +34,14 @@ public class Inventario {
 				throw new PiezaRepetidaException(pieza);
 			}
 		}
+		if (!pieza.isVendido()) {
+			piezasDisponibles.add(pieza);
+		}
+		else {
+			historialPiezas.add(pieza);
+		}
 		
-		piezasDisponibles.add(pieza);
+		
 		return "Pieza añadida con exito";
 	}
 	
