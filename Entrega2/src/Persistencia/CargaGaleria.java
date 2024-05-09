@@ -116,12 +116,14 @@ public class CargaGaleria {
                 		int compras = Integer.valueOf(l[6].trim());
                 		int valMax = Integer.valueOf(l[7].trim());
                 		Comprador c = new Comprador(l[1].trim(), l[2].trim(), l[3].trim(), l[4].trim(), telefono, compras, valMax );
+                		this.galeria.getAdmin().verificarLogin(l[1].trim(), "Comprador");
                 		this.galeria.getAdmin().getCompradores().add(c);
                 		piezasComprador.add(l[1].trim());
                 		piezasComprador.add(l[8].trim());
                 	}else {
                 		int telefono=Integer.valueOf(l[5].trim());
                 		Propietario p = new Propietario(l[1].trim(), l[2].trim(), l[3].trim(), l[4].trim(), telefono );
+                		this.galeria.getAdmin().verificarLogin(l[1].trim(), "Propietario");
                 		this.galeria.getAdmin().getPropietarios().add(p);
                 	}
                 }
