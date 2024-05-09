@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,6 +15,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import Exceptions.MensajedeErrorException;
 import Modelo.Empleado;
 import Modelo.Galeria;
+import Piezas.Pieza;
 import Usuarios.Comprador;
 
 class TestsGaleria {
@@ -86,6 +89,39 @@ class TestsGaleria {
 			assertEquals("Laura_villa",galeria.getCajero().getNombreUsuario(), "No se asigno el cajero correctamente");
 			galeria.asignarCajero("AlexMartinez22", "SoccerFan!23");
 			assertEquals("AlexMartinez22",galeria.getCajero().getNombreUsuario(), "No se asigno el cajero correctamente");
+		}catch(Exception e) {
+			fail("No se pudo asignar el cajero");
+		}
+	}
+	
+	@Test
+	void historialPiezaVendidaTest() {
+		try {
+			Comprador comprador = galeria.getAdmin().getComprador("maria_gomez");
+			Pieza pieza = galeria.getInventario().getPiezasDisponibles().get(3);
+			comprador.comprarPieza(4, "tarjeta", galeria);
+			List<String> info = galeria.historialPiezas(pieza.getTitulo());
+			assertEquals(" Flores en Primavera",info.get(0), "No es el titulo correcto");
+			assertEquals("vendida",info.get(1), "Deberia estar vendida");
+			assertEquals("david_brown",info.get(2), "No es el propietario correcto");
+			assertEquals("maria_gomez",info.get(3), "No es el comprador correcto");
+			assertEquals("240509",info.get(4), "No es la fecha correcta");
+			assertEquals("250",info.get(5), "No es el precio  correcto");
+		}catch(Exception e) {
+			fail("No se pudo asignar el cajero");
+		}
+	}
+	@Test
+	void historialPiezaTest() {
+		try {
+			Pieza pieza = galeria.getInventario().getPiezasDisponibles().get(0);
+			List<String> info = galeria.historialPiezas(pieza.getTitulo());
+			assertEquals(" Escultura en Movimiento",info.get(0), "No es el titulo correcto");
+			assertEquals("disponible",info.get(1), "deberia estar disponible");
+			assertEquals("sarah_miller",info.get(2), "No es el propietario correcto");
+			assertEquals(" Mostrador",info.get(3), "No es la ubicacion");
+			assertEquals("no",info.get(4), "No es la fecha correcta");
+			assertEquals("s",info.get(5), "No es el precio  correcto");
 		}catch(Exception e) {
 			fail("No se pudo asignar el cajero");
 		}
