@@ -63,7 +63,6 @@ public class Comprador extends Usuario{
 	            		Propietario pro =(Propietario) pieza.getPropietario();
 	            		pro.venderPieza(pieza);
 	            		pieza.setVendido(true);
-	            		System.out.print("Pieza comprada ");
 	            	}
 	            	else {
 	            		gal.getInventario().agregarPieza(pieza);

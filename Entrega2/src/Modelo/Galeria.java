@@ -302,119 +302,84 @@ public void mostrarSubastasActivas() {
   		}
 
   	} 
-	public void historialPiezas(String nombreP) throws MensajedeErrorException {
+	public List<String> historialPiezas(String nombreP) throws MensajedeErrorException {
 		
-		System.out.println("HISTORIAL DE LA PIEZA");
+		
+		
+		List<String> infoPieza = new ArrayList<>();
+		
 		Pieza pieza = this.inventario.getPieza(nombreP);
 	
 		
 		if (pieza!=null) {
-			System.out.println("Datos Generales de "+ nombreP);
-			System.out.println("La pieza es un " + pieza.getTipoPieza());
-			if (pieza.getTipoPieza().equalsIgnoreCase("Escultura")) {
-				System.out.println("Alto: " + ((Escultura) pieza).getAlto());
-				System.out.println("Ancho: " + ((Escultura) pieza).getAncho());
-				System.out.println("Profundidad: " + ((Escultura) pieza).getProfundidad());
-				System.out.println("Peso: " + ((Escultura) pieza).getPeso());
-				System.out.println("Instalacion: " + ((Escultura) pieza).getInstalacion());
-				if (((Escultura) pieza).isElectricidad()) {
-					System.out.println("La Escultura funciona con electricidad ");	
-				}
-				else {
-					System.out.println("La Escultura no funciona con electricidad ");
-				}
-				System.out.println("Materiales: ");
-				for (String material :((Escultura) pieza).getMateriales() ) {
-					System.out.print(material + ", ");
-				}
-			}
-
-			else if (pieza.getTipoPieza().equalsIgnoreCase("Fotografia")) {
-				System.out.println("Tamaño: " + ((Fotografia) pieza).getTamanio());
-				System.out.println("Alto: " + ((Fotografia) pieza).getAlto());
-				System.out.println("Resolucion: " + ((Fotografia) pieza).getResolucion());
-				System.out.println("Descripcion: " + ((Fotografia) pieza).getDescripcion());
-				System.out.println("formato: " + ((Fotografia) pieza).getFormato());
-			}
-
-			else if (pieza.getTipoPieza().equalsIgnoreCase("Impresion")) {
-				System.out.println("Material del papel: " + ((Impresion) pieza).getTamanio());
-				System.out.println("Tamaño: " + ((Impresion) pieza).getTamanio());
-				System.out.println("Resolucion: " + ((Impresion) pieza).getResolucion());
-				System.out.println("Descripcion: " + ((Impresion) pieza).getDescripcion());
-				System.out.println("Flexibilidad: " + ((Impresion) pieza).getFlexibilidad());
-				System.out.println("Resistencia: " + ((Impresion) pieza).getResistencia());
-			}
-
-			else if (pieza.getTipoPieza().equalsIgnoreCase("Pintura")) {
-				System.out.println("Tecnica: " + ((Pintura) pieza).getTecnica());
-				System.out.println("Alto: " + ((Pintura) pieza).getAlto());
-				System.out.println("Ancho: " + ((Pintura) pieza).getAncho());
-				System.out.println("Descripcion: " + ((Pintura) pieza).getDescripcion());
-				System.out.println("Origen: " + ((Pintura) pieza).getOrigen());
-				System.out.println("Forma: " + ((Pintura) pieza).getForma());
-				System.out.println("tiempoDeCreacion: " + ((Pintura) pieza).getTiempoDeCreacion());
-			}
-
-			else if (pieza.getTipoPieza().equalsIgnoreCase("Video")) {
-				System.out.println("Duracion en minutos: " + ((Video) pieza).getDuracion());
-				System.out.println("Tamaño: " + ((Video) pieza).getTamanio());
-				System.out.println("Idioma: " + ((Video) pieza).getIdioma());
-				System.out.println("Descripcion: " + ((Video) pieza).getDescripcion());
-				System.out.println("Resolucion: " + ((Video) pieza).getResolucion());
-				System.out.println("Formato: " + ((Video) pieza).getFormato());
-			}
-
-			else {
-				System.out.println("Informacion: " + ((Otro) pieza).getInfoExtra());
-
-			}
-
-			System.out.println("Año: " + pieza.getAnio());
-			System.out.println("Lugar de creacion: " + pieza.getLugarDeCreacion());
-			System.out.println("Valor Inicial para subastar la pieza (si es 0 no se subasta): " + pieza.getValorInicial());
-			System.out.println("Precio: " + pieza.getValorFijo());
-			System.out.println("Autores: ");
-			for (Autor autor :pieza.getAutores() ) {
-				System.out.print(autor.getNombre() + ", ");
-			}
-			
-			
+		infoPieza.add(nombreP);
 			
 			if (pieza.isVendido()) {
-				System.out.println("\nLa pieza ya fue vendida");
-				System.out.println("Su propietario fue "+pieza.getPropietario().getLogin() );
+				infoPieza.add("vendida");
+				infoPieza.add(pieza.getPropietario().getLogin());
 				Comprador c = null;
-				for(Comprador comprador:this.admin.getCompradores()) {
+				boolean encontrado=false;
+					for(Comprador comprador:this.admin.getCompradores()) {
+					if(!encontrado) {
 					int i =0;
 					while(i<comprador.getHistorialCompras().size()) {
 					String titulo = comprador.getHistorialCompras().get(i).replaceAll("\\s", "");
 					String nombre = nombreP.replaceAll("\\s", "");
 					if(titulo.equalsIgnoreCase(nombre)) {
-						System.out.println("Fue comprada por "+comprador.getLogin());
+						int tam = infoPieza.size();
+						infoPieza.add(comprador.getLogin());
+						infoPieza.add(comprador.getHistorialCompras().get(i+1));
+						infoPieza.add(comprador.getHistorialCompras().get(i+2));
 						c=comprador;
-						System.out.println("La pieza fue vendida: "+comprador.getHistorialCompras().get(i+1));
-						System.out.println("El precio por la que fue vendida: "+comprador.getHistorialCompras().get(i+2));
+						encontrado=true;
 					}
 					i=i+3;
-				}}
+					
+					}
+				}
+				
 				if (c==null) {
 					
 					throw new MensajedeErrorException("Ningun comprador compro esta pieza");
 				}
 								
-			}
+					}
+			}		
 			
-			else {
-				System.out.println("La pieza no ha sido vendida");
-				System.out.println("Su propietario es "+pieza.getPropietario() );
-				System.out.println("La pieza se encnuentra en " + pieza.getUbicacion());
+		else {
+				infoPieza.add("disponible");
+				infoPieza.add(pieza.getPropietario().getLogin());
+				infoPieza.add(pieza.getUbicacion());
 				if(pieza.isModalidad()) {
-				System.out.println("La pieza se encuentra en modalidad de consignacion" );}
+					infoPieza.add("si");
+				}
 				
-			}
-
+				else {
+					infoPieza.add("no");
+					}
+				if(pieza.getValorFijo()!=0 && pieza.getValorInicial()!=0){
+					infoPieza.add("a");	
+				}
+				else if(pieza.getValorInicial()!=0 && pieza.getValorFijo()==0){
+					infoPieza.add("s");	
+				}
+				
+				else if(pieza.getValorInicial()==0 && pieza.getValorFijo()!=0){
+					infoPieza.add("g");	
+				}
+				else {
+					infoPieza.add("n");
+				}
 		}
+
+	}
+		
+	else {
+			throw new MensajedeErrorException("No tenemos esa pieza");
+		}
+		
+		
+		return infoPieza;
 			
 	}
 		
@@ -422,17 +387,21 @@ public void mostrarSubastasActivas() {
 
 
 
-	public void historialArtista(String nombreA) throws MensajedeErrorException {
+	public List<String> historialArtista(String nombreA) throws MensajedeErrorException {
 		boolean encontrado = false;
-		System.out.println("HISTORIAL DEL ARTISTA");
-		System.out.println("Creador de:");
+		List<String> infoArtista = new ArrayList<>();
+		
 		for(Pieza pieza :this.inventario.getPiezasDisponibles()) {
 			for (Autor autor:pieza.getAutores()) {
 				if (autor.getNombre().equals(nombreA)) {
 					encontrado = true;
+					infoArtista.add(autor.getNombre());//0
+					infoArtista.add(pieza.getTitulo());//1
+					infoArtista.add(String.valueOf(pieza.getAnio()));//2
 					System.out.println("- "+pieza.getTitulo());
 					System.out.println("Fue creada en el año "+pieza.getAnio());
 					if (pieza.isVendido()) {
+						infoArtista.add("vendida");//3
 						System.out.println("La pieza ya fue vendida");
 						System.out.println("Su propietario fue "+pieza.getPropietario().getLogin() );
 						Comprador c = null;
@@ -516,10 +485,14 @@ public void mostrarSubastasActivas() {
 				}
 			}
 		}
+		
+		
 		if (!encontrado) {
 			throw new MensajedeErrorException("El artista que ingreso no ha hecho ninguna de nuestras obras");
 			
 		}
+		
+		return infoArtista;
 	}
 	
 	
