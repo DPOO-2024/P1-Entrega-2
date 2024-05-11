@@ -145,8 +145,65 @@ public class ConsolaInfo {
     		String nombreA = ConsolaInicial.scanner.nextLine().trim();
     		List<List<String>> piezasArtista = gal.historialArtista(nombreA);
     		System.out.println("HISTORIAL DEL ARTISTA");
-    		System.out.println("Creador de:");
-    	}
+    		System.out.println(nombreA);
+    		if (piezasArtista.size()!=1) {
+    			for(List<String> pieza : piezasArtista){
+    			
+    				System.out.println("Creador de:");
+    				System.out.println("- "+pieza.get(1));
+    				System.out.println("Fue creada en el año "+pieza.get(2));
+    				
+    				if (pieza.get(3).equals("vendida")) {
+    					System.out.println("La pieza ya fue vendida");
+    					System.out.println("Su propietario fue "+pieza.get(4) );
+    					System.out.println("Fue comprada por "+pieza.get(5));
+    					System.out.println("La pieza fue vendida: "+pieza.get(6));
+						System.out.println("El precio por la que fue vendida: "+pieza.get(7));
+    				}
+    				
+    				if (pieza.get(3).equals("disponible")){
+    					System.out.println("La pieza no ha sido vendida");
+    					System.out.println("Su propietario es "+pieza.get(4));
+    					System.out.println("La pieza se encuentra en " + pieza.get(5));
+    					if(pieza.get(6).equals("si")) {
+    						System.out.println("La pieza se encuentra en modalidad de consignacion" );
+    					}
+    					
+    				}
+    				
+    				
+    				
+    			}
+    		}
+    		
+    		else {
+    			
+    			List<String> pieza = piezasArtista.get(0);
+    			System.out.println(pieza.get(0));
+				System.out.println("Creador de:");
+				System.out.println("- "+pieza.get(1));
+				System.out.println("Fue creada en el año "+pieza.get(2));
+				
+				if (pieza.get(3).equals("vendida")) {
+					System.out.println("La pieza ya fue vendida");
+					System.out.println("Su propietario fue "+pieza.get(4) );
+					System.out.println("Fue comprada por "+pieza.get(5));
+					System.out.println("La pieza fue vendida: "+pieza.get(6));
+					System.out.println("El precio por la que fue vendida: "+pieza.get(7));
+				}
+				
+				else {
+					System.out.println("La pieza no ha sido vendida");
+					System.out.println("Su propietario es "+pieza.get(4));
+					System.out.println("La pieza se encuentra en " + pieza.get(5));
+					if(pieza.get(6).equals("si")) {
+						System.out.println("La pieza se encuentra en modalidad de consignacion" );
+					}	
+				}
+    		}
+    		
+		}	
+    
     	catch (Exception e) {
     		System.out.println(e);
     	}

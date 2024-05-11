@@ -127,7 +127,38 @@ class TestsGaleria {
 		}
 	}
 	
-	
+	@Test
+	void historialArtistaTest() {
+		try {
+			List<List<String>> piezasArtista = galeria.historialArtista("John Swan");
+			assertEquals(2,piezasArtista.size(), "El artista deberia tener 2 piezas");
+			assertEquals("John Swan",piezasArtista.get(0).get(0), "No es el artista correcto");
+			assertEquals(" Atardecer en la Ciudad",piezasArtista.get(0).get(1), "No es el titulo correcto");
+			assertEquals("2019",piezasArtista.get(0).get(2), "No es el año correcto");
+			assertEquals("disponible",piezasArtista.get(0).get(3), "No es correcto");
+			assertEquals("emma_smith",piezasArtista.get(0).get(4), "No es el propietario");
+			assertEquals(" Motrador",piezasArtista.get(0).get(5), "No es la ubicacion correcta");
+			assertEquals("no",piezasArtista.get(0).get(6), "No es la modalidad correcta");
+			assertEquals("John Swan",piezasArtista.get(1).get(0), "No es el artista correcto");
+			assertEquals(" Retrato en Blanco y Negro",piezasArtista.get(1).get(1), "No es el titulo correcto");
+			assertEquals(" Atardecer en la Ciudad",piezasArtista.get(1).get(2), "No es el año correcto");
+			assertEquals("2019",piezasArtista.get(1).get(3), "No es correcto");
+			assertEquals("disponible",piezasArtista.get(1).get(4), "No es el propietario");
+			assertEquals("emma_smith",piezasArtista.get(1).get(5), "No es el comprador");
+			assertEquals(" Motrador",piezasArtista.get(1).get(6), "No es la fecha");
+			assertEquals("no",piezasArtista.get(1).get(7), "No es la modalidad correcta");
+			
+			
+			
+			
+			
+			
+			
+
+		}catch(Exception e) {
+			fail("No se pudo asignar el cajero");
+		}
+	}
 	
 	
 

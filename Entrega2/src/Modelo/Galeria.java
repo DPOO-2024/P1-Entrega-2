@@ -324,26 +324,21 @@ public void mostrarSubastasActivas() {
 		boolean encontrado = false;
 		List<List<String>> piezasTotales = new ArrayList<>();
 		List<String> infoArtista = new ArrayList<>();
-		
+		int tam = piezasTotales.size();
 		for(Pieza pieza :this.inventario.getPiezasDisponibles()) {
 			for (Autor autor:pieza.getAutores()) {
 				if (autor.getNombre().equals(nombreA)) {
 					encontrado = true;
-					infoArtista.add(autor.getNombre());//0
+					infoArtista.add(autor.getNombre());
 					infoArtista.add(pieza.getTitulo());//1
 					infoArtista.add(String.valueOf(pieza.getAnio()));//2
-					System.out.println("- "+pieza.getTitulo());
-					System.out.println("Fue creada en el año "+pieza.getAnio());
 					if (pieza.isVendido()) {
 						infoArtista.add("vendida");//3
-						System.out.println("La pieza ya fue vendida");
 						infoArtista.add(pieza.getPropietario().getLogin());//4
-						System.out.println("Su propietario fue "+pieza.getPropietario().getLogin() );
 						Comprador c = null;
 						for(Comprador comprador:this.admin.getCompradores()) {
 							if(comprador.getHistorialCompras().contains(pieza.getTitulo())) {
 								infoArtista.add(comprador.getLogin());//5
-								System.out.println("Fue comprada por "+comprador.getLogin());
 								c=comprador;
 							}
 						}
@@ -353,8 +348,6 @@ public void mostrarSubastasActivas() {
 								if( c.getHistorialCompras().get(i).equalsIgnoreCase(pieza.getTitulo())) {
 									infoArtista.add(c.getHistorialCompras().get(i+1));//6
 									infoArtista.add(c.getHistorialCompras().get(i+2));//7
-									System.out.println("La pieza fue vendida: "+c.getHistorialCompras().get(i+1));
-									System.out.println("El precio por la que fue vendida: "+c.getHistorialCompras().get(i+2));
 									}
 								i=i+3;
 							}
@@ -367,66 +360,74 @@ public void mostrarSubastasActivas() {
 					
 					else {
 						infoArtista.add("disponible");//3
-						System.out.println("La pieza no ha sido vendida");
 						infoArtista.add(pieza.getPropietario().getLogin());//4
-						System.out.println("Su propietario es "+pieza.getPropietario().getLogin() );
 						infoArtista.add(pieza.getUbicacion());//5
-						System.out.println("La pieza se encuentra en " + pieza.getUbicacion());
 						if(pieza.isModalidad()) {
-							infoArtista.add("si");//6	
-						System.out.println("La pieza se encuentra en modalidad de consignacion" );}
+							infoArtista.add("si");//6
+							}
 						else {
 							infoArtista.add("no");//6	
 						}
+						infoArtista.add("0");//7
 						
 					}
 					
+				piezasTotales.add(infoArtista);				
 				}
 			}
 		}
 		
-		for(Pieza pieza :this.inventario.getHistorialPiezas()) {
-			for (Autor autor:pieza.getAutores()) {
+		for(Pieza pieza1 :this.inventario.getHistorialPiezas()) {
+			for (Autor autor:pieza1.getAutores()) {
 				if (autor.getNombre().equals(nombreA)) {
+					List<String> info = new ArrayList<>();
 					encontrado = true;
-					System.out.println("- "+pieza.getTitulo());
-					System.out.println("Fue creada en el año "+pieza.getAnio());
-					if (pieza.isVendido()) {
-						System.out.println("La pieza ya fue vendida");
-						System.out.println("Su propietario fue "+pieza.getPropietario().getLogin() );
+					info.add(autor.getNombre());//0
+					String nombre = pieza1.getTitulo();
+					info.add(nombre);//1
+					infoArtista.add(String.valueOf(pieza1.getAnio()));//2
+					if (pieza1.isVendido()) {
+						info.add("vendida");//3
+						info.add(pieza1.getPropietario().getLogin());//4
 						Comprador c = null;
 						for(Comprador comprador:this.admin.getCompradores()) {
-							if(comprador.getHistorialCompras().contains(pieza.getTitulo())) {
-								System.out.println("Fue comprada por "+comprador.getLogin());
+							if(comprador.getHistorialCompras().contains(pieza1.getTitulo())) {
+								info.add(comprador.getLogin());//5
 								c=comprador;
 							}
 						}
 						if (c!=null) {
 							int i =0;
 							while(i<c.getHistorialCompras().size()) {
-								String titulo = c.getHistorialCompras().get(i);
-								if( titulo.equalsIgnoreCase(pieza.getTitulo())) {
-									System.out.println("La pieza fue vendida en "+c.getHistorialCompras().get(i+1));
-									System.out.println("El precio por la que fue vendida fue "+c.getHistorialCompras().get(i+2));
+								if( c.getHistorialCompras().get(i).equalsIgnoreCase(pieza1.getTitulo())) {
+									info.add(c.getHistorialCompras().get(i+1));//6
+									info.add(c.getHistorialCompras().get(i+2));//7
 									}
 								i=i+3;
 							}
 						}
 						else {
 							throw new MensajedeErrorException("Ningun comprador compro esta pieza");
-						}	
-						
+						}
+							
 					}
 					
 					else {
-						System.out.println("La pieza no ha sido vendida");
-						System.out.println("Su propietario es "+pieza.getPropietario().getLogin() );
-						System.out.println("La pieza se encnuentra en " + pieza.getUbicacion());
-						if(pieza.isModalidad()) {
-						System.out.println("La pieza se encuentra en modalidad de consignacion" );}
+						info.add("disponible");//3
+						info.add(pieza1.getPropietario().getLogin());//4
+						info.add(pieza1.getUbicacion());//5
+						if(pieza1.isModalidad()) {
+							info.add("si");//6
+							}
+						else {
+							info.add("no");//6	
+						}
+						info.add("0");//7
 						
 					}
 					
+				piezasTotales.add(info);	
+				
 				}
 			}
 		}
