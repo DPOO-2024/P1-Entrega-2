@@ -152,6 +152,81 @@ public class ConsolaInfo {
     	}
 	}
 	
+	//Imprimir Pieza
+	public static void imprimirPieza(Pieza pieza, int i) { 
+		System.out.println("\n \n"+i+". " + pieza.getTitulo());
+		System.out.println("La pieza es un " + pieza.getTipoPieza());
+		if (pieza.getTipoPieza().equalsIgnoreCase("Escultura")) {
+			System.out.println("Alto: " + ((Escultura) pieza).getAlto());
+			System.out.println("Ancho: " + ((Escultura) pieza).getAncho());
+			System.out.println("Profundidad: " + ((Escultura) pieza).getProfundidad());
+			System.out.println("Peso: " + ((Escultura) pieza).getPeso());
+			System.out.println("Instalacion: " + ((Escultura) pieza).getInstalacion());
+			if (((Escultura) pieza).isElectricidad()) {
+				System.out.println("La Escultura funciona con electricidad ");	
+			}
+			else {
+				System.out.println("La Escultura no funciona con electricidad ");
+			}
+			System.out.println("Materiales: ");
+			for (String material :((Escultura) pieza).getMateriales() ) {
+				System.out.print(material + ", ");
+			}
+		}
+
+		else if (pieza.getTipoPieza().equalsIgnoreCase("Fotografia")) {
+			System.out.println("Tamaño: " + ((Fotografia) pieza).getTamanio());
+			System.out.println("Alto: " + ((Fotografia) pieza).getAlto());
+			System.out.println("Resolucion: " + ((Fotografia) pieza).getResolucion());
+			System.out.println("Descripcion: " + ((Fotografia) pieza).getDescripcion());
+			System.out.println("formato: " + ((Fotografia) pieza).getFormato());
+		}
+
+		else if (pieza.getTipoPieza().equalsIgnoreCase("Impresion")) {
+			System.out.println("Material del papel: " + ((Impresion) pieza).getTamanio());
+			System.out.println("Tamaño: " + ((Impresion) pieza).getTamanio());
+			System.out.println("Resolucion: " + ((Impresion) pieza).getResolucion());
+			System.out.println("Descripcion: " + ((Impresion) pieza).getDescripcion());
+			System.out.println("Flexibilidad: " + ((Impresion) pieza).getFlexibilidad());
+			System.out.println("Resistencia: " + ((Impresion) pieza).getResistencia());
+		}
+
+		else if (pieza.getTipoPieza().equalsIgnoreCase("Pintura")) {
+			System.out.println("Tecnica: " + ((Pintura) pieza).getTecnica());
+			System.out.println("Alto: " + ((Pintura) pieza).getAlto());
+			System.out.println("Ancho: " + ((Pintura) pieza).getAncho());
+			System.out.println("Descripcion: " + ((Pintura) pieza).getDescripcion());
+			System.out.println("Origen: " + ((Pintura) pieza).getOrigen());
+			System.out.println("Forma: " + ((Pintura) pieza).getForma());
+			System.out.println("tiempoDeCreacion: " + ((Pintura) pieza).getTiempoDeCreacion());
+		}
+
+		else if (pieza.getTipoPieza().equalsIgnoreCase("Video")) {
+			System.out.println("Duracion en minutos: " + ((Video) pieza).getDuracion());
+			System.out.println("Tamaño: " + ((Video) pieza).getTamanio());
+			System.out.println("Idioma: " + ((Video) pieza).getIdioma());
+			System.out.println("Descripcion: " + ((Video) pieza).getDescripcion());
+			System.out.println("Resolucion: " + ((Video) pieza).getResolucion());
+			System.out.println("Formato: " + ((Video) pieza).getFormato());
+		}
+
+		else {
+			System.out.println("Informacion: " + ((Otro) pieza).getInfoExtra());
+
+		}
+
+		System.out.println("Año: " + pieza.getAnio());
+		System.out.println("Lugar de creacion: " + pieza.getLugarDeCreacion());
+		System.out.println("Valor Inicial para subastar la pieza (si es 0 no se subasta): " + pieza.getValorInicial());
+		System.out.println("Precio: " + pieza.getValorFijo());
+		System.out.println("Autores: ");
+		for (Autor autor :pieza.getAutores() ) {
+			System.out.print(autor.getNombre() + ", ");
+		}
+
+	}
+ 
+	
 	//Pedir info pieza	
 	public static Pieza pedirInfoPieza(Propietario pro) throws Exception {
 
