@@ -387,8 +387,9 @@ public void mostrarSubastasActivas() {
 
 
 
-	public List<String> historialArtista(String nombreA) throws MensajedeErrorException {
+	public List<List<String>> historialArtista(String nombreA) throws MensajedeErrorException {
 		boolean encontrado = false;
+		List<List<String>> piezasTotales = new ArrayList<>();
 		List<String> infoArtista = new ArrayList<>();
 		
 		for(Pieza pieza :this.inventario.getPiezasDisponibles()) {
@@ -403,10 +404,12 @@ public void mostrarSubastasActivas() {
 					if (pieza.isVendido()) {
 						infoArtista.add("vendida");//3
 						System.out.println("La pieza ya fue vendida");
+						infoArtista.add(pieza.getPropietario().getLogin());//4
 						System.out.println("Su propietario fue "+pieza.getPropietario().getLogin() );
 						Comprador c = null;
 						for(Comprador comprador:this.admin.getCompradores()) {
 							if(comprador.getHistorialCompras().contains(pieza.getTitulo())) {
+								infoArtista.add(comprador.getLogin());//5
 								System.out.println("Fue comprada por "+comprador.getLogin());
 								c=comprador;
 							}
@@ -415,6 +418,8 @@ public void mostrarSubastasActivas() {
 							int i =0;
 							while(i<c.getHistorialCompras().size()) {
 								if( c.getHistorialCompras().get(i).equalsIgnoreCase(pieza.getTitulo())) {
+									infoArtista.add(c.getHistorialCompras().get(i+1));//6
+									infoArtista.add(c.getHistorialCompras().get(i+2));//7
 									System.out.println("La pieza fue vendida: "+c.getHistorialCompras().get(i+1));
 									System.out.println("El precio por la que fue vendida: "+c.getHistorialCompras().get(i+2));
 									}
@@ -428,11 +433,18 @@ public void mostrarSubastasActivas() {
 					}
 					
 					else {
+						infoArtista.add("disponible");//3
 						System.out.println("La pieza no ha sido vendida");
+						infoArtista.add(pieza.getPropietario().getLogin());//4
 						System.out.println("Su propietario es "+pieza.getPropietario().getLogin() );
+						infoArtista.add(pieza.getUbicacion());//5
 						System.out.println("La pieza se encuentra en " + pieza.getUbicacion());
 						if(pieza.isModalidad()) {
+							infoArtista.add("si");//6	
 						System.out.println("La pieza se encuentra en modalidad de consignacion" );}
+						else {
+							infoArtista.add("no");//6	
+						}
 						
 					}
 					
@@ -492,7 +504,7 @@ public void mostrarSubastasActivas() {
 			
 		}
 		
-		return infoArtista;
+		return piezasTotales;
 	}
 	
 	

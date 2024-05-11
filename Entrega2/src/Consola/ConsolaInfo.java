@@ -143,7 +143,7 @@ public class ConsolaInfo {
 		try {
     		System.out.println("Por favor, ingrese el nombre del Artista: ");
     		String nombreA = ConsolaInicial.scanner.nextLine().trim();
-    		List<String> info = gal.historialArtista(nombreA);
+    		List<List<String>> piezasArtista = gal.historialArtista(nombreA);
     		System.out.println("HISTORIAL DEL ARTISTA");
     		System.out.println("Creador de:");
     	}
