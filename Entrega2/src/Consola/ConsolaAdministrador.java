@@ -197,7 +197,7 @@ public class ConsolaAdministrador implements ConsolaBase{
     		String loginU = ConsolaInicial.scanner.nextLine().trim();
     		this.gal.getAdmin().historialComprador(loginU);
     		List<List<String>> compras = gal.getAdmin().historialComprador(loginU);
-    		System.out.println("HISTORIAL DEL COMPRADOR: ");
+    		System.out.println("\nHISTORIAL DEL COMPRADOR: ");
     		System.out.println("Piezas que ha comprado: ");
     		int i =0;
     		boolean terminar = false;

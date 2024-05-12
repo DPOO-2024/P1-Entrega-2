@@ -83,11 +83,12 @@ public class ConsolaInicial {
 	                System.out.println("Opción inválida. Intente nuevamente.");
 	                        }
                     } while (opcion != 6);
-	        scanner.close();	        
+	        	        
         }catch(Exception e) {
-        	System.out.println( "Hubo un error intente nuevamente" );
-            mostrarMenu();
+        	System.out.println( "Ingrese un Numero entero" );
+            main(null);
         }
+        scanner.close();
 
     }
 	

@@ -25,9 +25,9 @@ public class ConsolaInfo {
     		System.out.println("Por favor, ingrese el nombre de la Pieza: ");
     		String nombreP = ConsolaInicial.scanner.nextLine().trim();
     		List<String> info = gal.historialPiezas(nombreP);
-    		System.out.println("HISTORIAL DE LA PIEZA");
+    		System.out.println("\nHISTORIAL DE LA PIEZA");
     		Pieza pieza = gal.getInventario().getPieza(info.get(0));
-    		System.out.println("Datos Generales de "+ info.get(0));
+    		System.out.println("\nDatos Generales de "+ info.get(0));
 			System.out.println("La pieza es un " + pieza.getTipoPieza());
 			if (pieza.getTipoPieza().equalsIgnoreCase("Escultura")) {
 				System.out.println("Alto: " + ((Escultura) pieza).getAlto());
@@ -144,12 +144,11 @@ public class ConsolaInfo {
     		System.out.println("Por favor, ingrese el nombre del Artista: ");
     		String nombreA = ConsolaInicial.scanner.nextLine().trim();
     		List<List<String>> piezasArtista = gal.historialArtista(nombreA);
-    		System.out.println("HISTORIAL DEL ARTISTA");
-    		System.out.println(nombreA);
+    		System.out.println("\nHISTORIAL DEL ARTISTA");
     		if (piezasArtista.size()!=1) {
     			for(List<String> pieza : piezasArtista){
     			
-    				System.out.println("Creador de:");
+    				System.out.println("\nCreador de:");
     				System.out.println("- "+pieza.get(1));
     				System.out.println("Fue creada en el año "+pieza.get(2));
     				

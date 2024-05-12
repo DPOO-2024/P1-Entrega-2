@@ -101,16 +101,10 @@ public class Galeria {
 					throw new MensajedeErrorException("Esta subasta ya no esta activa");
 					}
 				
-			}
+				}
 				
-			}
-			
-		
-
-			
-			
-			return subasta;
-			
+			}		
+			return subasta;	
 	}
 		
 
@@ -215,9 +209,9 @@ public class Galeria {
   //Funciones de imprimir informacion piezas, Artistas o Usuarios
   	public void imprimirPiezas(List<Pieza> piezasSubasta) { 
   		int i = 1;
-  		for(Pieza pieza:piezasSubasta) {
-  			i++;
+  		for(Pieza pieza:piezasSubasta) {  			
   			ConsolaInfo.imprimirPieza(pieza, i);
+  			i++;
   		}
 
   	} 
@@ -245,7 +239,6 @@ public class Galeria {
 					String titulo = comprador.getHistorialCompras().get(i).replaceAll("\\s", "");
 					String nombre = nombreP.replaceAll("\\s", "");
 					if(titulo.equalsIgnoreCase(nombre)) {
-						int tam = infoPieza.size();
 						infoPieza.add(comprador.getLogin());
 						infoPieza.add(comprador.getHistorialCompras().get(i+1));
 						infoPieza.add(comprador.getHistorialCompras().get(i+2));
@@ -310,7 +303,6 @@ public class Galeria {
 		boolean encontrado = false;
 		List<List<String>> piezasTotales = new ArrayList<>();
 		List<String> infoArtista = new ArrayList<>();
-		int tam = piezasTotales.size();
 		for(Pieza pieza :this.inventario.getPiezasDisponibles()) {
 			for (Autor autor:pieza.getAutores()) {
 				if (autor.getNombre().equals(nombreA)) {
@@ -348,7 +340,6 @@ public class Galeria {
 					info.add(autor.getNombre());
 					info.add(pieza1.getTitulo());//1
 					info.add(String.valueOf(pieza1.getAnio()));//2
-					System.out.print(info.get(1));
 					if (pieza1.isVendido()) {
 						info.add("vendida");//3
 						info.add(pieza1.getPropietario().getLogin());//4
