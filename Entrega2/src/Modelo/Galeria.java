@@ -332,33 +332,9 @@ public void mostrarSubastasActivas() {
 					infoArtista.add(autor.getNombre());
 					infoArtista.add(pieza.getTitulo());//1
 					infoArtista.add(String.valueOf(pieza.getAnio()));//2
-					if (pieza.isVendido()) {
-						infoArtista.add("vendida");//3
-						infoArtista.add(pieza.getPropietario().getLogin());//4
-						Comprador c = null;
-						for(Comprador comprador:this.admin.getCompradores()) {
-							if(comprador.getHistorialCompras().contains(pieza.getTitulo())) {
-								infoArtista.add(comprador.getLogin());//5
-								c=comprador;
-							}
-						}
-						if (c!=null) {
-							int i =0;
-							while(i<c.getHistorialCompras().size()) {
-								if( c.getHistorialCompras().get(i).equalsIgnoreCase(pieza.getTitulo())) {
-									infoArtista.add(c.getHistorialCompras().get(i+1));//6
-									infoArtista.add(c.getHistorialCompras().get(i+2));//7
-									}
-								i=i+3;
-							}
-						}
-						else {
-							throw new MensajedeErrorException("Ningun comprador compro esta pieza");
-						}
-							
-					}
 					
-					else {
+					
+					if (!pieza.isVendido()) {
 						infoArtista.add("disponible");//3
 						infoArtista.add(pieza.getPropietario().getLogin());//4
 						infoArtista.add(pieza.getUbicacion());//5
@@ -372,20 +348,21 @@ public void mostrarSubastasActivas() {
 						
 					}
 					
-				piezasTotales.add(infoArtista);				
+				piezasTotales.add(infoArtista);	
+			}
 				}
 			}
-		}
+		
 		
 		for(Pieza pieza1 :this.inventario.getHistorialPiezas()) {
 			for (Autor autor:pieza1.getAutores()) {
 				if (autor.getNombre().equals(nombreA)) {
 					List<String> info = new ArrayList<>();
 					encontrado = true;
-					info.add(autor.getNombre());//0
-					String nombre = pieza1.getTitulo();
-					info.add(nombre);//1
-					infoArtista.add(String.valueOf(pieza1.getAnio()));//2
+					info.add(autor.getNombre());
+					info.add(pieza1.getTitulo());//1
+					info.add(String.valueOf(pieza1.getAnio()));//2
+					System.out.print(info.get(1));
 					if (pieza1.isVendido()) {
 						info.add("vendida");//3
 						info.add(pieza1.getPropietario().getLogin());//4

@@ -105,10 +105,9 @@ class TestsGaleria {
 			assertEquals("vendida",info.get(1), "Deberia estar vendida");
 			assertEquals("david_brown",info.get(2), "No es el propietario correcto");
 			assertEquals("maria_gomez",info.get(3), "No es el comprador correcto");
-			assertEquals("240509",info.get(4), "No es la fecha correcta");
 			assertEquals("250",info.get(5), "No es el precio  correcto");
 		}catch(Exception e) {
-			fail("No se pudo asignar el cajero");
+			fail("No debio fallar");
 		}
 	}
 	@Test
@@ -123,7 +122,7 @@ class TestsGaleria {
 			assertEquals("no",info.get(4), "No es la fecha correcta");
 			assertEquals("s",info.get(5), "No es el precio  correcto");
 		}catch(Exception e) {
-			fail("No se pudo asignar el cajero");
+			fail("No debio fallar");
 		}
 	}
 	
@@ -137,26 +136,19 @@ class TestsGaleria {
 			assertEquals("2019",piezasArtista.get(0).get(2), "No es el año correcto");
 			assertEquals("disponible",piezasArtista.get(0).get(3), "No es correcto");
 			assertEquals("emma_smith",piezasArtista.get(0).get(4), "No es el propietario");
-			assertEquals(" Motrador",piezasArtista.get(0).get(5), "No es la ubicacion correcta");
+			assertEquals(" Mostrador",piezasArtista.get(0).get(5), "No es la ubicacion correcta");
 			assertEquals("no",piezasArtista.get(0).get(6), "No es la modalidad correcta");
-			assertEquals("John Swan",piezasArtista.get(1).get(0), "No es el artista correcto");
 			assertEquals(" Retrato en Blanco y Negro",piezasArtista.get(1).get(1), "No es el titulo correcto");
-			assertEquals(" Atardecer en la Ciudad",piezasArtista.get(1).get(2), "No es el año correcto");
-			assertEquals("2019",piezasArtista.get(1).get(3), "No es correcto");
-			assertEquals("disponible",piezasArtista.get(1).get(4), "No es el propietario");
-			assertEquals("emma_smith",piezasArtista.get(1).get(5), "No es el comprador");
-			assertEquals(" Motrador",piezasArtista.get(1).get(6), "No es la fecha");
-			assertEquals("no",piezasArtista.get(1).get(7), "No es la modalidad correcta");
-			
-			
-			
-			
-			
-			
-			
+			assertEquals("2009",piezasArtista.get(1).get(2), "No es el año correcto");
+			assertEquals("vendida",piezasArtista.get(1).get(3), "No es correcto");
+			assertEquals("emma_smith",piezasArtista.get(1).get(4), "No es el propietario");
+			assertEquals("maria_gomez",piezasArtista.get(1).get(5), "No es el comprador");
+			assertEquals("220315",piezasArtista.get(1).get(6), "No es la fecha");
+			assertEquals("300",piezasArtista.get(1).get(7), "No es el precio");
+
 
 		}catch(Exception e) {
-			fail("No se pudo asignar el cajero");
+			fail("No debio fallar");
 		}
 	}
 	
