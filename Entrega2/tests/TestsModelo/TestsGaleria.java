@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -61,7 +62,7 @@ class TestsGaleria {
 	@Test
 	void inicioSesionEmpleadoFallidoTest() {		
 		assertThrows(MensajedeErrorException.class, () -> {
-			Empleado em=galeria.verificarEmpleado("davidM", "david12M");
+			galeria.verificarEmpleado("davidM", "david12M");
         });
 	}
 	
@@ -149,6 +150,15 @@ class TestsGaleria {
 
 		}catch(Exception e) {
 			fail("No debio fallar");
+		}
+	}
+	
+	@Test
+	void guardarGaleria(){
+		try {
+			galeria.guardarGaleria();
+		}catch(Exception e) {
+			fail("La Galeria debio guardarse adecuadamente");
 		}
 	}
 	

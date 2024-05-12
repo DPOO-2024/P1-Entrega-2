@@ -10,11 +10,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import Exceptions.LoginDuplicadoException;
 import Exceptions.MensajedeErrorException;
 import Exceptions.PiezaRepetidaException;
 import Modelo.Galeria;
 import Modelo.Inventario;
-import Piezas.Autor;
 import Piezas.Fotografia;
 import Piezas.Otro;
 import Piezas.Pieza;
@@ -95,6 +95,27 @@ class TestsInventario {
 			inventario.agregarPieza(p2);
         });
 	}
+	
+	@Test
+	void getPiezaTest() {
+		try {
+			Pieza p = inventario.getPieza("Manifestación de la Abstracción");
+			assertEquals(" Manifestación de la Abstracción", p.getTitulo(), "La pieza encontrada no es la adecuada");
+		} catch (MensajedeErrorException e) {
+			fail("La pieza se debio encontrar");
+		}
+		
+	}
+	
+	@Test
+	void getPiezaFalloTest() {
+		assertThrows(MensajedeErrorException.class, () -> {
+			inventario.getPieza("Hola mundo");
+        });
+		
+	}
+	
+	
 	
 	@Test
 	void moverPiezaTest() {

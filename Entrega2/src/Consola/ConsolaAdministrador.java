@@ -4,7 +4,6 @@ import java.util.List;
 
 import Exceptions.MensajedeErrorException;
 import Modelo.Galeria;
-import Piezas.Pieza;
 
 public class ConsolaAdministrador implements ConsolaBase{
 	private Galeria gal;

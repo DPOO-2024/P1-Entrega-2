@@ -9,15 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import Consola.ConsolaSubasta;
 import Exceptions.MensajedeErrorException;
-import Modelo.Empleado;
 import Modelo.Galeria;
 import Modelo.Pago;
 import Modelo.Subasta;
@@ -230,7 +227,7 @@ private Galeria galeria;
 	void compraFallidaTest() {
 	assertThrows(MensajedeErrorException.class, () -> {
 		Comprador comprador = galeria.getAdmin().getComprador("robert_johnson");
-		Pieza pieza = galeria.getInventario().getPiezasDisponibles().get(5);
+		galeria.getInventario().getPiezasDisponibles().get(5);
 		comprador.comprarPieza(1, "tarjeta", galeria);
     });
 	

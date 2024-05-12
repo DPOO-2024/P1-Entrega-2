@@ -3,7 +3,6 @@ package TestsModelo;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -13,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import Exceptions.LoginDuplicadoException;
 import Exceptions.MensajedeErrorException;
 import Modelo.Administrador;
-import Modelo.Empleado;
 import Modelo.Galeria;
 import Piezas.Fotografia;
 import Piezas.Pieza;
