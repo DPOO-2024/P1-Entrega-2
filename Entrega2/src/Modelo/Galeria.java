@@ -145,21 +145,7 @@ public class Galeria {
 		return subasta;
 	}
 	
-public void mostrarSubastasActivas() {
-		
-		int i =1;
-		if(this.subastasActivas != null) {
-			System.out.println("Las fechas de las subastas activas en este momento son :");
-		for(Subasta subasta:this.subastasActivas) {
-			System.out.println(i+ ". " + subasta.getFechaSubasta());
-			i++;
-		}
-		}
-		else {
-			System.out.println("No hay subastas Activas" );
-		}
-		
-	}
+
 
 	public void mostrarPiezasDisponibles() {
 		ArrayList<Pieza> piezasDisponibles= this.inventario.getPiezasDisponibles();

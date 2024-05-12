@@ -142,5 +142,21 @@ class TestsAdministrador {
 	}
 	
 	
+	@Test
+	void historialPiezaTest() {
+		try {
+			
+			List<List<String>> info = admin.historialComprador("david_brown");
+			assertEquals(2,info.size(),"La lista no esta completa");
+			assertEquals(" Manifestación de la Abstracción",info.get(0).get(0), "No es el titulo correcto");
+			assertEquals("230524",info.get(0).get(1), "deberia estar disponible");
+			assertEquals("500",info.get(0).get(2), "No es el valor correcto");
+			assertEquals("6500",info.get(0).get(3), "No es el valor correcto");
+			assertEquals(3,info.get(1).size(), "Faltan algunas obras de las que es propietario");
+		}catch(Exception e) {
+			fail("No debio fallar");
+		}
+	}
+	
 
 }

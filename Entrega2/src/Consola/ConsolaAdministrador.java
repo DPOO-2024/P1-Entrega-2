@@ -1,7 +1,10 @@
 package Consola;
 
+import java.util.List;
+
 import Exceptions.MensajedeErrorException;
 import Modelo.Galeria;
+import Piezas.Pieza;
 
 public class ConsolaAdministrador implements ConsolaBase{
 	private Galeria gal;
@@ -194,6 +197,39 @@ public class ConsolaAdministrador implements ConsolaBase{
     		System.out.print("Por favor, ingrese el login del Usuario: ");
     		String loginU = ConsolaInicial.scanner.nextLine().trim();
     		this.gal.getAdmin().historialComprador(loginU);
+    		List<List<String>> compras = gal.getAdmin().historialComprador(loginU);
+    		System.out.println("HISTORIAL DEL COMPRADOR: ");
+    		System.out.println("Piezas que ha comprado: ");
+    		int i =0;
+    		boolean terminar = false;
+    		if(compras.get(0).size()==1) {
+    			System.out.println("Por el momento no ha realizado ninguna compra");
+    		}
+    		while(i<compras.get(0).size()) {
+    			if(i==compras.get(0).size()-1) {
+    				if(compras.size()==1 &&compras.get(0).size()==1) {
+    					System.out.println("El valor de su coleccion es 0");
+    				}
+    				else {
+    				System.out.println("El valor de su coleccion es "+compras.get(0).get(i));
+    				}
+    				terminar=true;
+    			}
+    			if (!terminar) {
+    		System.out.println("- " + compras.get(0).get(i));
+			System.out.println("Fue comprada en "+compras.get(0).get(i+1));
+			System.out.println("Por un valor de "+compras.get(0).get(i+2));}
+			i=i+3;
+    		 }
+			if(compras.size()!=1) {
+				System.out.println("Las piezas de las que es dueño son : ");
+				for(String pieza:compras.get(1)) {
+					System.out.println(pieza);
+				}
+			}
+			
+			
+	
     	}
     	catch (Exception e) {
     		System.out.println(e);

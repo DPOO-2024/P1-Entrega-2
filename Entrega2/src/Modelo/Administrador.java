@@ -280,7 +280,7 @@ public class Administrador {
 				comp=comprador;
 			}
 		}
-		if (comp.equals(null)) {
+		if (comp== null) {
 			throw new MensajedeErrorException("El Comprador no existe");
 		}
 		return comp;
@@ -296,8 +296,9 @@ public class Administrador {
 	}
 
 
-	public void historialComprador(String loginU) throws MensajedeErrorException {
+	public List<List<String>> historialComprador(String loginU) throws MensajedeErrorException {
 		List <Pieza> piezasPropietario = null;
+		List<List<String>> piezasComprador = new ArrayList<>();
 		for(Propietario p : propietarios) {
 			if (p.getLogin().equals(loginU)) {
 				 piezasPropietario= p.getEstadoPiezas();
@@ -305,27 +306,32 @@ public class Administrador {
 				
 		Comprador c = getComprador(loginU);
 		
-		System.out.println("HISTORIAL DEL COMPRADOR: ");
-		System.out.println("Piezas que ha comprado: ");
+		List<String> compras = new ArrayList<>();
 		int i = 0;
-		int p = 1;
+
 		while(i<c.getHistorialCompras().size()){
-			System.out.println(p+" " +c.getHistorialCompras().get(i));
-			System.out.print("Fue comprada en "+c.getHistorialCompras().get(i+1));
-			System.out.print("Por un valor de "+c.getHistorialCompras().get(i+2));
+			
+			compras.add(c.getHistorialCompras().get(i));
+			compras.add(c.getHistorialCompras().get(i+1));
+			compras.add(c.getHistorialCompras().get(i+2));
 			i=i+3;
-			p++;
+
 		
 		}
+		compras.add(String.valueOf(c.getComprasTotales()));
+		piezasComprador.add(compras);
 		
 		if(piezasPropietario!= null) {
-			System.out.println("Las piezas de las que es dueño son : ");
+			List<String> propiedades = new ArrayList<>();
 			for(Pieza pieza:piezasPropietario) {
-				System.out.println(pieza.getTitulo());
+				propiedades.add(pieza.getTitulo());
+				
 			}
+			piezasComprador.add(propiedades);
+			
 		}
 		
-		System.out.println("\nValor de su coleccion: " + c.getComprasTotales());
+		return piezasComprador;
 		
 		
 	}

@@ -60,7 +60,7 @@ public class ConsolaComprador implements ConsolaBase{
 	                	ConsolaInfo.mostrarHistorialArtista(this.gal);
 	                    break;
 	                case 6:
-	                	this.gal.mostrarSubastasActivas();
+	                	mostrarSubastasActivas();
 	                    break;
 	                case 7:
 	                	resgistrarSubasta();
@@ -107,6 +107,21 @@ public class ConsolaComprador implements ConsolaBase{
 		
 	}
 	
+	
+	public void mostrarSubastasActivas() {
+		
+		int i =1;
+		if(this.gal.getSubastasActivas() != null) {
+			System.out.println("Las fechas de las subastas activas en este momento son :");
+		for(Subasta subasta:this.gal.getSubastasActivas()) {
+			System.out.println(i+ ". " + subasta.getFechaSubasta());
+			i++;
+		}
+		}
+		else {
+			System.out.println("No hay subastas Activas" );
+		}
+	}	
 	public void comprarPieza() {
 		try {
 			System.out.println("Las piezas disponibles son:");
